@@ -1,26 +1,377 @@
 @import "tailwindcss";
 
+/* =================================================
+   DESIGN TOKENS
+   Single source of truth for colors & surfaces
+   All values are RGB triples to support opacity
+================================================== */
+/** Light mode color scheme */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ===============================
+     CORE SURFACES
+  =============================== */
+
+  --bg: 242 233 228;
+  /* parchment */
+  --fg: 34 34 59;
+  /* space_indigo 500 (headings) */
+  --text: 107 109 158;
+  /* softened space_indigo (paragraphs) */
+  --muted: 74 78 105;
+  /* dusty_grape 500 (meta) */
+  --border: 215 210 214;
+  /* lilac_ash 800-ish */
+
+  /* ===============================
+     LINKS
+  =============================== */
+
+  --link: 74 78 105;
+  /* dusty_grape 500 */
+  --link-hover: 201 173 167;
+  /* space_indigo 500 */
+
+  /* ===============================
+     CODE (EDITORIAL)
+  =============================== */
+
+  --code-bg: 240 240 238;
+  --code-text: 40 40 40;
+  --code-keyword: 120 90 200;
+  --code-string: 40 140 110;
+  --code-comment: 130 130 130;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/** Dark mode color scheme */
+.dark {
+  /* ===============================
+     CORE SURFACES
+  =============================== */
+
+  --bg: 20 20 30;
+  /* near space_indigo 300 */
+  --fg: 235 235 235;
+  /* headings / strong text */
+  --text: 144 145 182;
+  /* paragraphs (softened) */
+  --muted: 177 180 200;
+  /* dusty_grape 800 */
+  --border: 60 60 75;
+  /* muted indigo */
+
+  /* ===============================
+     LINKS
+  =============================== */
+
+  --link: 177 180 200;
+  /* dusty_grape 800 */
+  --link-hover: 201 173 167;
+  /* dusty_grape 900 */
+
+  /* ===============================
+     CODE
+  =============================== */
+
+  --code-bg: 28 28 36;
+  --code-text: 220 220 220;
+  --code-keyword: 190 170 255;
+  --code-string: 140 210 180;
+  --code-comment: 150 150 150;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+
+/* =================================================
+   BASE STYLES
+   Semantic HTML defaults
+   (critical for CMS / Sanity content)
+================================================== */
+@layer base {
+
+  body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--fg));
+    font-family: var(--font-sans);
+    /* IBM Plex Sans */
+    font-size: 16px;
+    /* UI baseline */
+    -webkit-font-smoothing: antialiased;
   }
+
+  /* =================================================
+     HEADINGS
+     Automatically applied to <h1>-<h4>
+     No classes required (CMS-safe)
+  ================================================== */
+
+  h1 {
+    font-family: var(--font-sans);
+    font-size: 2.25rem;
+    /* 36px */
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 1em;
+  }
+
+  h2 {
+    font-family: var(--font-sans);
+    font-size: 1.75rem;
+    /* 28px */
+    font-weight: 600;
+    line-height: 1.3;
+    margin-top: 2.5em;
+    margin-bottom: 0.75em;
+  }
+
+  h3 {
+    font-family: var(--font-sans);
+    font-size: 1.375rem;
+    /* 22px */
+    font-weight: 500;
+    line-height: 1.35;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+  }
+
+  h4 {
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+    /* 18px */
+    font-weight: 500;
+    line-height: 1.4;
+    margin-top: 1.5em;
+    margin-bottom: 0.4em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: rgb(var(--fg));
+  }
+
+  a {
+    color: rgb(var(--link));
+    text-decoration: none;
+    text-underline-offset: 0.15em;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    color: rgb(var(--link-hover));
+  }
+
+  /* ===============================
+   Heading anchor (default)
+=============================== */
+
+  .prose h2 .heading-anchor,
+  .prose h3 .heading-anchor,
+  .prose h4 .heading-anchor {
+    display: inline-block;
+    margin-left: 0.4em;
+    opacity: 0;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+
+  /* ===============================
+   Show anchor on heading hover
+=============================== */
+
+  .prose h2:hover .heading-anchor,
+  .prose h3:hover .heading-anchor,
+  .prose h4:hover .heading-anchor {
+    opacity: 1;
+  }
+
+  /* ===============================
+   Default icon
+=============================== */
+
+  .prose .heading-anchor::after {
+    content: "🔗";
+    font-size: 0.8em;
+    color: rgb(var(--muted));
+  }
+
+  /* ===============================
+   Copied state (overrides icon)
+=============================== */
+
+  .prose .heading-anchor.copied::after {
+    content: "✓";
+    color: rgb(var(--muted));
+  }
+
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+/* =================================================
+   UTILITIES
+   Explicit roles & reusable patterns
+================================================== */
+@layer utilities {
+
+  /* =================================================
+     FONT ROLES
+  ================================================== */
+
+  .font-sans {
+    font-family: var(--font-sans);
+    /* IBM Plex Sans */
+  }
+
+  .font-serif {
+    font-family: var(--font-serif);
+    /* Spectral */
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+    /* IBM Plex Mono */
+  }
+
+  /* =================================================
+     CONTAINERS & LAYOUT RHYTHM
+  ================================================== */
+
+  .container-page {
+    max-width: 64rem;
+    /* ~1024px */
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  .container-reading {
+    max-width: 48rem;
+    /* ~768px */
+  }
+
+  .section {
+    margin-top: 4rem;
+  }
+
+  .section:first-child {
+    margin-top: 0;
+  }
+
+  /* =================================================
+     READING SYSTEM
+     Applied via `.reading`
+     (Spectral, 20px, long-form)
+  ================================================== */
+
+  .reading {
+    font-family: var(--font-serif);
+    /* Spectral */
+    font-size: 20px;
+    /* 🔒 locked */
+    line-height: 1.8;
+    color: rgb(var(--text));
+    /* For paragraph text */
+  }
+
+  /* Paragraph rhythm */
+  .reading p {
+    margin-top: 1em;
+  }
+
+  .reading p:first-child {
+    margin-top: 0;
+  }
+
+  .reading a {
+    font-weight: 600;
+  }
+
+  /* =================================================
+     LISTS
+  ================================================== */
+  .reading ul,
+  .reading ol {
+    margin-block: 1.25em;
+    padding-left: 2.25em;
+    /* stronger visual indent */
+    list-style-position: outside;
+    /* 🔑 REQUIRED for markers */
+  }
+
+  .reading li {
+    margin-top: 0.5em;
+    /* looser rhythm for 20px text */
+  }
+
+  .reading ul {
+    list-style-type: disc;
+  }
+
+  .reading ol {
+    list-style-type: decimal;
+  }
+
+  /* =================================================
+     BLOCKQUOTES
+  ================================================== */
+
+  .reading blockquote {
+    margin-block: 2em;
+    padding-left: 1em;
+    border-left: 3px solid rgb(var(--border));
+    color: rgb(var(--muted));
+    font-style: italic;
+  }
+
+  /* =================================================
+     INLINE CODE
+  ================================================== */
+
+  .reading code {
+    font-family: var(--font-mono);
+    font-size: 0.95em;
+    background-color: rgb(var(--border) / 0.4);
+    padding: 0.15em 0.35em;
+    border-radius: 4px;
+  }
+
+  /* =================================================
+     CODE BLOCKS
+  ================================================== */
+
+  .reading pre {
+    margin-block: 2em;
+    padding: 1.25em;
+    overflow-x: auto;
+    border-radius: 8px;
+    background-color: rgb(var(--code-bg));
+    color: rgb(var(--code-text));
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    line-height: 1.6;
+    box-shadow: inset 0 0 0 1px rgb(var(--border) / 0.6);
+    border-left: 2px solid rgb(var(--border));
+  }
+
+  .reading pre code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  /* =================================================
+     CARD (EDITORIAL)
+  ================================================== */
+
+  .card {
+    background-color: rgb(var(--bg));
+    border: 1px solid rgb(var(--border));
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  /* Tight headings inside cards */
+  .card h2 {
+    margin-top: 0;
+  }
 }
