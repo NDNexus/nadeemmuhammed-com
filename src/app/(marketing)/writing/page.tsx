@@ -93,7 +93,7 @@ export default function WritingPage() {
                                 </Link>
                             </div>
                         </div>
-                        
+
                         <div className="card">
                             <div className="card__media">
                                 <Image src="/images/Test.webp" alt="Why I Don’t Use React Query" width={1200} height={630} />
@@ -118,7 +118,7 @@ export default function WritingPage() {
                                 </Link>
                             </div>
                         </div>
-                        
+
 
                     </div>
                 </div>
