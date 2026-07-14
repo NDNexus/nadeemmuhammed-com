@@ -272,3 +272,10 @@ Beta is the workshop.
 Production is the showroom.
 
 Never build furniture in the showroom.
+
+## Deployment Environments (on Vercel)
+
+- `main` → Production → https://nadeemmuhammed.com
+- `beta` → Preview → https://beta.nadeemmuhammed.com
+
+The beta subdomain must always remain assigned to the **Preview** environment in Vercel so it follows the latest deployment from the `beta` branch.
