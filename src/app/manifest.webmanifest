@@ -1,0 +1,21 @@
+{
+    "name": "Nadeem Muhammed",
+    "short_name": "Nadeem",
+    "description": "Digital systems consultant for service businesses.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#FFFFFF",
+    "theme_color": "#02102B",
+    "icons": [
+        {
+            "src": "/icon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/apple-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ]
+}

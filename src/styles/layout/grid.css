@@ -1,0 +1,329 @@
+@layer utilities {
+
+    /**
+     * =========================================================
+     * NADEEM MUHAMMED GRID SYSTEM
+     * =========================================================
+     *
+     * PRINCIPLE
+     * ---------------------------------------------------------
+     * - Grid defines item size, not column count
+     * - Columns are auto-calculated
+     * - Spacing follows design tokens
+     *
+     * STRUCTURE
+     * ---------------------------------------------------------
+     * grid-xs → very small items (logos, icons)
+     * grid-sm → small cards
+     * grid-md → standard cards
+     * grid-lg → large cards
+     * grid-xl → hero / featured blocks
+     *
+     * USAGE
+     * ---------------------------------------------------------
+     * <div class="grid grid-md">
+     *
+     * Optional overrides:
+     * <div class="grid grid-md gap-lg">
+     *
+     * =========================================================
+     */
+
+
+    /* =========================================
+       BASE GRID BEHAVIOR
+    ========================================= */
+
+    .grid {
+        display: grid;
+        gap: var(--space-md);
+        /* default spacing */
+    }
+
+
+    /* =========================================
+       GRID SIZES (CONTENT-DRIVEN)
+    ========================================= */
+
+    /* XS → logos / icons */
+    .grid-xs {
+        grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr));
+    }
+
+    /* SM → compact cards */
+    .grid-sm {
+        grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+    }
+
+    /* MD → standard (products, blog cards) */
+    .grid-md {
+        grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+    }
+
+    /* LG → featured items */
+    .grid-lg {
+        grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+    }
+
+    /* XL → hero sections */
+    .grid-xl {
+        grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+    }
+
+    /* =========================================
+       GAP SYSTEM (MATCHES YOUR TOKENS)
+    ========================================= */
+
+    .gap-xs {
+        gap: var(--space-xs);
+    }
+
+    .gap-sm {
+        gap: var(--space-sm);
+    }
+
+    .gap-md {
+        gap: var(--space-md);
+    }
+
+    .gap-lg {
+        gap: var(--space-lg);
+    }
+
+    .gap-xl {
+        gap: var(--space-xl);
+    }
+
+    /* =========================================
+      PROCESS GRID STYLING
+    ========================================= */
+
+    .process-grid {
+        position: relative;
+
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+
+        gap: var(--space-xl);
+
+        margin-top: var(--space-3xl);
+    }
+
+    /* timeline */
+
+    .process-grid::before {
+        content: "";
+
+        position: absolute;
+
+        top: 3rem;
+        left: 8%;
+        right: 8%;
+
+        height: 2px;
+
+        background: var(--color-default);
+
+        z-index: 0;
+    }
+
+    /* ==========================================================
+   STEP CARD
+   ========================================================== */
+
+    .process-step {
+        position: relative;
+
+        z-index: 1;
+
+        padding: var(--space-2xl);
+
+        background: var(--color-surface-default);
+
+        border: 1px solid var(--color-default);
+
+        border-radius: var(--radius-xl);
+
+        overflow: hidden;
+
+        transition:
+            transform 300ms ease,
+            border-color 300ms ease,
+            box-shadow 300ms ease;
+    }
+
+    .process-step:hover {
+        transform: translateY(-8px);
+
+        border-color: var(--color-accent);
+
+        box-shadow:
+            0 24px 60px rgb(2 16 43 / 0.08);
+    }
+
+    /* ==========================================================
+   DECORATIVE NUMBER
+   ========================================================== */
+
+    .process-number {
+        position: absolute;
+
+        top: -0.5rem;
+        right: 1rem;
+
+        font-size: clamp(4rem, 8vw, 6rem);
+
+        font-weight: 800;
+
+        line-height: 1;
+
+        color: var(--color-default);
+
+        pointer-events: none;
+
+        user-select: none;
+
+        transition:
+            color 300ms ease,
+            transform 300ms ease;
+    }
+
+    .process-step:hover .process-number {
+        color: var(--color-accent);
+
+        transform: scale(1.05);
+    }
+
+    /* ==========================================================
+   TITLE
+   ========================================================== */
+
+    .process-step h3 {
+        position: relative;
+
+        z-index: 2;
+
+        margin-bottom: var(--space-md);
+
+        color: var(--color-heading-primary);
+
+        font-size: 1.375rem;
+
+        font-weight: 700;
+    }
+
+    /* ==========================================================
+   BODY
+   ========================================================== */
+
+    .process-step p {
+        position: relative;
+
+        z-index: 2;
+
+        margin: 0;
+
+        color: var(--color-fg-default);
+
+        line-height: 1.8;
+    }
+
+    /* ==========================================================
+   TOP DOT
+   ========================================================== */
+
+    .process-step::before {
+        content: "";
+
+        position: absolute;
+
+        top: 2.35rem;
+        left: 2rem;
+
+        width: 14px;
+        height: 14px;
+
+        border-radius: 999px;
+
+        background: var(--color-interactive-accent);
+
+        box-shadow:
+            0 0 0 6px var(--color-canvas-default);
+
+        z-index: 2;
+    }
+
+    /* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+    @media (max-width: 1024px) {
+
+        .process-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .process-grid::before {
+            display: none;
+        }
+
+        .process-step {
+            padding: var(--space-xl);
+        }
+
+        .process-number {
+            font-size: 4rem;
+        }
+    }
+
+    /* For tablets*/
+    @media (max-width: 768px) {
+
+        .process-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .process-grid::before {
+            display: none;
+        }
+
+        .process-step {
+            padding: var(--space-xl);
+        }
+
+        .process-number {
+            font-size: 4rem;
+        }
+
+        .process-step:before{
+            top: 1.25rem;
+            left: 1.25rem;
+        }
+    }
+
+    /* For mobile devices */
+    @media (max-width: 480px) {
+
+        .process-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .process-grid::before {
+            display: none;
+        }
+
+        .process-step {
+            padding: var(--space-lg);
+        }
+
+        .process-number {
+            font-size: 3rem;
+        }
+
+        .process-step:before{
+            top: 0.8rem;
+            left: 0.8rem;
+        }
+    }
+
+}

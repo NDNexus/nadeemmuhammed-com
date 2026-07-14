@@ -1,0 +1,445 @@
+/* ============================================================
+   tokens.css — Design Token System
+   Nadeem Digital Nexus
+   
+   ARCHITECTURE: Three-Tier Token Model
+   ─────────────────────────────────────
+   Tier 0 → Primitive Palette   (raw colors, only in :root)
+   Tier 1 → Semantic Tokens     (meaning → palette, in @theme)
+   Tier 2 → Component Tokens    (component-scoped, optional future)
+   
+   RULES:
+   1. Tier 0 variables NEVER appear in component styles.
+      Only Tier 1 semantic tokens are used in components.
+   2. Tier 0 lives in :root ONLY (not in @theme).
+      This prevents Tailwind from generating raw palette utilities.
+      You cannot write `bg-prussian-blue` — intentionally.
+   3. Tier 1 lives in @theme inline.
+      These DO generate Tailwind utilities (bg-*, text-*, border-*).
+   4. When in doubt, use a semantic token. If no semantic token
+      fits, that's a signal to add one — not to use a primitive.
+   
+   DARK MODE: 
+   When adding dark mode, add a [data-theme="dark"] override block
+   below @theme. Only Tier 1 semantic tokens change — Tier 0
+   primitives stay constant. Components never need to know.
+   ============================================================ */
+
+
+/* ============================================================
+   TIER 0 — PRIMITIVE PALETTE
+   ─────────────────────────────────────────────────────────────
+   These are the raw brand swatches. They exist to give Tier 1
+   tokens something to reference. That's their only job.
+   
+   RULE: Never reference --palette-* in component CSS or JSX.
+   If you catch yourself writing `bg-[var(--palette-rosewood)]`
+   you are bypassing the system. Add a semantic token instead.
+   ============================================================ */
+
+:root {
+   /* darkest navy — core brand dark */
+   --palette-prussian-blue: #02102B;
+
+   /* rich navy — secondary dark */
+   --palette-imperial-blue: #052261;
+
+   /* deep rose — accent primary */
+   --palette-rosewood: #BB3A60;
+
+   /* slate-600 — body text */
+   --palette-blue-slate: #475569;
+
+   /* medium gray — muted/subtle text */
+   --palette-cool-steel: #979FAB;
+
+   /* light gray — borders, dividers */
+   --palette-platinum: #E6E8ED;
+
+   /* pure white */
+   --palette-white: #FFFFFF;
+
+   /* warm off-white — alt backgrounds */
+   --palette-parchment: #F5F1EB;
+
+   /* light blue — highlights, tints */
+   --palette-icy-blue: #B9E0FA;
+
+   /* Derived primitives (computed from base palette)
+     Used when a specific shade between two swatches is needed. */
+   --palette-prussian-blue-90: color-mix(in srgb, var(--palette-prussian-blue) 90%, white);
+
+   /* light icy blue tint for section highlights */
+   --palette-icy-blue-30: color-mix(in srgb, var(--palette-icy-blue) 30%, white);
+
+   /* light rosewood tint for interactive elements */
+   --palette-rosewood-90: color-mix(in srgb, var(--palette-rosewood) 90%, white);
+
+   /* light rosewood tint for secondary buttons */
+   --palette-rosewood-10: color-mix(in srgb, var(--palette-rosewood) 10%, white);
+   --palette-rosewood-15: color-mix(in srgb, var(--palette-rosewood) 15%, white);
+
+   /* Derived platinum for subtle borders */
+   --palette-platinum-50: color-mix(in srgb, var(--palette-platinum) 50%, white);
+
+   /* Derived tints for overlays */
+   --palette-prussian-blue-80: color-mix(in srgb, var(--palette-prussian-blue) 80%, white);
+   --palette-prussian-blue-10: color-mix(in srgb, var(--palette-prussian-blue) 10%, white);
+
+   --palette-white-50: rgb(255 255 255 / 50%);
+}
+
+
+/* ============================================================
+   TIER 1 — SEMANTIC TOKENS
+   ─────────────────────────────────────────────────────────────
+   These tokens carry MEANING, not just color. Components 
+   reference these — never Tier 0 directly.
+   
+   Structure: --color-{category}-{variant}
+   
+   Categories:
+     canvas      → page-level background surfaces
+     surface     → component-level surfaces (cards, panels)
+     fg          → all text, icons, and foreground content
+     heading     → heading-specific colors
+     interactive → all clickable, focusable elements
+     border      → all border and divider colors
+     accent      → decorative accent elements (not interactive)
+     feedback    → success, warning, error, info states
+     overlay     → scrims, dimming layers
+   
+   @theme inline: Tailwind reads these variables in-place.
+   Each token here generates bg-*, text-*, border-* utilities.
+   Example: --color-canvas-default → class `bg-canvas-default`
+   ============================================================ */
+
+@theme inline {
+
+   /* ──────────────────────────────────────────────────────────
+     FONTS
+     ────────────────────────────────────────────────────────── */
+
+   --font-sans: var(--font-ibm-plex-sans);
+   --font-serif: var(--font-libre-baskerville);
+   --font-mono: var(--font-ibm-plex-mono);
+
+
+   /* ──────────────────────────────────────────────────────────
+     CANVAS — Page-level backgrounds
+     
+     Used by: <body>, section wrappers, page-level layout
+     Not for: individual components (cards, modals use surface-*)
+     
+     default   → main page background (most sections)
+     subtle    → alternate section background (every other section)
+     dark      → dark sections (hero, footer, CTA band)
+     highlight → light callout or tinted sections
+     ────────────────────────────────────────────────────────── */
+
+   --color-canvas-default: var(--palette-white);
+   --color-canvas-subtle: var(--palette-parchment);
+   --color-canvas-dark: var(--palette-prussian-blue);
+   --color-canvas-highlight: var(--palette-icy-blue-30);
+
+
+   /* ──────────────────────────────────────────────────────────
+     SURFACE — Component-level backgrounds
+     
+     Used by: Card, Dropdown, Modal, Tooltip, Sidebar, Navbar
+     Not for: page-level section backgrounds (use canvas-*)
+     
+     default   → standard card or panel
+     raised    → elevated card (more visual weight, add shadow)
+     overlay   → dropdowns, tooltips, popovers
+     dark      → inverted card (on dark sections)
+     inverse   → card on dark canvas (e.g., white card in dark footer)
+     ────────────────────────────────────────────────────────── */
+
+   --color-surface-default: var(--palette-white);
+   --color-surface-raised: var(--palette-white);
+   /* pair with shadow utility */
+   --color-surface-overlay: var(--palette-white);
+   --color-surface-dark: var(--palette-prussian-blue-90);
+   --color-surface-inverse: var(--palette-icy-blue);
+
+   /* Gradient surface for cards and panels */
+   --color-surface-gradient: linear-gradient(180deg, var(--palette-icy-blue) 0%, var(--palette-rosewood-10) 100%);
+
+
+   /* Gradients */
+   --background-image-gradient-brand: linear-gradient(135deg, var(--palette-rosewood) 0%, color-mix(in srgb, var(--palette-rosewood) 85%, white) 100%);
+   --background-image-gradient-deep: linear-gradient(135deg, var(--palette-prussian-blue) 0%, var(--palette-imperial-blue) 100%);
+   --background-image-gradient-subtle: linear-gradient(180deg, var(--palette-parchment) 0%, white 100%);
+   --background-image-gradient-luminous: linear-gradient(135deg, var(--palette-icy-blue-30) 0%, var(--palette-icy-blue) 100%);
+   --background-image-gradient-interactive: linear-gradient(135deg, var(--palette-rosewood-10) 0%, var(--palette-rosewood-15) 100%);
+
+
+   /* ──────────────────────────────────────────────────────────
+     FOREGROUND — All text and icon content
+     
+     Used by: <p>, <span>, <li>, icons, captions, labels
+     
+     default        → primary body text (most copy)
+     subtle         → secondary text (meta, captions, bylines)
+     muted          → tertiary text (timestamps, disabled labels) If required (not used anywhere yet)
+     placeholder    → form input placeholder text
+     on-dark        → text rendered on dark canvas/surface
+     on-dark-subtle → text rendered on dark canvas/surface with transparency (e.g., 70% white)
+     on-emphasis    → text on colored emphasis backgrounds
+                   (e.g., white text on rosewood button)
+     link           → anchor and interactive text color
+     link-hover     → anchor hover state
+     
+     NOTE: "on-dark" and "on-emphasis" solve the same problem:
+     text over a colored/dark background needs its own token
+     because the value must change independently of default text.
+     ────────────────────────────────────────────────────────── */
+
+   --color-fg-default: var(--palette-blue-slate);
+   --color-fg-subtle: var(--palette-cool-steel);
+   --color-fg-muted: color-mix(in srgb, var(--palette-cool-steel) 70%, white);
+   --color-fg-placeholder: color-mix(in srgb, var(--palette-cool-steel) 60%, white);
+   --color-fg-on-dark: var(--palette-white);
+   --color-fg-on-dark-subtle: var(--palette-white-50);
+   --color-fg-on-emphasis: var(--palette-icy-blue);
+   --color-fg-link: var(--palette-rosewood);
+   --color-fg-link-hover: var(--palette-rosewood);
+
+
+   /* ──────────────────────────────────────────────────────────
+     HEADING — Heading-specific text colors
+     
+     Used by: h1–h6, display text, section titles
+     Not for: body copy, labels, captions (use fg-*)
+     
+     primary   → main headings on light canvas (h1, h2)
+     secondary → subheadings, section labels (h3, h4)
+     on-dark   → headings rendered on dark canvas
+     accent    → decorative headings with brand accent
+     ────────────────────────────────────────────────────────── */
+
+   --color-heading-primary: var(--palette-prussian-blue);
+   --color-heading-secondary: var(--palette-imperial-blue);
+   --color-heading-on-dark: var(--palette-white);
+   --color-heading-accent: var(--palette-rosewood);
+
+
+   /* ──────────────────────────────────────────────────────────
+     INTERACTIVE — Buttons, links, focusable elements
+     
+     Used by: Button, Link, Checkbox, Radio, Select, Switch
+     Not for: decorative backgrounds (use canvas/surface)
+     
+     Structure per variant:
+       base      → resting background
+       hover     → hovered background  
+       active    → pressed/active background
+       fg        → text/icon ON this background
+     
+     primary   → main CTA, the most important action on the page
+     secondary → supporting action, less visual weight
+     ghost     → text-only button, no background until hover
+     danger    → destructive action (delete, remove)
+     disabled  → disabled state (applies across all variants)
+     focus-ring → keyboard focus indicator (outline)
+     ────────────────────────────────────────────────────────── */
+
+   /* Primary button */
+   --color-interactive-primary: var(--palette-prussian-blue);
+   --color-interactive-primary-hover: var(--palette-imperial-blue);
+   --color-interactive-primary-active: color-mix(in srgb, var(--palette-imperial-blue) 85%, black);
+   --color-interactive-primary-fg: var(--palette-white);
+
+   /* Secondary button (outline/bordered style) */
+   --color-interactive-secondary: transparent;
+   --color-interactive-secondary-hover: var(--palette-rosewood-10);
+   --color-interactive-secondary-active: var(--palette-rosewood-15);
+   --color-interactive-secondary-fg: var(--palette-rosewood);
+   --color-interactive-secondary-border: var(--palette-rosewood);
+
+   /* Ghost button (text-only) */
+   --color-interactive-ghost: transparent;
+   --color-interactive-ghost-hover: var(--palette-platinum-50);
+   --color-interactive-ghost-fg: var(--palette-blue-slate);
+
+   /* Accent button (filled rosewood — use for CTAs in dark sections) */
+   --color-interactive-accent: var(--palette-rosewood);
+   --color-interactive-accent-hover: var(--palette-rosewood-90);
+   --color-interactive-accent-active: color-mix(in srgb, var(--palette-rosewood) 85%, black);
+   --color-interactive-accent-fg: var(--palette-white);
+
+   /* Shared interactive states */
+   --color-interactive-disabled-bg: var(--palette-cool-steel);
+   --color-interactive-disabled-fg: var(--palette-white);
+   --color-interactive-focus-ring: var(--palette-rosewood);
+
+
+   /* ──────────────────────────────────────────────────────────
+     BORDER — All borders, dividers, rules
+     
+     Used by: hr, table rows, card edges, input outlines, dividers
+     
+     default   → standard border (list items, card edges)
+     subtle    → very light dividers (within-card separators)
+     strong    → emphasized border (key dividers, section breaks)
+     accent    → colored decorative border (card left-border, underlines)
+     focus     → input/control focus border (replaces default when focused)
+     
+     Why separate from interactive-focus-ring?
+       focus-ring  → the outer glow (outline-offset, box-shadow)
+       border-focus → the border color change on the element itself
+     ────────────────────────────────────────────────────────── */
+
+   --color-default: var(--palette-platinum);
+   --color-subtle: var(--palette-platinum-50);
+   --color-strong: var(--palette-prussian-blue);
+   --color-accent: var(--palette-rosewood);
+   --color-focus: var(--palette-imperial-blue);
+
+
+
+
+   /* ──────────────────────────────────────────────────────────
+     FEEDBACK — Status and alert states
+     
+     Used by: Alert, Toast, Badge, FormField (validation), Banner
+     
+     Structure per state:
+       {state}          → icon and border color
+       {state}-bg       → background of the alert/badge
+       {state}-fg       → text within the alert
+     
+     Why this structure?
+       An error alert needs three coordinated colors:
+       a red border/icon, a light red background, and dark
+       readable text. One token per state is insufficient.
+     ────────────────────────────────────────────────────────── */
+
+   /* Success */
+   --color-feedback-success: #16a34a;
+   --color-feedback-success-bg: color-mix(in srgb, #16a34a 8%, white);
+   --color-feedback-success-fg: #14532d;
+
+   /* Warning */
+   --color-feedback-warning: #d97706;
+   --color-feedback-warning-bg: color-mix(in srgb, #d97706 10%, white);
+   --color-feedback-warning-fg: #78350f;
+
+   /* Error */
+   --color-feedback-error: #dc2626;
+   --color-feedback-error-bg: color-mix(in srgb, #dc2626 8%, white);
+   --color-feedback-error-fg: #7f1d1d;
+
+   /* Info */
+   --color-feedback-info: var(--palette-imperial-blue);
+   --color-feedback-info-bg: color-mix(in srgb, var(--palette-imperial-blue) 8%, white);
+   --color-feedback-info-fg: var(--palette-prussian-blue);
+
+
+   /* ──────────────────────────────────────────────────────────
+     OVERLAY — Scrims and dimming layers
+     
+     Used by: Modal backdrop, Drawer backdrop, Dropdown scrim
+     Not for: backgrounds of opaque components
+     ────────────────────────────────────────────────────────── */
+
+   --color-overlay-scrim: var(--palette-prussian-blue-80);
+   --color-overlay-tint: var(--palette-prussian-blue-10);
+
+
+   /* ──────────────────────────────────────────────────────────
+     SPACING SCALE
+     
+     xs → tight component padding (badges, tags, chips)
+     sm → standard padding (buttons, form fields, table cells)
+     md → section/card internal padding
+     lg → section gap between groups
+     xl → major section vertical rhythm
+     ────────────────────────────────────────────────────────── */
+
+   --space-xs: 0.5rem;
+   /*  8px */
+   --space-sm: 0.75rem;
+   /* 12px */
+   --space-md: 1rem;
+   /* 16px */
+   --space-lg: 1.5rem;
+   /* 24px */
+   --space-xl: 2rem;
+   /* 32px */
+   --space-2xl: 3rem;
+   /* 48px */
+   --space-3xl: 5rem;
+   /* 80px */
+
+
+   /* ──────────────────────────────────────────────────────────
+     BORDER RADIUS SCALE
+     ────────────────────────────────────────────────────────── */
+
+   --radius-sm: 0.25rem;
+   /* 4px  — inputs, small badges */
+   --radius-md: 0.5rem;
+   /* 8px  — cards, buttons */
+   --radius-lg: 0.75rem;
+   /* 12px — large cards, modals */
+   --radius-xl: 1rem;
+   /* 16px — hero illustrations, feature cards */
+   --radius-full: 999px;
+   /* pills, avatar rings */
+
+
+   /* ──────────────────────────────────────────────────────────
+     LAYOUT TOKENS
+     ────────────────────────────────────────────────────────── */
+
+   --navbar-height: 64px;
+   /* default: mobile */
+}
+
+
+/* ============================================================
+   RESPONSIVE TOKEN OVERRIDES
+   ─────────────────────────────────────────────────────────────
+   @theme does not support media queries.
+   Responsive token changes MUST live in :root.
+   ============================================================ */
+
+@media (min-width: 768px) {
+   :root {
+      --navbar-height: 72px;
+   }
+}
+
+@media (min-width: 1024px) {
+   :root {
+      --navbar-height: 84px;
+   }
+}
+
+
+/* ============================================================
+   DARK MODE — Future extension point
+   ─────────────────────────────────────────────────────────────
+   When you are ready to add dark mode:
+   
+   1. Add [data-theme="dark"] to your <html> via JS
+   2. Override ONLY Tier 1 semantic tokens here
+   3. Components never need to change — they reference semantics
+   4. Tier 0 primitive values never change across themes
+   
+   Example (uncomment and extend when ready):
+   
+   [data-theme="dark"] {
+     --color-canvas-default:    var(--palette-prussian-blue);
+     --color-canvas-subtle:     color-mix(in srgb, var(--palette-prussian-blue) 80%, black);
+     --color-canvas-dark:       color-mix(in srgb, var(--palette-prussian-blue) 60%, black);
+     --color-surface-default:   color-mix(in srgb, var(--palette-prussian-blue) 85%, white);
+     --color-surface-raised:    color-mix(in srgb, var(--palette-prussian-blue) 75%, white);
+     --color-fg-default:        var(--palette-platinum);
+     --color-fg-subtle:         var(--palette-cool-steel);
+     --color-border-default:    color-mix(in srgb, var(--palette-prussian-blue) 60%, white);
+     --color-border-subtle:     color-mix(in srgb, var(--palette-prussian-blue) 40%, white);
+   }
+   ============================================================ */

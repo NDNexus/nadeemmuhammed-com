@@ -1,0 +1,217 @@
+/**
+ * =========================================================
+ * NADEEM MUHAMMED DESIGN SYSTEM — SECTION LAYOUT
+ * =========================================================
+ *
+ * PURPOSE
+ * ---------------------------------------------------------
+ * Defines vertical spacing between major content blocks.
+ *
+ * Sections create consistent rhythm across the website and
+ * are the primary tool for managing OUTER spacing between
+ * layout blocks.
+ *
+ *
+ * SYSTEM CONTEXT (IMPORTANT)
+ * ---------------------------------------------------------
+ * The layout system is layered:
+ *
+ * SECTION   → vertical spacing (outer rhythm)
+ * CONTAINER → horizontal width (alignment)
+ * GRID      → structure + inner spacing (gap)
+ * COMPONENT → internal design (padding, content)
+ *
+ * Sections DO NOT handle internal layout spacing.
+ * They define spacing BETWEEN sections.
+ *
+ *
+ * CORE PRINCIPLE
+ * ---------------------------------------------------------
+ * Each section class is STANDALONE.
+ *
+ * ✔ Use ONLY ONE section class per element
+ * ✘ Do NOT combine (e.g. .section + .section-sm)
+ *
+ *
+ * RESPONSIBILITY
+ * ---------------------------------------------------------
+ * Sections handle:
+ * ✔ Vertical spacing (padding-top & padding-bottom)
+ * ✔ Page rhythm consistency
+ *
+ * Sections do NOT handle:
+ * ✘ Grid spacing (handled by grid gap)
+ * ✘ Layout structure (handled by grid/flex)
+ * ✘ Width (handled by container.css)
+ * ✘ Component styling
+ *
+ *
+ * SECTION TYPES
+ * ---------------------------------------------------------
+ *
+ * .section-xs
+ *   → Minimal spacing
+ *   → Used for strips (footer bottom, announcements)
+ *
+ * .section-sm
+ *   → Compact spacing
+ *   → Used for tight layouts (forms, small sections)
+ *
+ * .section
+ *   → Default spacing
+ *   → Used for most content sections
+ *
+ * .section-lg
+ *   → Large spacing
+ *   → Used for hero sections and highlights
+ *
+ *
+ * RESPONSIVE BEHAVIOR
+ * ---------------------------------------------------------
+ * - .section and .section-lg scale with screen size
+ * - .section-xs and .section-sm remain fixed
+ *
+ * This ensures:
+ * ✔ better spacing on large screens
+ * ✔ stable UI elements (like strips)
+ *
+ *
+ * USAGE EXAMPLES
+ * ---------------------------------------------------------
+ *
+ * Default section:
+ *   <section class="section">
+ *
+ * With container + grid:
+ *   <section class="section">
+ *     <div class="container">
+ *       <div class="grid grid-md">
+ *         <!-- content -->
+ *       </div>
+ *     </div>
+ *   </section>
+ *
+ * Compact section:
+ *   <section class="section-sm">
+ *
+ * Hero section:
+ *   <section class="section-lg">
+ *
+ * Footer strip:
+ *   <div class="section-xs">
+ *
+ *
+ * RELATIONSHIP WITH GRID
+ * ---------------------------------------------------------
+ *
+ * Sections and grids serve different roles:
+ *
+ * SECTION → controls spacing BETWEEN sections
+ * GRID    → controls spacing BETWEEN items (gap)
+ *
+ * Example:
+ *
+ *   <section class="section-lg">
+ *     <div class="container">
+ *       <div class="grid grid-md">
+ *         <!-- cards spaced via grid gap -->
+ *       </div>
+ *     </div>
+ *   </section>
+ *
+ * This separation ensures:
+ * ✔ clean hierarchy
+ * ✔ predictable spacing
+ * ✔ maintainable layouts
+ *
+ *
+ * WHAT TO AVOID
+ * ---------------------------------------------------------
+ *
+ * ✘ Combining section classes
+ *   <section class="section section-sm"> ❌
+ *
+ * ✘ Manual vertical spacing overrides
+ *   <div class="pt-20 pb-20"> ❌
+ *
+ * ✘ Using sections for layout control
+ *
+ * ✘ Using sections to control grid spacing
+ *
+ *
+ * KEY PRINCIPLE
+ * ---------------------------------------------------------
+ * Sections define vertical rhythm.
+ *
+ * Grid defines internal structure.
+ *
+ * Clear separation of responsibilities
+ * = scalable, premium UI system
+ *
+ * =========================================================
+ */
+
+@layer utilities {
+
+    /* =========================================
+     BASE SECTION (DEFAULT)
+  ========================================= */
+
+    .section {
+        width: 100%;
+        padding-block: var(--space-xl);
+    }
+
+
+    /* =========================================
+     SECTION VARIANTS
+  ========================================= */
+
+    /* Extra small (strips, bands) */
+    .section-xs {
+        width: 100%;
+        padding-block: var(--space-xs);
+    }
+
+    /* Compact */
+    .section-sm {
+        width: 100%;
+        padding-block: var(--space-md);
+    }
+
+    /* Large (hero / highlight) */
+    .section-lg {
+        width: 100%;
+        padding-block: var(--space-xl);
+    }
+
+
+    /* =========================================
+     RESPONSIVE SCALING
+  ========================================= */
+
+    @media (min-width: 768px) {
+
+        .section {
+            padding-block: calc(var(--space-lg) + 1rem);
+        }
+
+        .section-lg {
+            padding-block: calc(var(--space-xl) + 1rem);
+        }
+
+    }
+
+    @media (min-width: 1024px) {
+
+        .section {
+            padding-block: calc(var(--space-xl) + 2rem);
+        }
+
+        .section-lg {
+            padding-block: calc(var(--space-2xl) + 2rem);
+        }
+
+    }
+
+}

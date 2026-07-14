@@ -1,0 +1,265 @@
+/**
+ * =========================================================
+ * NADEEM MUHAMMED DESIGN SYSTEM — BUTTON COMPONENTS
+ * =========================================================
+ *
+ * PURPOSE
+ * ---------------------------------------------------------
+ * This file defines the button system used across the application.
+ *
+ * It provides a consistent, accessible, and brand-aligned set of
+ * interactive elements for user actions.
+ *
+ *
+ * BUTTON TYPES
+ * ---------------------------------------------------------
+ * 1. .btn-primary
+ *    → Main actions (e.g., "Buy Now", "Enquire", "Submit")
+ *    → Strong visual weight, highest priority
+ *
+ * 2. .btn-secondary
+ *    → Supporting actions (e.g., "Learn More", "View Details")
+ *    → Lower emphasis, outline-style
+ *
+ * 3. .btn-accent
+ *    → Hero CTAs and actions on dark canvas sections
+ *    → Uses brand accent (rosewood) for visual distinction
+ *
+ * 4. .btn-ghost
+ *    → Low-emphasis actions inside toolbars, headers, or cards
+ *    → No background until hovered
+ *
+ *
+ * BASE STRUCTURE
+ * ---------------------------------------------------------
+ * All buttons must include the base `.btn` class.
+ *
+ * Example:
+ *   <button class="btn btn-primary">Enquire Now</button>
+ *
+ * The `.btn` class provides:
+ * - Layout (inline-flex, alignment)
+ * - Spacing (padding, gap)
+ * - Typography (font size, weight)
+ * - Interaction (transitions, cursor, focus)
+ *
+ *
+ * DESIGN PRINCIPLES
+ * ---------------------------------------------------------
+ * 1. Clear hierarchy
+ *    → Primary > Accent > Secondary > Ghost
+ *
+ * 2. Minimal, premium styling
+ *    → No heavy shadows or gradients
+ *
+ * 3. Context awareness
+ *    → btn-primary and btn-secondary: intended for light canvas
+ *    → btn-accent: works on both light and dark canvas
+ *    → btn-ghost: use inside components (cards, navbars)
+ *
+ * 4. Subtle interaction feedback
+ *    → Smooth hover transitions
+ *    → Explicit keyboard focus ring
+ *
+ *
+ * TOKEN USAGE
+ * ---------------------------------------------------------
+ * All styles are derived from --color-interactive-* tokens.
+ *
+ * RULE: Never use --palette-*, --color-canvas-*, --color-surface-*,
+ * --color-fg-*, or --color-heading-* inside button styles.
+ * If a color does not exist in --color-interactive-*, add it there.
+ *
+ *
+ * INTERACTION STATES
+ * ---------------------------------------------------------
+ *
+ * Hover (only on hover-capable devices):
+ *   → Wrapped in @media (hover: hover)
+ *   → Prevents sticky hover effects on touch devices
+ *
+ * Focus (keyboard navigation):
+ *   → Uses :focus-visible (not :focus, avoids mouse click outline)
+ *   → Ring color: --color-interactive-focus-ring
+ *
+ * Disabled:
+ *   → Visual: --color-interactive-disabled-bg / -fg
+ *   → Functional: pointer-events: none + aria-disabled support
+ *
+ *
+ * EXTENSIBILITY
+ * ---------------------------------------------------------
+ * Future enhancements may include:
+ * - Size variants (.btn-sm, .btn-lg)
+ * - Icon-only buttons (.btn-icon)
+ * - Loading state (.btn-loading)
+ * - Full-width variant (.btn-full)
+ *
+ * These should extend this system, not override it.
+ *
+ * =========================================================
+ */
+
+@layer components {
+
+    /* ─────────────────────────────────────────────────────
+       BASE — Shared layout, spacing, and typography.
+       Applied to every button alongside a variant class.
+       ───────────────────────────────────────────────────── */
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+
+        padding: 0.65rem 1.25rem;
+        border-radius: var(--radius-sm);
+
+        font-weight: 600;
+        font-size: 0.95rem;
+        line-height: 1;
+
+        transition:
+            background-color 180ms ease,
+            color 180ms ease,
+            border-color 180ms ease,
+            transform 120ms ease;
+
+        cursor: pointer;
+        user-select: none;
+        text-decoration: none;
+    }
+
+    /* Focus ring — keyboard navigation only.
+       :focus-visible fires on Tab, not on mouse click. */
+    .btn:focus-visible {
+        outline: 2px solid var(--color-interactive-focus-ring);
+        outline-offset: 3px;
+    }
+
+
+    /* ─────────────────────────────────────────────────────
+       PRIMARY — Highest-priority action on any given page.
+       Use once per primary section (e.g., hero, form submit).
+       Background: prussian-blue → imperial-blue on hover.
+       ───────────────────────────────────────────────────── */
+
+    .btn-primary {
+        background-color: var(--color-interactive-primary);
+        color: var(--color-interactive-primary-fg);
+        border: 2px solid var(--color-interactive-primary);
+    }
+
+    .btn-primary:active {
+        background-color: var(--color-interactive-primary-active);
+        border-color: var(--color-interactive-primary-active);
+        transform: translateY(1px);
+    }
+
+    .btn-primary:focus-visible {
+        outline: 2px solid var(--color-interactive-primary-hover);
+        outline-offset: 2px;
+    }
+
+    @media (hover: hover) {
+        .btn-primary:hover {
+            background-color: var(--color-interactive-primary-hover);
+            border-color: var(--color-interactive-primary-hover);
+        }
+    }
+
+
+    /* ─────────────────────────────────────────────────────
+       SECONDARY — Supporting action alongside a primary.
+       Outline style: transparent bg until hovered.
+       Text and border: rosewood.
+       On hover: light rosewood fill, border stays rosewood.
+       ───────────────────────────────────────────────────── */
+
+    .btn-secondary {
+        background-color: var(--color-interactive-secondary);
+        color: var(--color-interactive-secondary-fg);
+        border: 2px solid var(--color-interactive-secondary-border);
+    }
+
+    .btn-secondary:active {
+        background-color: var(--color-interactive-secondary-active);
+        color: var(--color-interactive-secondary-fg);
+        border: 2px solid var(--color-interactive-secondary-border);
+    }
+
+    @media (hover: hover) {
+        .btn-secondary:hover {
+            background-color: var(--color-interactive-secondary-hover);
+            border-color: var(--color-interactive-secondary-border);
+        }
+    }
+
+
+    /* ─────────────────────────────────────────────────────
+       ACCENT — Hero CTAs and actions on dark canvas.
+       Works on both light (canvas-default) and dark
+       (canvas-dark) backgrounds due to rosewood fill.
+       ───────────────────────────────────────────────────── */
+
+    .btn-accent {
+        background-color: var(--color-interactive-accent);
+        color: var(--color-interactive-accent-fg);
+        border: 2px solid var(--color-interactive-accent);
+    }
+
+    .btn-accent:active {
+        background-color: var(--color-interactive-accent-active);
+        color: var(--color-interactive-accent-fg);
+        border: 2px solid var(--color-interactive-accent-active);
+    }
+
+    @media (hover: hover) {
+        .btn-accent:hover {
+            background-color: var(--color-interactive-accent-hover);
+            border-color: var(--color-interactive-accent-hover);
+        }
+    }
+
+
+    /* ─────────────────────────────────────────────────────
+       GHOST — Minimal button for low-emphasis actions.
+       Use inside navbars, cards, or toolbars where a full
+       button would compete with surrounding content.
+       No background or border until hovered.
+       ───────────────────────────────────────────────────── */
+
+    .btn-ghost {
+        background-color: var(--color-interactive-ghost);
+        color: var(--color-interactive-ghost-fg);
+        border: 2px solid transparent;
+    }
+
+    @media (hover: hover) {
+        .btn-ghost:hover {
+            background-color: var(--color-interactive-ghost-hover);
+        }
+    }
+
+
+    /* ─────────────────────────────────────────────────────
+       DISABLED STATE
+       Applies to all variants.
+       Use .btn:disabled, aria-disabled="true", or .btn-disabled
+       (for <a> tags that cannot use the disabled attribute).
+       ───────────────────────────────────────────────────── */
+
+    .btn:disabled,
+    .btn[aria-disabled="true"],
+    .btn-disabled {
+        background-color: var(--color-interactive-disabled-bg);
+        color: var(--color-interactive-disabled-fg);
+        border: 2px solid var(--color-interactive-disabled-bg);
+
+        cursor: not-allowed;
+        opacity: 0.7;
+        pointer-events: none;
+    }
+
+}

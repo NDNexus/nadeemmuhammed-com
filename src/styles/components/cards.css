@@ -1,0 +1,352 @@
+/**
+ * =========================================================
+ * NADEEM MUHAMMED DESIGN SYSTEM — CARDS
+ * =========================================================
+ *
+ * PURPOSE
+ * ---------------------------------------------------------
+ * Defines a flexible, scalable card system.
+ *
+ * STRUCTURE
+ * ---------------------------------------------------------
+ * <div class="card card-<variant>">
+ *   <div class="card__media"></div>
+ *   <div class="card__body"></div>
+ *   <div class="card__footer"></div>
+ * </div>
+ *
+ * PRINCIPLES
+ * ---------------------------------------------------------
+ * - Consistent spacing
+ * - Clear visual hierarchy
+ * - Minimal, premium styling
+ * - Reusable structure across variants
+ * =========================================================
+ */
+
+@layer components {
+
+    /* =========================================================
+     BASE CARD (SHARED ACROSS ALL VARIANTS)
+  ========================================================= */
+
+    .card {
+        display: flex;
+        flex-direction: column;
+
+        background: var(--color-surface-default);
+        border: 1px solid var(--color-default);
+        border-radius: var(--radius-sm);
+
+        overflow: hidden;
+
+        transition:
+            transform 200ms ease,
+            box-shadow 200ms ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 10px 28px var(--color-overlay-tint);
+    }
+
+
+    /* =========================================================
+     BASE CARD SECTIONS
+  ========================================================= */
+
+    /* MEDIA (Image container) */
+    .card__media {
+        position: relative;
+        overflow: hidden;
+        background: var(--color-surface-gradient);
+    }
+
+    .card__media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+
+        transition: transform 400ms ease;
+    }
+
+    .card:hover .card__media img {
+        transform: scale(1.05);
+    }
+
+
+    /* BODY */
+    .card__body {
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        flex-grow: 1;
+    }
+
+    /* FOOTER */
+    .card__footer {
+        padding: 1rem 1.25rem 1.25rem;
+        margin-top: auto;
+
+        border-top: 1px solid var(--color-default);
+
+        display: flex;
+        /* justify-content: center; */
+    }
+
+    /* =========================================================
+     PRODUCT CARD (PRIMARY COMMERCE COMPONENT)
+  ========================================================= */
+
+    /* Base layout (mobile + tablet) */
+    .card-product {
+        margin-inline: auto;
+    }
+
+    /* Image container (square on smaller screens) */
+    .card-product .card__media {
+        aspect-ratio: 1 / 1;
+
+        /* Product-specific image treatment */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 1.25rem;
+
+        background: var(--color-canvas-highlight);
+    }
+
+    /* Product image behavior */
+    .card-product .card__media img {
+        object-fit: contain;
+        object-position: center;
+    }
+
+    /* Description (clamped for consistency) */
+    .card-product .card__description {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Variant pills */
+    .card-product .card__variants {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 0.4rem;
+    }
+
+    .card-product .variant-pill {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+
+        border-radius: 999px;
+        border: 1px solid var(--color-default);
+
+        background: var(--color-canvas-subtle);
+        cursor: pointer;
+
+        transition: all 150ms ease;
+    }
+
+    .card-product .variant-pill:hover {
+        background: var(--color-surface-default);
+    }
+
+    .card-product .variant-pill.active {
+        background: var(--color-heading-primary);
+        color: var(--color-fg-on-emphasis);
+    }
+
+    /* Meta information */
+    .card-product .card__meta {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 0.4rem;
+    }
+
+    /* Pricing */
+    .card-product .card__price {
+        margin-top: 0.4rem;
+
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Footer adjustment */
+    .card-product .card__footer {
+        padding-top: 0.75rem;
+    }
+
+    /* =========================================================
+     PRODUCT CARD — DESKTOP LAYOUT
+  ========================================================= */
+
+    @media (min-width: 1024px) {
+
+        .card-product {
+            display: grid;
+            grid-template-columns: 0.7fr 1fr;
+            grid-template-rows: auto auto;
+            align-items: stretch;
+        }
+
+        /* Image spans full height */
+        .card-product .card__media {
+            grid-row: span 2;
+            height: 100%;
+            aspect-ratio: auto;
+        }
+
+        .card-product .card__media img {
+            height: 100%;
+        }
+
+        /* Body */
+        .card-product .card__body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        /* Footer */
+        .card-product .card__footer {
+            padding: 0 1.25rem 1rem;
+            border-top: 1px solid var(--color-default);
+
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-start;
+        }
+    }
+
+    /* =========================================================
+     VARIANT CARD (Product Image + TEXT) (Used in product details page template)
+  ========================================================= */
+    .card-variant {
+        margin-inline: auto;
+        cursor: pointer;
+    }
+
+    .card-variant .card__media {
+        aspect-ratio: 1 / 1;
+
+        /* Product-specific image treatment */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 1.25rem;
+
+        background: var(--color-canvas-highlight);
+    }
+
+    .card-variant .card__media img {
+        object-fit: contain;
+        object-position: center;
+    }
+
+    /* Body */
+    .card-variant .card__body {
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+    }
+
+    /* Footer adjustment */
+    .card-variant .card__footer {
+        display: none;
+    }
+
+    /* =========================================================
+     ACTIVE VARIANT CARD (Indicates currently selected product variant in product details page)
+  ========================================================= */
+
+    /* Only affect variant cards */
+    .card-variant.active {
+        border-color: var(--color-accent);
+        cursor: default;
+    }
+
+    .card-variant.active .card__media img {
+        transform: none;
+    }
+
+    .card-variant.active .card__body p {
+        font-weight: 700;
+        color: var(--color-accent-default);
+    }
+
+
+
+    /* Disable hover ONLY for active variant cards */
+    .card-variant.active:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    /* =========================================================
+     FEATURE CARD (ICON + TEXT)
+  ========================================================= */
+
+    .card-feature {
+        transform: translateY(-4px);
+
+        padding: 1.5rem;
+        gap: 0.75rem;
+        text-align: center;
+    }
+
+    .card-feature .card__body {
+        padding: 0;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* =========================================================
+     CONTENT CARD (BLOG / ARTICLES)
+  ========================================================= */
+
+    .card-content .card__media {
+        aspect-ratio: 16 / 9;
+    }
+
+    .card-content .card__footer {
+        justify-content: flex-start;
+    }
+
+    /* =========================================================
+     SHARED META UTILITIES
+  ========================================================= */
+
+    .card__meta {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    .meta-separator {
+        width: 8px;
+        height: 8px;
+        background-color: var(--color-accent);
+
+        mask: url("/images/icons/diamond.svg") no-repeat center;
+        -webkit-mask: url("/images/icons/diamond.svg") no-repeat center;
+
+        mask-size: contain;
+        -webkit-mask-size: contain;
+
+        display: inline-block;
+    }
+
+}
