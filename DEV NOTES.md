@@ -185,7 +185,7 @@ This is machine-readable SEO metadata.
 
 Planned CMS SEO model:
 
-* global site settings document
+* global site settings document - almost done
 * reusable SEO schema object
 * page-level SEO overrides
 * post/category SEO support
@@ -251,3 +251,6 @@ without changing the global root layout.
 SEO data for search engines using JSON-LD.
 
 Implemented safely using script injection.
+
+# Recent major changes
+I have added prettier, and also added `.vscode` folder which has my `settings.json` file. And I have synchronized my current beta and main local branches with Github.
