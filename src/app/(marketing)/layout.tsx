@@ -1,5 +1,5 @@
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import Header from "@layout/Header";
+import Footer from "@layout/Footer";
 
 type MarketingLayoutProps = {
   children: React.ReactNode;
@@ -11,6 +11,7 @@ export default function MarketingLayout({
   return (
     <>
       <Header />
+
       <main>{children}</main>
       <Footer />
     </>

@@ -1,0 +1,36 @@
+/* =========================================
+   ROOT
+========================================= */
+
+.reveal-text {
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================================
+   BREAK
+========================================= */
+
+.reveal-text__break--xs {
+    height: var(--space-xs);
+}
+
+.reveal-text__break--sm {
+    height: var(--space-sm);
+}
+
+.reveal-text__break--md {
+    height: var(--space-md);
+}
+
+.reveal-text__break--lg {
+    height: var(--space-lg);
+}
+
+.reveal-text__break--xl {
+    height: var(--space-xl);
+}
+
+.reveal-text__break--2xl {
+    height: var(--space-2xl);
+}

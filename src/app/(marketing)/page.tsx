@@ -1,4 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import { Icon } from "@iconify/react";
+
+import { RevealText, RevealTextBreak } from "@/components/content/RevealText";
+
 /**
  * =========================================================
  * HOMEPAGE SEO METADATA
@@ -34,43 +39,40 @@ import type { Metadata } from "next";
  */
 
 export const metadata: Metadata = {
-    title: "Digital Systems Consultant for Service Businesses",
+  title: "Digital Systems Consultant for Service Businesses",
+
+  description:
+    "Nadeem Muhammed helps service businesses build elegant digital systems, premium websites, and scalable online experiences.",
+
+  openGraph: {
+    title: "Nadeem Muhammed | Digital Systems Consultant for Service Businesses",
 
     description:
-        "Nadeem Muhammed helps service businesses build elegant digital systems, premium websites, and scalable online experiences.",
+      "Helping service businesses build elegant digital systems, premium websites, and scalable online experiences.",
 
-    openGraph: {
-        title:
-            "Nadeem Muhammed | Digital Systems Consultant for Service Businesses",
+    url: "https://nadeemmuhammed.com",
 
-        description:
-            "Helping service businesses build elegant digital systems, premium websites, and scalable online experiences.",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Nadeem Muhammed — Digital Systems Consultant for Service Businesses",
+      },
+    ],
+  },
 
-        url: "https://nadeemmuhammed.com",
+  twitter: {
+    card: "summary_large_image",
 
-        images: [
-            {
-                url: "/opengraph-image.png",
-                width: 1200,
-                height: 630,
-                alt: "Nadeem Muhammed — Digital Systems Consultant for Service Businesses",
-            },
-        ],
-    },
+    title: "Nadeem Muhammed | Digital Systems Consultant for Service Businesses",
 
-    twitter: {
-        card: "summary_large_image",
+    description:
+      "Helping service businesses build elegant digital systems, premium websites, and scalable online experiences.",
 
-        title:
-            "Nadeem Muhammed | Digital Systems Consultant for Service Businesses",
-
-        description:
-            "Helping service businesses build elegant digital systems, premium websites, and scalable online experiences.",
-
-        images: ["/opengraph-image.png"],
-    },
+    images: ["/opengraph-image.png"],
+  },
 };
-
 
 /**
  * =========================================================
@@ -103,17 +105,17 @@ export const metadata: Metadata = {
  */
 
 const personSchema = {
-    "@context": "https://schema.org",
-    "@type": "Person",
+  "@context": "https://schema.org",
+  "@type": "Person",
 
-    name: "Nadeem Muhammed",
+  name: "Nadeem Muhammed",
 
-    url: "https://nadeemmuhammed.com",
+  url: "https://nadeemmuhammed.com",
 
-    jobTitle: "Digital Systems Consultant for Service Businesses",
+  jobTitle: "Digital Systems Consultant for Service Businesses",
 
-    description:
-        "Digital systems consultant helping service businesses build elegant digital systems and premium web experiences.",
+  description:
+    "Digital systems consultant helping service businesses build elegant digital systems and premium web experiences.",
 };
 
 /**
@@ -123,473 +125,379 @@ const personSchema = {
  */
 
 export default function HomePage() {
-    return (
-        <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(personSchema),
-                }}
-            />
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(personSchema),
+        }}
+      />
+
+      <main>
+        {/* Hero Section */}
+
+        <section className="section bg-canvas-dark flex min-h-[calc(100vh-var(--navbar-height))] items-center">
+          <div className="container-wide">
+            <div className="flow-lg mx-auto max-w-[80ch] text-center">
+              <p className="text-body-lg text-fg-on-dark">Digital Systems Consultant</p>
+
+              <h1 className="heading-xl text-fg-on-emphasis">
+                Your systems should make your business easier to run.
+              </h1>
+
+              <p className="text-body-lg text-fg-on-dark-subtle">
+                I help service businesses identify digital friction, simplify complexity, and build
+                maintainable systems that support long-term growth.
+              </p>
+
+              <div className="gap-lg flex flex-wrap justify-center">
+                <a href="/contact" className="btn btn-accent">
+                  Book a Consultation
+                </a>
+
+                <a href="#approach" className="btn btn-secondary">
+                  Explore My Approach
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Intro section */}
+
+        <section className="section">
+          <div className="container-wide">
+            <div className="gap-lg grid grid-cols-1 sm:grid-cols-2">
+              <div className="flow-lg max-w-prose">
+                <h2 className="heading-lg">Most Businesses Don&rsquo;t Need More Tools.</h2>
+
+                <p className="text-body-lg font-semibold">They need better systems.</p>
+
+                <p>
+                  Over time, many service businesses accumulate software, spreadsheets, disconnected
+                  processes, and manual workarounds. The result is inefficiency, inconsistency, and
+                  unnecessary operational friction.
+                </p>
+
+                <p>
+                  I help businesses simplify that complexity by creating digital systems that
+                  support growth, improve operations, and strengthen the customer journey.
+                </p>
+              </div>
+
+              <div className="flex items-center justify-center opacity-60 transition-opacity duration-300 hover:opacity-100">
+                <Image
+                  src="/images/Systems and processes.webp"
+                  alt="Systems and processes"
+                  width={600}
+                  height={250}
+
+                  className="h-auto w-1/2"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Services section */}
+
+        <section className="section bg-canvas-subtle">
+          <div className="container-wide">
+            <div className="flow-lg mb-8 max-w-prose">
+              <h2 className="heading-lg">How I Help Service Businesses</h2>
+
+              <p className="text-body-lg text-subtle">
+                Practical consulting focused on clarity, efficiency, and long-term business value.
+              </p>
+            </div>
+            <div className="gap-xl grid grid-cols-1 lg:grid-cols-3">
+              <article className="card card-feature">
+                <div className="card__body">
+                  <span className="service-icon">
+                    <Icon icon="mdi:sitemap-outline" />
+                  </span>
+
+                  <h3 className="heading-md">Digital Systems Strategy</h3>
+
+                  <p>
+                    Identify bottlenecks, map workflows, and create systems that support growth.
+                  </p>
+                </div>
+              </article>
+
+              <article className="card card-feature">
+                <div className="card__body">
+                  <span className="service-icon">
+                    <Icon icon="mdi:web" />
+                  </span>
 
-            <main>
+                  <h3 className="heading-md">Strategic Websites</h3>
 
-                {/* Hero Section */}
+                  <p>
+                    Build websites that communicate value, strengthen trust, and support business
+                    goals.
+                  </p>
+                </div>
+              </article>
 
-                <section className="section bg-canvas-dark min-h-[calc(100vh-var(--navbar-height))] flex items-center">
-                    <div className="container-wide">
+              <article className="card card-feature">
+                <div className="card__body">
+                  <span className="service-icon">
+                    <Icon icon="mdi:cog-sync-outline" />
+                  </span>
 
-                        <div className="flow-lg text-center max-w-[80ch] mx-auto">
+                  <h3 className="heading-md">Workflow Optimization</h3>
 
-                            <p className="text-body-lg text-fg-on-dark">
-                                Digital Systems Consultant
-                            </p>
+                  <p>
+                    Reduce manual work, improve consistency, and create better experiences for your
+                    clients.
+                  </p>
+                </div>
+              </article>
+            </div>{" "}
+            {/** Grid End */}
+          </div>
+        </section>
 
-                            <h1 className="heading-xl text-fg-on-emphasis">
-                                Your systems should make your business easier to run.
-                            </h1>
+        {/* Approach section */}
 
-                            <p className="text-body-lg text-fg-on-dark-subtle">
-                                I help service businesses identify digital friction,
-                                simplify complexity, and build maintainable systems
-                                that support long-term growth.
-                            </p>
+        <section id="approach" className="section min-h-screen">
+          <div className="container-wide">
+            <div className="flow-lg max-w-prose">
+              <h2 className="heading-lg">A Structured Approach To Digital Improvement</h2>
 
-                            <div className="flex flex-wrap justify-center gap-lg">
-                                <a href="/contact" className="btn btn-accent">
-                                    Book a Consultation
-                                </a>
+              <p className="text-subtle">
+                Every engagement starts with understanding the business before recommending
+                technology.
+              </p>
+            </div>
 
-                                <a href="#approach" className="btn btn-secondary">
-                                    Explore My Approach
-                                </a>
-                            </div>
+            <div className="process-grid">
+              <div className="process-step">
+                <span className="process-number">01</span>
 
-                        </div>
+                <h3>Discover</h3>
 
-                    </div>
-                </section>
+                <p>Understand your business, goals, workflows, and current challenges.</p>
+              </div>
 
+              <div className="process-step">
+                <span className="process-number">02</span>
 
-                {/* Intro section */}
+                <h3>Design</h3>
 
-                <section className="section">
-                    <div className="container-wide">
+                <p>Create a practical roadmap focused on systems, processes, and opportunities.</p>
+              </div>
 
-                        <div className="max-w-prose flow-lg">
+              <div className="process-step">
+                <span className="process-number">03</span>
 
-                            <h2 className="heading-lg">
-                                Most Businesses Don&rsquo;t Need More Tools.
-                            </h2>
+                <h3>Implement</h3>
 
-                            <p className="text-body-lg font-semibold">
-                                They need better systems.
-                            </p>
+                <p>Build and refine the solutions that create measurable business value.</p>
+              </div>
 
-                            <p>
-                                Over time, many service businesses accumulate software,
-                                spreadsheets, disconnected processes, and manual workarounds.
-                                The result is inefficiency, inconsistency, and unnecessary
-                                operational friction.
-                            </p>
+              <div className="process-step">
+                <span className="process-number">04</span>
 
-                            <p>
-                                I help businesses simplify that complexity by creating
-                                digital systems that support growth, improve operations,
-                                and strengthen the customer journey.
-                            </p>
+                <h3>Improve</h3>
 
-                        </div>
+                <p>Continuously identify ways to reduce friction and improve performance.</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-                    </div>
-                </section>
+        {/* Philosophy */}
 
+        <section className="section bg-canvas-highlight min-h-screen">
+          <div className="container-wide">
+            <RevealText className="text-display">
+              <p>When technology</p>
 
+              <p>creates more work,</p>
 
-                {/* Services section */}
+              <RevealTextBreak gap="2xl" />
 
-                <section className="section bg-canvas-subtle">
-                    <div className="container-wide">
+              <p>something</p>
 
-                        <div className="flow-lg max-w-prose mb-8">
+              <p>has gone wrong.</p>
 
-                            <h2 className="heading-lg">
-                                How I Help Service Businesses
-                            </h2>
+              <RevealTextBreak gap="2xl" />
 
-                            <p className="text-body-lg text-subtle">
-                                Practical consulting focused on clarity, efficiency,
-                                and long-term business value.
-                            </p>
+              <p>The answer</p>
 
-                        </div>
+              <p>isn't another tool.</p>
 
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-xl">
+              <RevealTextBreak gap="2xl" />
 
-                            <article className="card card-feature">
+              <p>Or another plugin.</p>
 
-                                <span className="service-icon">
-                                    mdi:sitemap-outline
-                                </span>
+              <p>Or another shortcut.</p>
 
-                                <h3 className="heading-md">
-                                    Digital Systems Strategy
-                                </h3>
+              <RevealTextBreak gap="2xl" />
 
-                                <p>
-                                    Identify bottlenecks, map workflows,
-                                    and create systems that support growth.
-                                </p>
+              <p>It's clarity.</p>
+              
+              <RevealTextBreak gap="2xl" />
 
-                            </article>
+              <p>Thoughtful systems.</p>
 
-                            <article className="card card-feature">
+              <p>Intentional design.</p>
 
-                                <span className="service-icon">
-                                    mdi:web
-                                </span>
+              <RevealTextBreak gap="2xl" />
 
-                                <h3 className="heading-md">
-                                    Strategic Websites
-                                </h3>
+              <p>Technology</p>
 
-                                <p>
-                                    Build websites that communicate value,
-                                    strengthen trust, and support business goals.
-                                </p>
+              <p>that simply</p>
 
-                            </article>
+              <p>gets out</p>
 
-                            <article className="card card-feature">
+              <p>of the way.</p>
+            </RevealText>
+          </div>
+        </section>
 
-                                <span className="service-icon">
-                                    mdi:cog-sync-outline
-                                </span>
+        {/* About section */}
 
-                                <h3 className="heading-md">
-                                    Workflow Optimization
-                                </h3>
+        <section className="section">
+          <div className="container-wide">
+            <div className="gap-2xl grid lg:grid-cols-2">
+              <div>
+                <p className="text-overline">About Nadeem Muhammed</p>
 
-                                <p>
-                                    Reduce manual work, improve consistency,
-                                    and create better experiences for your clients.
-                                </p>
+                <h2 className="heading-lg">
+                  Helping Service Businesses Build Stronger Digital Foundations.
+                </h2>
+              </div>
 
-                            </article>
+              <div className="space-y-lg">
+                <p>
+                  I&rsquo;m Nadeem Muhammed, a Digital Systems Consultant who helps service
+                  businesses improve the way they use technology, websites, and digital systems to
+                  support their operations and long-term growth.
+                </p>
 
-                        </div>
+                <p>
+                  My work focuses on identifying digital friction, simplifying complexity, and
+                  designing practical systems that are easier to understand, maintain, and scale as
+                  a business evolves.
+                </p>
 
-                    </div>
-                </section>
+                <p>
+                  Rather than recommending technology for its own sake, I help businesses make
+                  informed technology decisions, improve processes, and build digital foundations
+                  that create lasting value for both the business and its customers.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
 
+        {/* Writing & Insights section */}
 
+        <section className="section bg-canvas-subtle">
+          <div className="container-wide">
+            <div className="flow-lg max-w-prose">
+              <h2 className="heading-lg">Writing & Insights</h2>
 
-                {/* Approach section */}
+              <p className="text-subtle">
+                Thoughts on systems, operations, websites, and business growth.
+              </p>
+            </div>
 
-                <section
-                    id="approach"
-                    className="section"
-                >
-                    <div className="container-wide">
+            <div className="gap-xl grid lg:grid-cols-3">
+              {/* Article 1 */}
 
-                        <div className="flow-lg max-w-prose">
+              <article className="card card-content">
+                <div className="card__media">{/* Article Illustration */}</div>
 
-                            <h2 className="heading-lg">
-                                A Structured Approach To Digital Improvement
-                            </h2>
+                <div className="card__body">
+                  <div className="card__meta">
+                    <span>Systems Thinking</span>
+                    <span className="meta-separator" />
+                    <span>7 min read</span>
+                  </div>
 
-                            <p className="text-subtle">
-                                Every engagement starts with understanding the business
-                                before recommending technology.
-                            </p>
+                  <h3 className="heading-md">Why Most Businesses Don&rsquo;t Need More Software</h3>
 
-                        </div>
+                  <p className="card__description">
+                    Technology rarely solves operational problems on its own. Discover why
+                    simplifying workflows and reducing unnecessary complexity often creates more
+                    value than adding another tool.
+                  </p>
+                </div>
+              </article>
 
-                        <div className="process-grid">
-                            <div className="process-step">
-                                <span className="process-number">01</span>
+              {/* Article 2 */}
 
-                                <h3>Discover</h3>
+              <article className="card card-content">
+                <div className="card__media">{/* Article Illustration */}</div>
 
-                                <p>
-                                    Understand your business, goals,
-                                    workflows, and current challenges.
-                                </p>
-                            </div>
+                <div className="card__body">
+                  <div className="card__meta">
+                    <span>Digital Strategy</span>
+                    <span className="meta-separator" />
+                    <span>9 min read</span>
+                  </div>
 
-                            <div className="process-step">
-                                <span className="process-number">02</span>
+                  <h3 className="heading-md">The Hidden Cost of Operational Friction</h3>
 
-                                <h3>Design</h3>
+                  <p className="card__description">
+                    Every manual process, disconnected workflow, and unnecessary handoff quietly
+                    costs your business time, money, and customer trust. Learn how to identify and
+                    eliminate digital friction.
+                  </p>
+                </div>
+              </article>
 
-                                <p>
-                                    Create a practical roadmap focused on
-                                    systems, processes, and opportunities.
-                                </p>
-                            </div>
+              {/* Article 3 */}
 
-                            <div className="process-step">
-                                <span className="process-number">03</span>
+              <article className="card card-content">
+                <div className="card__media">{/* Article Illustration */}</div>
 
-                                <h3>Implement</h3>
+                <div className="card__body">
+                  <div className="card__meta">
+                    <span>Web Architecture</span>
+                    <span className="meta-separator" />
+                    <span>11 min read</span>
+                  </div>
 
-                                <p>
-                                    Build and refine the solutions that
-                                    create measurable business value.
-                                </p>
-                            </div>
+                  <h3 className="heading-md">Designing Digital Systems That Continue To Scale</h3>
 
-                            <div className="process-step">
-                                <span className="process-number">04</span>
+                  <p className="card__description">
+                    Sustainable growth comes from maintainable digital foundations. Learn how
+                    thoughtful architecture helps businesses scale with confidence instead of
+                    rebuilding from scratch.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
 
-                                <h3>Improve</h3>
+        {/* Call to Action section */}
 
-                                <p>
-                                    Continuously identify ways to reduce
-                                    friction and improve performance.
-                                </p>
-                            </div>
-                        </div>
+        <section className="section bg-canvas-dark">
+          <div className="container-wide">
+            <div className="flow text-center">
+              <h2 className="heading-lg text-fg-on-emphasis">
+                Ready To Strengthen Your Digital Foundation?
+              </h2>
 
-                    </div>
-                </section>
+              <p className="text-body-lg text-fg-on-dark-subtle">
+                Let&rsquo;s identify the systems, processes, and opportunities that can create the
+                greatest impact for your business.
+              </p>
 
-
-
-                {/* Philosophy section */}
-
-                <section className="section bg-canvas-highlight">
-                    <div className="container-wide">
-
-                        <div className="flow-lg max-w-prose">
-
-                            <h2 className="heading-lg">
-                                Technology Should Create Clarity,
-                                Not Complexity.
-                            </h2>
-
-                            <p>
-                                New tools rarely solve underlying problems.
-                            </p>
-
-                            <p>
-                                Sustainable growth comes from designing systems
-                                that are intentional, connected, and easy to maintain.
-                            </p>
-
-                            <p>
-                                My goal is to help businesses build digital foundations
-                                that remain useful long after implementation.
-                            </p>
-
-                        </div>
-
-                    </div>
-                </section>
-
-
-
-                {/* About section */}
-
-                <section className="section">
-                    <div className="container-wide">
-
-                        <div className="grid lg:grid-cols-2 gap-2xl">
-
-                            <div>
-
-                                <p className="text-overline">
-                                    About Nadeem Muhammed
-                                </p>
-
-                                <h2 className="heading-lg">
-                                    Helping Service Businesses Build
-                                    Stronger Digital Foundations.
-                                </h2>
-
-                            </div>
-
-                            <div className="space-y-lg">
-
-                                <p>
-                                    I&rsquo;m Nadeem Muhammed, a Digital Systems Consultant who helps
-                                    service businesses improve the way they use technology,
-                                    websites, and digital systems to support their operations
-                                    and long-term growth.
-                                </p>
-
-                                <p>
-                                    My work focuses on identifying digital friction, simplifying
-                                    complexity, and designing practical systems that are easier
-                                    to understand, maintain, and scale as a business evolves.
-                                </p>
-
-                                <p>
-                                    Rather than recommending technology for its own sake, I help
-                                    businesses make informed technology decisions, improve
-                                    processes, and build digital foundations that create lasting
-                                    value for both the business and its customers.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                </section>
-
-
-                {/* Writing & Insights section */}
-
-                <section className="section bg-canvas-subtle">
-                    <div className="container-wide">
-
-                        <div className="flow-lg max-w-prose">
-
-                            <h2 className="heading-lg">
-                                Writing & Insights
-                            </h2>
-
-                            <p className="text-subtle">
-                                Thoughts on systems, operations,
-                                websites, and business growth.
-                            </p>
-
-                        </div>
-
-                        <div className="grid lg:grid-cols-3 gap-xl">
-
-                            {/* Article 1 */}
-
-                            <article className="card card-content">
-
-                                <div className="card__media">
-                                    {/* Article Illustration */}
-                                </div>
-
-                                <div className="card__body">
-
-                                    <div className="card__meta">
-                                        <span>Systems Thinking</span>
-                                        <span className="meta-separator" />
-                                        <span>7 min read</span>
-                                    </div>
-
-                                    <h3 className="heading-md">
-                                        Why Most Businesses Don&rsquo;t Need More Software
-                                    </h3>
-
-                                    <p className="card__description">
-                                        Technology rarely solves operational problems on its own.
-                                        Discover why simplifying workflows and reducing unnecessary
-                                        complexity often creates more value than adding another tool.
-                                    </p>
-
-                                </div>
-
-
-
-                            </article>
-
-                            {/* Article 2 */}
-
-                            <article className="card card-content">
-
-                                <div className="card__media">
-                                    {/* Article Illustration */}
-                                </div>
-
-                                <div className="card__body">
-
-                                    <div className="card__meta">
-                                        <span>Digital Strategy</span>
-                                        <span className="meta-separator" />
-                                        <span>9 min read</span>
-                                    </div>
-
-                                    <h3 className="heading-md">
-                                        The Hidden Cost of Operational Friction
-                                    </h3>
-
-                                    <p className="card__description">
-                                        Every manual process, disconnected workflow, and unnecessary
-                                        handoff quietly costs your business time, money, and customer
-                                        trust. Learn how to identify and eliminate digital friction.
-                                    </p>
-
-                                </div>
-
-
-
-                            </article>
-
-                            {/* Article 3 */}
-
-                            <article className="card card-content">
-                                <div className="card__media">
-                                    {/* Article Illustration */}
-                                </div>
-
-                                <div className="card__body">
-
-                                    <div className="card__meta">
-                                        <span>Web Architecture</span>
-                                        <span className="meta-separator" />
-                                        <span>11 min read</span>
-                                    </div>
-
-                                    <h3 className="heading-md">
-                                        Designing Digital Systems That Continue To Scale
-                                    </h3>
-
-                                    <p className="card__description">
-                                        Sustainable growth comes from maintainable digital foundations.
-                                        Learn how thoughtful architecture helps businesses scale with
-                                        confidence instead of rebuilding from scratch.
-                                    </p>
-
-                                </div>
-
-
-
-                            </article>
-
-                        </div>
-
-                    </div>
-                </section>
-
-
-                {/* Call to Action section */}
-
-                <section className="section bg-canvas-dark">
-                    <div className="container-wide">
-
-                        <div className="text-center flow">
-
-                            <h2 className="heading-lg text-fg-on-emphasis">
-                                Ready To Strengthen Your Digital Foundation?
-                            </h2>
-
-                            <p className="text-body-lg text-fg-on-dark-subtle">
-                                Let&rsquo;s identify the systems, processes,
-                                and opportunities that can create the
-                                greatest impact for your business.
-                            </p>
-
-                            <a
-                                href="/contact"
-                                className="btn btn-accent"
-                            >
-                                Book a Consultation
-                            </a>
-
-                        </div>
-
-                    </div>
-                </section>
-
-            </main>
-        </>
-    );
+              <a href="/contact" className="btn btn-accent">
+                Book a Consultation
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
 }

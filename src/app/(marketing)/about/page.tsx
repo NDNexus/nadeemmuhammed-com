@@ -95,7 +95,7 @@ export default function AboutPage() {
 
                             <p className="text-body-lg">
                                 I enjoy partnering with service businesses that understand a
-                                website is more than a marketing asset—it's often the first
+                                website is more than a marketing asset—it&rsquo;s often the first
                                 impression people have of their business.
                             </p>
 
@@ -184,7 +184,7 @@ export default function AboutPage() {
                         </p>
 
                         <h2 className="heading-lg">
-                            Good websites aren't created by adding more. They're created by removing what doesn't belong.
+                            Good websites aren&rsquo;t created by adding more. They&rsquo;re created by removing what doesn&rsquo;t belong.
                         </h2>
 
                         <p className="text-body-lg text-subtle">
@@ -204,7 +204,7 @@ export default function AboutPage() {
                             </h3>
 
                             <p className="text-subtle">
-                                Visitors shouldn't have to figure out where to click or what
+                                Visitors shouldn&rsquo;t have to figure out where to click or what
                                 your business does. Clear communication always outperforms
                                 clever design.
                             </p>
@@ -233,8 +233,8 @@ export default function AboutPage() {
 
                             <p className="text-subtle">
                                 Layouts, colours, spacing, animations, and content should all
-                                contribute to the user's journey. If something doesn't add
-                                value, it doesn't belong.
+                                contribute to the user&rsquo;s journey. If something doesn&rsquo;t add
+                                value, it doesn&rsquo;t belong.
                             </p>
 
                         </article>
@@ -258,7 +258,7 @@ export default function AboutPage() {
                     <blockquote className="flow max-w-reading">
 
                         <p className="heading-md">
-                            "The goal isn't to create a website that gets compliments. It's to
+                            "The goal isn&rsquo;t to create a website that gets compliments. It&rsquo;s to
                             create one that quietly earns confidence."
                         </p>
 
@@ -556,7 +556,7 @@ export default function AboutPage() {
         <header className="flow-lg max-w-prose">
 
             <p className="text-caption text-subtle">
-                WHAT IT'S LIKE TO WORK TOGETHER
+                WHAT IT&rsquo;S LIKE TO WORK TOGETHER
             </p>
 
             <h2 className="heading-lg">
@@ -566,7 +566,7 @@ export default function AboutPage() {
             <p className="text-body-lg text-subtle">
                 Building a website should feel organised and enjoyable—not
                 overwhelming. My goal is to create an experience where you always
-                know what we're working on, why we're doing it, and what comes
+                know what we&rsquo;re working on, why we&rsquo;re doing it, and what comes
                 next.
             </p>
 
@@ -583,7 +583,7 @@ export default function AboutPage() {
                 <p className="text-subtle">
                     Every recommendation is intentional. Rather than following
                     trends or making assumptions, decisions are guided by your
-                    business goals and the people you're trying to serve.
+                    business goals and the people you&rsquo;re trying to serve.
                 </p>
 
             </article>
@@ -609,7 +609,7 @@ export default function AboutPage() {
                 </h3>
 
                 <p className="text-subtle">
-                    You'll always understand the reasoning behind important
+                    You&rsquo;ll always understand the reasoning behind important
                     decisions, the progress being made, and the direction of the
                     project. Clear communication is part of the process from start
                     to finish.
@@ -624,8 +624,8 @@ export default function AboutPage() {
                 </h3>
 
                 <p className="text-subtle">
-                    A successful website shouldn't need replacing every couple of
-                    years. The aim is to create a digital foundation that's easy
+                    A successful website shouldn&rsquo;t need replacing every couple of
+                    years. The aim is to create a digital foundation that&rsquo;s easy
                     to maintain, adaptable, and capable of supporting your
                     business as it grows.
                 </p>
@@ -641,13 +641,13 @@ export default function AboutPage() {
             </p>
 
             <h3 className="heading-md">
-                I'll never recommend something simply because it's popular.
+                I&rsquo;ll never recommend something simply because it&rsquo;s popular.
             </h3>
 
             <p className="text-subtle">
-                If a simpler solution is the right solution, that's what I'll
-                recommend. My responsibility isn't to sell unnecessary features—
-                it's to help you make confident decisions and create a website
+                If a simpler solution is the right solution, that&rsquo;s what I&rsquo;ll
+                recommend. My responsibility isn&rsquo;t to sell unnecessary features—
+                it&rsquo;s to help you make confident decisions and create a website
                 that genuinely serves your business.
             </p>
 
@@ -731,7 +731,7 @@ export default function AboutPage() {
 
                 <p className="text-subtle">
                     Yes. I believe websites should remain useful long after
-                    launch. Wherever appropriate, they're built so content can be
+                    launch. Wherever appropriate, they&rsquo;re built so content can be
                     updated without unnecessary complexity.
                 </p>
 
@@ -764,11 +764,11 @@ export default function AboutPage() {
             <div className="flow">
 
                 <p className="text-caption text-primary-foreground/70">
-                    LET'S WORK TOGETHER
+                    LET&rsquo;S WORK TOGETHER
                 </p>
 
                 <h2 className="heading-xl">
-                    Let's build a website that reflects the quality of your business.
+                    Let&rsquo;s build a website that reflects the quality of your business.
                 </h2>
 
             </div>
@@ -781,8 +781,8 @@ export default function AboutPage() {
             </p>
 
             <p className="text-body-lg text-primary-foreground/80 max-w-prose">
-                Whether you're starting from scratch, planning a redesign, or
-                simply exploring what's possible, I'd be happy to learn more
+                Whether you&rsquo;re starting from scratch, planning a redesign, or
+                simply exploring what&rsquo;s possible, I&rsquo;d be happy to learn more
                 about your business and discuss how we can create something that
                 serves you for years to come.
             </p>

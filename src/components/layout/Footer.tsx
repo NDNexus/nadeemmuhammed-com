@@ -49,7 +49,7 @@ export default function Footer() {
                     {/* Brand */}
                     <div className="flow">
                         <Image
-                            src="/images/logo/Logo Mark.webp"
+                            src="/logo/Logo Mark.webp"
                             alt="Nadeem Muhammed Logo"
                             width={60}
                             height={60}

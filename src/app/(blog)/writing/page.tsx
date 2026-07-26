@@ -1,9 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import Header from "@layout/Header";
+import Footer from "@layout/Footer";
+
 export default function WritingPage() {
     return (
         <>
+        <Header />
             <section className="section-sm">
                 <div className="container">
                     <h1 className="heading-lg">Writing</h1>
@@ -21,12 +25,12 @@ export default function WritingPage() {
 
                         <div className="card">
                             <div className="card__media">
-                                <Image src="/images/Test.webp" alt="Why I Don’t Use React Query" width={1200} height={630} />
+                                <Image src="/images/Test.webp" alt="Why I Don&rsquo;t Use React Query" width={1200} height={630} />
                             </div>
                             <div className="card__body">
                                 <h2 className="heading-md">
                                     <Link href="/writing/2024/06/01/why-i-dont-use-react-query">
-                                        Why I Don’t Use React Query
+                                        Why I Don&rsquo;t Use React Query
                                     </Link>
                                 </h2>
                                 <p className="text-body">
@@ -46,12 +50,12 @@ export default function WritingPage() {
 
                         <div className="card">
                             <div className="card__media">
-                                <Image src="/images/Test.webp" alt="Why I Don’t Use React Query" width={1200} height={630} />
+                                <Image src="/images/Test.webp" alt="Why I Don&rsquo;t Use React Query" width={1200} height={630} />
                             </div>
                             <div className="card__body">
                                 <h2 className="heading-md">
                                     <Link href="/writing/2024/06/01/why-i-dont-use-react-query">
-                                        Why I Don’t Use React Query
+                                        Why I Don&rsquo;t Use React Query
                                     </Link>
                                 </h2>
                                 <p className="text-body">
@@ -71,12 +75,12 @@ export default function WritingPage() {
 
                         <div className="card">
                             <div className="card__media">
-                                <Image src="/images/Test.webp" alt="Why I Don’t Use React Query" width={1200} height={630} />
+                                <Image src="/images/Test.webp" alt="Why I Don&rsquo;t Use React Query" width={1200} height={630} />
                             </div>
                             <div className="card__body">
                                 <h2 className="heading-md">
                                     <Link href="/writing/2024/06/01/why-i-dont-use-react-query">
-                                        Why I Don’t Use React Query
+                                        Why I Don&rsquo;t Use React Query
                                     </Link>
                                 </h2>
                                 <p className="text-body">
@@ -96,12 +100,12 @@ export default function WritingPage() {
 
                         <div className="card">
                             <div className="card__media">
-                                <Image src="/images/Test.webp" alt="Why I Don’t Use React Query" width={1200} height={630} />
+                                <Image src="/images/Test.webp" alt="Why I Don&rsquo;t Use React Query" width={1200} height={630} />
                             </div>
                             <div className="card__body">
                                 <h2 className="heading-md">
                                     <Link href="/writing/2024/06/01/why-i-dont-use-react-query">
-                                        Why I Don’t Use React Query
+                                        Why I Don&rsquo;t Use React Query
                                     </Link>
                                 </h2>
                                 <p className="text-body">
@@ -123,6 +127,7 @@ export default function WritingPage() {
                     </div>
                 </div>
             </section>
+            <Footer />
         </>
     );
 }

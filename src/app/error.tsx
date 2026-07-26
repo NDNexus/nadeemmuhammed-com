@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
 import Link from "next/link";
+import { useEffect } from "react";
 
 /**
  * =========================================================
@@ -27,55 +27,41 @@ import Link from "next/link";
  */
 
 type ErrorPageProps = {
-    error: Error & {
-        digest?: string;
-    };
+  error: Error & {
+    digest?: string;
+  };
 
-    reset: () => void;
+  reset: () => void;
 };
 
-export default function ErrorPage({
-    error,
-    reset,
-}: ErrorPageProps) {
-    useEffect(() => {
-        console.error(error);
-    }, [error]);
+export default function ErrorPage({ error, reset }: ErrorPageProps) {
+  useEffect(() => {
+    console.error(error);
+  }, [error]);
 
-    return (
-        <main>
-            <section className="section">
-                <div className="container-wide flow text-center">
-                    <p className="text-caption text-subtle">
-                        Something went wrong
-                    </p>
+  return (
+    <>
+      <main>
+        <section className="section">
+          <div className="container-wide flow text-center">
+            <p className="text-caption text-subtle">Something went wrong</p>
 
-                    <h1 className="heading-display">
-                        An unexpected error occurred.
-                    </h1>
+            <h1 className="heading-display">An unexpected error occurred.</h1>
 
-                    <p className="text-body-lg text-subtle">
-                        Please try again, or return to the homepage.
-                    </p>
+            <p className="text-body-lg text-subtle">Please try again, or return to the homepage.</p>
 
-                    <div className="flex justify-center gap-4 pt-4">
-                        <button
-                            type="button"
-                            onClick={reset}
-                            className="btn btn-primary"
-                        >
-                            Try Again
-                        </button>
+            <div className="flex justify-center gap-4 pt-4">
+              <button type="button" onClick={reset} className="btn btn-primary">
+                Try Again
+              </button>
 
-                        <Link
-                            href="/"
-                            className="btn btn-secondary"
-                        >
-                            Return Home
-                        </Link>
-                    </div>
-                </div>
-            </section>
-        </main>
-    );
+              <Link href="/" className="btn btn-secondary">
+                Return Home
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
 }

@@ -1,7 +1,7 @@
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import Header from "@layout/Header";
+import Footer from "@layout/Footer";
 
-export default function BlogLayout({
+export default function BlogPostLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -9,6 +9,7 @@ export default function BlogLayout({
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
+      <p>Test Single Blog Post Layout</p>
       {children}
       <Footer />
     </div>
