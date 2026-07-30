@@ -1,6 +1,7 @@
+import { Icon } from "@iconify/react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Icon } from "@iconify/react";
+import Link from "next/link";
 
 import { RevealText, RevealTextBreak } from "@/components/content/RevealText";
 
@@ -339,7 +340,7 @@ export default function HomePage() {
               <RevealTextBreak gap="2xl" />
 
               <p>It's clarity.</p>
-              
+
               <RevealTextBreak gap="2xl" />
 
               <p>Thoughtful systems.</p>
@@ -363,33 +364,37 @@ export default function HomePage() {
 
         <section className="section">
           <div className="container-wide">
-            <div className="gap-2xl grid lg:grid-cols-2">
-              <div>
-                <p className="text-overline">About Nadeem Muhammed</p>
+            <div className="gap-2xl grid lg:grid-cols-2 items-center">
+              <div className="space-y-lg order-2 lg:order-1">
+                <h2 className="heading-lg">About Nadeem Muhammed</h2>
 
-                <h2 className="heading-lg">
-                  Helping Service Businesses Build Stronger Digital Foundations.
-                </h2>
+                <p>
+                  I'm Nadeem Muhammed, a Digital Systems Consultant who helps service businesses
+                  build stronger digital foundations. I work with businesses to identify digital
+                  friction, simplify complexity, and make better technology decisions that support
+                  sustainable growth. Every recommendation is guided by long-term value, not
+                  unnecessary complexity.
+                </p>
+
+                <Link href="/about" className="btn btn-primary">
+                  Learn more about how I work
+                </Link>
               </div>
 
-              <div className="space-y-lg">
-                <p>
-                  I&rsquo;m Nadeem Muhammed, a Digital Systems Consultant who helps service
-                  businesses improve the way they use technology, websites, and digital systems to
-                  support their operations and long-term growth.
-                </p>
+              <div className="order-2 sm:p-2 md:p-10 lg:order-1">
+                <blockquote className="space-y-md text-center lg:text-left">
+                  <span className="quotation-xl text-accent/20 flex justify-start leading-none">
+                    “
+                  </span>
 
-                <p>
-                  My work focuses on identifying digital friction, simplifying complexity, and
-                  designing practical systems that are easier to understand, maintain, and scale as
-                  a business evolves.
-                </p>
+                  <p className="heading-lg max-w-16ch font-serif italic">
+                    Technology should reduce friction, not create it.
+                  </p>
 
-                <p>
-                  Rather than recommending technology for its own sake, I help businesses make
-                  informed technology decisions, improve processes, and build digital foundations
-                  that create lasting value for both the business and its customers.
-                </p>
+                  <span className="quotation-xl text-accent/20 flex justify-end leading-none">
+                    ”
+                  </span>
+                </blockquote>
               </div>
             </div>
           </div>

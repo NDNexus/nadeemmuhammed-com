@@ -27,6 +27,13 @@
     letter-spacing: -0.015em;
   }
 
+  .quotation-xl {
+    font-family: theme(--font-sans);
+    font-weight: 800;
+    font-size: clamp(3rem, 6vw, 6rem);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
 
   /* =========================================
      HERO HEADING
@@ -128,5 +135,40 @@
 
   .text-accent {
     color: var(--color-accent);
+  }
+
+  /* =========================================
+     TEXT OVERLINE (Eyebrows)
+  ========================================= */
+  .text-overline {
+    position: relative;
+
+    display: inline-block;
+
+    padding-left: 2.75rem;
+
+    color: var(--color-accent);
+
+    font-size: var(--text-sm);
+    font-weight: 600;
+
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .text-overline::before {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    top: 50%;
+
+    width: 2rem;
+    height: 1px;
+
+    background: currentColor;
+    opacity: 0.45;
+
+    transform: translateY(-50%);
   }
 }

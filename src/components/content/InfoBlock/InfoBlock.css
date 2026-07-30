@@ -1,0 +1,113 @@
+/* =========================================
+   INFO BLOCK
+========================================= */
+
+.info-block {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: var(--space-lg);
+  border: 1px solid var(--color-default);
+  border-radius: var(--radius-sm);
+
+  transition:
+    box-shadow 200ms ease,
+    transform 200ms ease,
+    border-color 200ms ease;
+}
+
+.info-block:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 12px rgb(0 0 0 / 0.04),
+    0 1px 3px rgb(0 0 0 / 0.03);
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.info-block > header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.info-block--has-icon > header::before {
+  content: "";
+
+  width: 3rem;
+  aspect-ratio: 1;
+
+  background: var(--info-block-icon) center / contain no-repeat;
+}
+
+/* =========================================
+   LISTS
+========================================= */
+
+.info-block ul,
+.info-block ol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.info-block li {
+  position: relative;
+
+  padding-inline-start: calc(1rem + var(--space-sm));
+}
+
+/* ---------- Bullet ---------- */
+
+.info-block--bullet ul {
+  list-style: disc;
+
+  padding-inline-start: 1.25rem;
+}
+
+.info-block--bullet li {
+  padding-inline-start: 0;
+}
+
+/* ---------- Numbers ---------- */
+
+.info-block--number ol {
+  list-style: decimal;
+
+  padding-inline-start: 1.5rem;
+}
+
+.info-block--number li {
+  padding-inline-start: 0;
+}
+
+/* ---------- Icon ---------- */
+
+.info-block--icon li::before,
+.info-block--icon-number li::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  top: 0.35em;
+
+  width: 1rem;
+  aspect-ratio: 1;
+
+  background: var(--info-block-list-marker) center / contain no-repeat;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.info-block > footer {
+  color: var(--color-text-muted);
+}

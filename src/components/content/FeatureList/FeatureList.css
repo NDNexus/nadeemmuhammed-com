@@ -1,0 +1,122 @@
+/* =========================================================
+   FEATURE LIST
+========================================================= */
+
+.feature-list {
+  counter-reset: feature;
+  align-items: stretch;
+
+  display: grid;
+  gap: var(--space-xl);
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 64rem) {
+  .feature-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.feature-list > li {
+  counter-increment: feature;
+   display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: var(--radius-sm);
+}
+
+
+/* .feature-list>li:hover{
+    background: var(--background-image-gradient-subtle);
+  } */
+
+
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.feature-list__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+
+  margin-bottom: var(--space-lg);
+
+  color: var(--color-fg-subtle);
+
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.08em;
+}
+
+.feature-list__header::before {
+  content: counter(feature, decimal-leading-zero);
+
+  flex-shrink: 0;
+}
+
+.feature-list__header::after {
+  content: "";
+
+  flex: 1;
+  height: 1px;
+
+  background: var(--color-default);
+
+  transition:
+    background-color 250ms ease,
+    transform 250ms ease;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.feature-list h3 {
+  margin-bottom: var(--space-sm);
+  font-size: clamp(1.25rem, 1.6vw, 1.4rem); /* ~20px → 22px */
+}
+
+.feature-list p {
+  max-width: 42ch;
+
+  color: var(--color-fg-subtle);
+
+  transition: all  250ms ease-in-out;
+}
+
+/* =========================================
+   INTERACTION
+========================================= */
+
+.feature-list > li:hover .feature-list__header::after,
+.feature-list > li:focus-within .feature-list__header::after {
+  background: var(--color-accent);
+  transform: scaleX(1.04);
+  transform-origin: left;
+  height: 1.5px;
+}
+
+.feature-list > li:hover p,
+.feature-list > li:focus-within p {
+  color: var(--color-fg-default);
+}
+
+.feature-list > li {
+  min-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-list__header::after,
+  .feature-list p {
+    transition: none;
+  }
+
+
+
+}
