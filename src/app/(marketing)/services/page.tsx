@@ -24,7 +24,7 @@ export default function ServicesPage() {
       {/** Hero */}
       <section className="section bg-canvas-dark">
         <div className="container-wide">
-          <div className="flow-lg text-content text-fg-on-dark">
+          <div className="flow-lg text-content">
             <header className="flow">
               <p className="text-overline">Services</p>
 
@@ -33,7 +33,7 @@ export default function ServicesPage() {
               </h1>
             </header>
 
-            <p className="text-lg">
+            <p className="text-body-lg text-fg-on-dark-subtle">
               From strategy and websites to systems and ongoing support, I help service businesses
               reduce digital friction and build stronger foundations for long-term growth.
             </p>

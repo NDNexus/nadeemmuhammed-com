@@ -36,7 +36,7 @@ export default function AboutPage() {
               long-term growth—not just short-term results.
             </p>
 
-            <div className="gap-md pt-lg flex">
+            <div className="gap-md flex flex-wrap">
               <a href="/contact" className="btn btn-accent">
                 Start a Project
               </a>
@@ -177,11 +177,8 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <aside
-              className="flex items-center justify-center text-center"
-              aria-label="Core belief"
-            >
-              <blockquote className="space-y-md text-center">
+            <aside className="flex items-center justify-center" aria-label="Core belief">
+              <blockquote className="space-y-md text-left">
                 <span className="quotation-xl text-accent/20 flex justify-start leading-none">
                   “
                 </span>
@@ -213,10 +210,12 @@ export default function AboutPage() {
               can help.
             </p>
 
-            <div className="gap-md flex flex-wrap justify-center items-center">
-              <Link className="btn btn-primary" href="/contact">Let's Talk</Link>
+            <div className="gap-md flex flex-wrap items-center justify-center">
+              <Link className="btn btn-primary" href="/contact">
+                Let's Talk
+              </Link>
 
-              <Link className="btn btn-secondary" href="/services" >
+              <Link className="btn btn-secondary" href="/services">
                 Explore My Services
               </Link>
             </div>
