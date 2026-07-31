@@ -1,10 +1,12 @@
+import { Icon } from "@iconify/react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Icon } from "@iconify/react";
 
 import FeatureList from "@/components/content/FeatureList";
-import  InfoBlock  from "@/components/content/InfoBlock";
+import InfoBlock from "@/components/content/InfoBlock";
 
+import { ProcessExplorer } from "@/builders/ProcessExplorer";
+import { websiteProcess } from "@/data/processes/websiteProcess";
 /**
  * =========================================================
  * SERVICES PAGE METADATA
@@ -315,9 +317,28 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/** My Process */}
+      {/* My Process */}
 
-      <section>...</section>
+      <section className="section">
+        <div className="container-wide">
+          <header className="text-content flow mb-6">
+            <p className="text-overline">My Process</p>
+
+            <h2 className="heading-lg">
+              A structured approach that keeps projects focused, collaborative, and built for
+              long-term success.
+            </h2>
+
+            <p className="text-lg">
+              Every project follows a clear process designed to reduce uncertainty, encourage
+              collaboration, and create thoughtful solutions that support your business now and into
+              the future.
+            </p>
+          </header>
+
+          <ProcessExplorer process={websiteProcess} />
+        </div>
+      </section>
 
       {/** Frequently Asked Questions */}
 

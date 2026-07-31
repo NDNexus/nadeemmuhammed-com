@@ -22,19 +22,15 @@
 
 .feature-list > li {
   counter-increment: feature;
-   display: flex;
+  display: flex;
   flex-direction: column;
   padding: 20px;
   border-radius: var(--radius-sm);
 }
 
-
 /* .feature-list>li:hover{
     background: var(--background-image-gradient-subtle);
   } */
-
-
-
 
 /* =========================================
    HEADER
@@ -66,11 +62,15 @@
   flex: 1;
   height: 1px;
 
-  background: var(--color-default);
+ background:
+    linear-gradient(
+      to right,
+      var(--color-accent) 0%,
+      var(--color-accent) 100%
+    ) left / 0% 100% no-repeat,
+    var(--color-default);
 
-  transition:
-    background-color 250ms ease,
-    transform 250ms ease;
+  transition: background-size 250ms ease;
 }
 
 /* =========================================
@@ -87,7 +87,7 @@
 
   color: var(--color-fg-subtle);
 
-  transition: all  250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 /* =========================================
@@ -96,10 +96,7 @@
 
 .feature-list > li:hover .feature-list__header::after,
 .feature-list > li:focus-within .feature-list__header::after {
-  background: var(--color-accent);
-  transform: scaleX(1.04);
-  transform-origin: left;
-  height: 1.5px;
+  background-size: 100% 100%, auto;
 }
 
 .feature-list > li:hover p,
@@ -116,7 +113,4 @@
   .feature-list p {
     transition: none;
   }
-
-
-
 }

@@ -1,0 +1,79 @@
+/* =========================================
+   ROOT
+========================================= */
+
+.stage-explorer-timeline {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  align-self: stretch;
+
+  flex-shrink: 0;
+  width: 1rem;
+}
+
+/* =========================================
+   HEAD
+========================================= */
+
+.stage-explorer-timeline__head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /*
+   * Matches the first line of the navigation
+   * so the dot aligns with the number and title.
+   */
+  height: 1.5rem;
+}
+
+/* =========================================
+   DOT
+========================================= */
+
+.stage-explorer-timeline__dot {
+  width: 0.625rem;
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+  background: var(--color-border);
+
+  transition:
+    background-color 200ms ease,
+    transform 200ms ease;
+}
+
+/* =========================================
+   CONNECTOR
+========================================= */
+
+.stage-explorer-timeline__line {
+  flex: 1;
+
+  width: 2px;
+  /* margin-top: var(--space-xs); */
+
+  background: var(--color-default);
+  
+    border-radius: 999px;
+
+}
+
+/* =========================================
+   STATES
+========================================= */
+
+.stage-explorer-timeline--active .stage-explorer-timeline__dot {
+  background: var(--color-accent);
+  transform: scale(1.15);
+}
+
+.stage-explorer-timeline--upcoming .stage-explorer-timeline__dot {
+  background: var(--color-default);
+}
+
+.stage-explorer-timeline--completed .stage-explorer-timeline__dot {
+  background: var(--color-accent);
+}

@@ -1,0 +1,110 @@
+/* =========================================
+   ROOT
+========================================= */
+
+.stage-explorer {
+  width: 100%;
+}
+
+/* =========================================
+   LAYOUT
+========================================= */
+
+.stage-explorer__layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1.2fr);
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+.stage-explorer-nav {
+  width: 100%;
+}
+
+.stage-explorer-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+/* =========================================
+   PANEL
+========================================= */
+
+.stage-explorer-panel {
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--color-default);
+}
+
+.stage-explorer-panel__title {
+  font-size: clamp(2.2rem, 4vw, 3.25rem); /* ~35px → 52px */
+  line-height: 1.2;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  color: var(--color-fg-muted);
+  margin-bottom: var(--space-md);
+}
+
+.stage-explorer-item {
+  display: grid;
+  grid-template-columns: max-content auto 1fr;
+  column-gap: var(--space-xs);
+
+  align-items: start;
+
+  width: 100%;
+  padding: var(--space-md) 0;
+
+  border: 0;
+  background: transparent;
+
+  text-align: left;
+  cursor: pointer;
+}
+
+.stage-explorer-item__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-width: 0;
+  padding-left: var(--space-md);
+}
+
+.stage-explorer-item__number {
+  color: var(--color-fg-muted);
+  font-size: var(--text-4xl);
+  line-height: 1;
+  font-weight: 300;
+}
+
+.stage-explorer-item__title {
+  font-weight: 500;
+  text-transform: uppercase;
+letter-spacing: 0.12em;
+}
+
+.stage-explorer-item__subtitle {
+  color: var(--color-fg-muted);
+}
+
+.stage-explorer-item.is-active .stage-explorer-item__number {
+  color: var(--color-fg-default);
+}
+
+.stage-explorer-item.is-active .stage-explorer-item__subtitle {
+  color: var(--color-fg-default);
+}
+
+.stage-explorer-item.is-active .stage-explorer-item__title {
+  font-weight: 900;
+}
