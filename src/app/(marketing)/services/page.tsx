@@ -7,6 +7,10 @@ import InfoBlock from "@/components/content/InfoBlock";
 
 import { ProcessExplorer } from "@/builders/ProcessExplorer";
 import { websiteProcess } from "@/data/processes/websiteProcess";
+
+import { FAQAccordion } from "@/builders/FAQAccordion";
+import { servicesFAQ } from "@/data/FAQs/services";
+
 /**
  * =========================================================
  * SERVICES PAGE METADATA
@@ -45,7 +49,7 @@ export default function ServicesPage() {
                 Let's Talk
               </Link>
 
-              <Link href="#process" className="btn btn-secondary">
+              <Link href="#my-process" className="btn btn-secondary">
                 Explore My Process
               </Link>
             </div>
@@ -64,7 +68,7 @@ export default function ServicesPage() {
               Small points of digital friction often become bigger business problems.
             </h2>
 
-            <p className="text-lg">
+            <p className="text-body-lg">
               Many service businesses don't need more technology—they need clearer systems, better
               decisions, and fewer things getting in the way of serving their customers.
             </p>
@@ -129,7 +133,7 @@ export default function ServicesPage() {
               Practical services focused on creating stronger digital foundations.
             </h2>
 
-            <p className="text-lg">
+            <p className="text-body-lg">
               Every business is different, but the goal is always the same: reduce unnecessary
               digital friction, improve clarity, and build systems that continue creating value long
               after they're implemented.
@@ -245,7 +249,7 @@ export default function ServicesPage() {
 
             <h2 className="heading-lg">What you can expect from every project.</h2>
 
-            <p className="text-lg">
+            <p className="text-body-lg">
               Every business is different, but the principles behind my work remain the same. These
               guide every recommendation, decision, and solution I deliver.
             </p>
@@ -319,7 +323,7 @@ export default function ServicesPage() {
 
       {/* My Process */}
 
-      <section className="section">
+      <section id="my-process" className="section">
         <div className="container-wide">
           <header className="text-content flow mb-6">
             <p className="text-overline">My Process</p>
@@ -329,7 +333,7 @@ export default function ServicesPage() {
               long-term success.
             </h2>
 
-            <p className="text-lg">
+            <p className="text-body-lg">
               Every project follows a clear process designed to reduce uncertainty, encourage
               collaboration, and create thoughtful solutions that support your business now and into
               the future.
@@ -342,7 +346,28 @@ export default function ServicesPage() {
 
       {/** Frequently Asked Questions */}
 
-      <section>...</section>
+      <section className="section">
+        <div className="container-wide">
+          <div className="flow-lg">
+            <header className="text-content flow mb-6">
+              <p className="text-overline">Frequently Asked Questions</p>
+
+              <h2 className="heading-lg">
+                A few things you may want to know before we work together.
+              </h2>
+
+              <p className="text-body-lg">
+                Clear answers to common questions about how I work, what to expect, and what happens
+                when you get in touch.
+              </p>
+            </header>
+
+            {/* FAQ Questions and Answers */}
+
+            <FAQAccordion faq={servicesFAQ} />
+          </div>
+        </div>
+      </section>
 
       {/** CTA */}
 

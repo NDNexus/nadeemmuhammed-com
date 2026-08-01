@@ -1,0 +1,243 @@
+/* =========================================
+   ROOT
+========================================= */
+
+.accordion {
+  width: 100%;
+}
+
+/* =========================================
+   ITEM
+========================================= */
+
+.accordion-item {
+  width: 100%;
+}
+
+/* =========================================
+   TRIGGER
+========================================= */
+
+.accordion-item__trigger {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: stretch;
+
+  width: 100%;
+  padding: 0;
+
+  border: 0;
+  border-top: 1px solid var(--color-default);
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.accordion-item:last-child .accordion-item__trigger {
+  border-bottom: 1px solid var(--color-default);
+}
+
+/* Trigger without the number column */
+
+.accordion-item__trigger.without-number {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+/* =========================================
+   NUMBER
+========================================= */
+
+.accordion-item__number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 5rem;
+  padding: var(--space-md);
+  font-size: clamp(1.25rem, 1.6vw, 1.4rem); /* ~20px → 22px */
+  font-weight: 600;
+
+  color: var(--color-fg-muted);
+}
+
+/* =========================================
+   TITLE
+========================================= */
+
+.accordion-item__title {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  min-width: 0;
+  padding: var(--space-md);
+
+  font-size: clamp(1.125rem, 1.3vw, 1.25rem); /* 18px → 20px */
+}
+
+/* =========================================
+   ICON
+========================================= */
+
+.accordion-item__icon {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 4rem;
+  padding: var(--space-md);
+
+  color: var(--color-fg-muted);
+
+  transition: color 400ms ease;
+}
+
+.accordion-item__icon svg {
+  position: absolute;
+
+  transition: opacity 400ms ease;
+}
+
+.accordion-item__icon-expand {
+  opacity: 1;
+}
+
+.accordion-item__icon-collapse {
+  opacity: 0;
+}
+
+/* =========================================
+   PANEL
+========================================= */
+
+.accordion-item__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+
+  width: 100%;
+
+  border-inline: 1px solid var(--color-default);
+
+  opacity: 0;
+
+  transition:
+    grid-template-rows 300ms ease,
+    opacity 250ms ease;
+}
+
+.accordion-item__panel-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.accordion-item__content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 100%;
+  padding: var(--space-lg);
+
+  text-align: left;
+
+  opacity: 0;
+  transform: translateY(4px);
+
+  transition:
+    opacity 250ms ease,
+    transform 300ms ease;
+}
+
+/* =========================================
+   STATES
+========================================= */
+
+.accordion-item:last-child.is-open .accordion-item__trigger {
+  border-bottom: 0;
+}
+
+.accordion-item:last-child.is-open .accordion-item__panel {
+  border-bottom: 1px solid var(--color-default);
+}
+
+.accordion-item.is-open .accordion-item__panel {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.accordion-item:last-child.is-open .accordion-item__panel {
+  border-bottom: 1px solid var(--color-default);
+}
+
+.accordion-item.is-open .accordion-item__content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.accordion-item.is-open .accordion-item__title {
+  color: var(--color-fg-default);
+  font-weight: 500;
+}
+
+.accordion-item.is-open .accordion-item__icon {
+  color: var(--color-fg-default);
+}
+
+.accordion-item.is-open .accordion-item__icon-expand {
+  opacity: 0;
+}
+
+.accordion-item.is-open .accordion-item__icon-collapse {
+  opacity: 1;
+}
+
+.accordion-item.is-open .accordion-item__number {
+  color: var(--color-interactive-accent);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+  .accordion-item__number {
+    min-width: 3.5rem;
+    padding-inline: var(--space-xs);
+  }
+
+  .accordion-item__title {
+    padding-inline: var(--space-xs);
+  }
+
+  .accordion-item__icon {
+    min-width: 3rem;
+    padding-inline: var(--space-xs);
+  }
+
+  .accordion-item__content {
+    padding: var(--space-xs);
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+@media (prefers-reduced-motion: reduce) {
+  .accordion-item__icon,
+  .accordion-item__icon svg,
+  .accordion-item__panel,
+  .accordion-item__content {
+    transition: none;
+  }
+}
