@@ -151,7 +151,7 @@ export default function Navigation() {
                 className="btn btn-accent mt-4"
                 onClick={() => setIsOpen(false)}
               >
-                Book a Consultation
+                Start a conversation
               </Link>
             </nav>
           </div>
