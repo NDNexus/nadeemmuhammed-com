@@ -70,7 +70,7 @@ export default function Navigation() {
           ))}
         </ul>
         <Link href="/contact" className="btn btn-accent">
-          Book a Consultation
+          Start a conversation
         </Link>
       </nav>
 

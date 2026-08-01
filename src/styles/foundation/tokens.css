@@ -1,13 +1,13 @@
 /* ============================================================
    tokens.css — Design Token System
    Nadeem Digital Nexus
-   
+
    ARCHITECTURE: Three-Tier Token Model
    ─────────────────────────────────────
    Tier 0 → Primitive Palette   (raw colors, only in :root)
    Tier 1 → Semantic Tokens     (meaning → palette, in @theme)
    Tier 2 → Component Tokens    (component-scoped, optional future)
-   
+
    RULES:
    1. Tier 0 variables NEVER appear in component styles.
       Only Tier 1 semantic tokens are used in components.
@@ -18,8 +18,8 @@
       These DO generate Tailwind utilities (bg-*, text-*, border-*).
    4. When in doubt, use a semantic token. If no semantic token
       fits, that's a signal to add one — not to use a primitive.
-   
-   DARK MODE: 
+
+   DARK MODE:
    When adding dark mode, add a [data-theme="dark"] override block
    below @theme. Only Tier 1 semantic tokens change — Tier 0
    primitives stay constant. Components never need to know.
@@ -31,7 +31,7 @@
    ─────────────────────────────────────────────────────────────
    These are the raw brand swatches. They exist to give Tier 1
    tokens something to reference. That's their only job.
-   
+
    RULE: Never reference --palette-* in component CSS or JSX.
    If you catch yourself writing `bg-[var(--palette-rosewood)]`
    you are bypassing the system. Add a semantic token instead.
@@ -93,11 +93,11 @@
 /* ============================================================
    TIER 1 — SEMANTIC TOKENS
    ─────────────────────────────────────────────────────────────
-   These tokens carry MEANING, not just color. Components 
+   These tokens carry MEANING, not just color. Components
    reference these — never Tier 0 directly.
-   
+
    Structure: --color-{category}-{variant}
-   
+
    Categories:
      canvas      → page-level background surfaces
      surface     → component-level surfaces (cards, panels)
@@ -108,7 +108,7 @@
      accent      → decorative accent elements (not interactive)
      feedback    → success, warning, error, info states
      overlay     → scrims, dimming layers
-   
+
    @theme inline: Tailwind reads these variables in-place.
    Each token here generates bg-*, text-*, border-* utilities.
    Example: --color-canvas-default → class `bg-canvas-default`
@@ -127,10 +127,10 @@
 
    /* ──────────────────────────────────────────────────────────
      CANVAS — Page-level backgrounds
-     
+
      Used by: <body>, section wrappers, page-level layout
      Not for: individual components (cards, modals use surface-*)
-     
+
      default   → main page background (most sections)
      subtle    → alternate section background (every other section)
      dark      → dark sections (hero, footer, CTA band)
@@ -145,10 +145,10 @@
 
    /* ──────────────────────────────────────────────────────────
      SURFACE — Component-level backgrounds
-     
+
      Used by: Card, Dropdown, Modal, Tooltip, Sidebar, Navbar
      Not for: page-level section backgrounds (use canvas-*)
-     
+
      default   → standard card or panel
      raised    → elevated card (more visual weight, add shadow)
      overlay   → dropdowns, tooltips, popovers
@@ -177,9 +177,9 @@
 
    /* ──────────────────────────────────────────────────────────
      FOREGROUND — All text and icon content
-     
+
      Used by: <p>, <span>, <li>, icons, captions, labels
-     
+
      default        → primary body text (most copy)
      subtle         → secondary text (meta, captions, bylines)
      muted          → tertiary text (timestamps, disabled labels) If required (not used anywhere yet)
@@ -190,7 +190,7 @@
                    (e.g., white text on rosewood button)
      link           → anchor and interactive text color
      link-hover     → anchor hover state
-     
+
      NOTE: "on-dark" and "on-emphasis" solve the same problem:
      text over a colored/dark background needs its own token
      because the value must change independently of default text.
@@ -198,7 +198,7 @@
 
    --color-fg-default: var(--palette-blue-slate);
    --color-fg-subtle: var(--palette-cool-steel);
-   --color-fg-muted: color-mix(in srgb, var(--palette-cool-steel) 70%, white);
+   --color-fg-muted: color-mix(in srgb, var(--palette-cool-steel) 80%, white);
    --color-fg-placeholder: color-mix(in srgb, var(--palette-cool-steel) 60%, white);
    --color-fg-on-dark: var(--palette-white);
    --color-fg-on-dark-subtle: var(--palette-white-50);
@@ -209,10 +209,10 @@
 
    /* ──────────────────────────────────────────────────────────
      HEADING — Heading-specific text colors
-     
+
      Used by: h1–h6, display text, section titles
      Not for: body copy, labels, captions (use fg-*)
-     
+
      primary   → main headings on light canvas (h1, h2)
      secondary → subheadings, section labels (h3, h4)
      on-dark   → headings rendered on dark canvas
@@ -227,16 +227,16 @@
 
    /* ──────────────────────────────────────────────────────────
      INTERACTIVE — Buttons, links, focusable elements
-     
+
      Used by: Button, Link, Checkbox, Radio, Select, Switch
      Not for: decorative backgrounds (use canvas/surface)
-     
+
      Structure per variant:
        base      → resting background
-       hover     → hovered background  
+       hover     → hovered background
        active    → pressed/active background
        fg        → text/icon ON this background
-     
+
      primary   → main CTA, the most important action on the page
      secondary → supporting action, less visual weight
      ghost     → text-only button, no background until hover
@@ -277,15 +277,15 @@
 
    /* ──────────────────────────────────────────────────────────
      BORDER — All borders, dividers, rules
-     
+
      Used by: hr, table rows, card edges, input outlines, dividers
-     
+
      default   → standard border (list items, card edges)
      subtle    → very light dividers (within-card separators)
      strong    → emphasized border (key dividers, section breaks)
      accent    → colored decorative border (card left-border, underlines)
      focus     → input/control focus border (replaces default when focused)
-     
+
      Why separate from interactive-focus-ring?
        focus-ring  → the outer glow (outline-offset, box-shadow)
        border-focus → the border color change on the element itself
@@ -302,14 +302,14 @@
 
    /* ──────────────────────────────────────────────────────────
      FEEDBACK — Status and alert states
-     
+
      Used by: Alert, Toast, Badge, FormField (validation), Banner
-     
+
      Structure per state:
        {state}          → icon and border color
        {state}-bg       → background of the alert/badge
        {state}-fg       → text within the alert
-     
+
      Why this structure?
        An error alert needs three coordinated colors:
        a red border/icon, a light red background, and dark
@@ -339,7 +339,7 @@
 
    /* ──────────────────────────────────────────────────────────
      OVERLAY — Scrims and dimming layers
-     
+
      Used by: Modal backdrop, Drawer backdrop, Dropdown scrim
      Not for: backgrounds of opaque components
      ────────────────────────────────────────────────────────── */
@@ -350,7 +350,7 @@
 
    /* ──────────────────────────────────────────────────────────
      SPACING SCALE
-     
+
      xs → tight component padding (badges, tags, chips)
      sm → standard padding (buttons, form fields, table cells)
      md → section/card internal padding
@@ -423,14 +423,14 @@
    DARK MODE — Future extension point
    ─────────────────────────────────────────────────────────────
    When you are ready to add dark mode:
-   
+
    1. Add [data-theme="dark"] to your <html> via JS
    2. Override ONLY Tier 1 semantic tokens here
    3. Components never need to change — they reference semantics
    4. Tier 0 primitive values never change across themes
-   
+
    Example (uncomment and extend when ready):
-   
+
    [data-theme="dark"] {
      --color-canvas-default:    var(--palette-prussian-blue);
      --color-canvas-subtle:     color-mix(in srgb, var(--palette-prussian-blue) 80%, black);

@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 
+import { ProcessExplorer } from "@/builders/ProcessExplorer";
+import { contactProcess } from "@/data/processes/contactProcess";
+
 /**
  * =========================================================
  * CONTACT PAGE METADATA
@@ -52,9 +55,9 @@ export default function ContactPage() {
        * =====================================================
        */}
 
-      <section className="section">
+      <section className="section bg-canvas-subtle">
         <div className="container-wide">
-          <div className="gap-2xl grid md:grid-cols-2">
+          <div className="gap-2xl grid lg:grid-cols-2">
             {/**
              * ===================================================
              * CONTACT CONTEXT
@@ -75,7 +78,8 @@ export default function ContactPage() {
               </header>
 
               <div className="flow-sm">
-                <p className="text-subtle">Prefer email?</p>
+                <p className="heading-sm text-strong">Prefer email?</p>
+                <p>Reach out to me on: </p>
 
                 <a className="text-link" href="mailto:contact@nadeemmuhammed.com">
                   contact@nadeemmuhammed.com
@@ -83,7 +87,7 @@ export default function ContactPage() {
               </div>
 
               <div className="flow-sm">
-                <p className="text-subtle">What happens after you send this?</p>
+                <p className="heading-sm text-strong">What happens after you send this?</p>
 
                 <p>
                   I&rsquo;ll personally review your message and get back to you as soon as I can. If
@@ -227,7 +231,7 @@ export default function ContactPage() {
 
               {/** Message */}
 
-              <div className="form-field lg:col-span-2">
+              <div className="form-field md:col-span-2">
                 <label className="form-label" htmlFor="message">
                   Tell me about what you&rsquo;re trying to improve.
                 </label>
@@ -253,8 +257,22 @@ export default function ContactPage() {
        * =====================================================
        */}
 
-      <section className="section">
-        <div className="container-wide">{/* Next steps */}</div>
+      <section className="section bg-canvas-default">
+        <div className="container-wide flow-lg">
+          <header className="text-content flow">
+            <p className="text-overline">What Happens Next</p>
+
+            <h2 className="heading-lg">A clear next step, without the pressure.</h2>
+
+            <p className="text-body-lg">
+              Reaching out doesn&rsquo;t commit you to anything. We&rsquo;ll start by understanding
+              your situation, see whether there&rsquo;s a good fit, and decide what makes sense from
+              there.
+            </p>
+          </header>
+
+          <ProcessExplorer process={contactProcess} />
+        </div>
       </section>
     </>
   );
