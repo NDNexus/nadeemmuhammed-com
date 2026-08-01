@@ -5,7 +5,7 @@
 .process-stage-panel {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2xl);
+  gap: var(--space-xl);
 }
 
 /* =========================================
@@ -15,7 +15,7 @@
 .process-stage-panel__header {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: var(--space-sm);
 }
 
 .process-stage-panel__overview {
@@ -31,11 +31,12 @@
 .process-stage-panel__outcome {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+padding-top: var(--space-md);
+  border-top: 1px solid var(--color-default);
+}
 
-  padding-top: var(--space-xl);
-
-  border-top: 1px solid var(--color-border-subtle);
+.process-stage-panel__steps-section{
+  gap: var(--space-md);
 }
 
 .process-stage-panel__section-header {

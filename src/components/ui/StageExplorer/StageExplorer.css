@@ -29,6 +29,8 @@
   width: 100%;
   min-width: 0;
   gap: 0;
+  padding-right: var(--space-md);
+  border-right: 1px solid var(--color-default);
 }
 
 .stage-explorer-nav__viewport {
@@ -62,7 +64,6 @@
 .stage-explorer-panel {
   min-width: 0;
   padding: 10px;
-  border: 1px solid var(--color-default);
 }
 
 .stage-explorer-panel__title {
@@ -146,6 +147,11 @@
 @media (max-width: 1024px) {
   .stage-explorer__layout {
     grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+
+  .stage-explorer-nav {
+    border-right: 0;
   }
 
   .stage-explorer-nav-list {
