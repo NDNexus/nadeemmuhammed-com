@@ -7,7 +7,6 @@ const navigation = [
   { label: "Services", href: "/services" },
   { label: "Writing", href: "/writing" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
 ];
 
 export default function Navigation() {
