@@ -129,7 +129,7 @@
     cursor: pointer;
   }
 
-    .form-select:hover {
+  .form-select:hover {
     border-color: var(--color-accent);
   }
 
@@ -193,6 +193,32 @@
   .form-input.is-error,
   .form-textarea.is-error,
   .form-select.is-error {
+    border-color: var(--color-feedback-error);
+  }
+
+  /* =======================================================
+   FORM STATUS
+======================================================= */
+
+  .form-status {
+    grid-column: 1 / -1;
+
+    padding: 1rem;
+    border: 1px solid;
+    border-radius: var(--radius-sm);
+
+    font-size: 0.95rem;
+  }
+
+  .form-status-success {
+    color: var(--color-feedback-success-fg);
+    background: var(--color-feedback-success-bg);
+    border-color: var(--color-feedback-success);
+  }
+
+  .form-status-error {
+    color: var(--color-feedback-error-fg);
+    background: var(--color-feedback-error-bg);
     border-color: var(--color-feedback-error);
   }
 }

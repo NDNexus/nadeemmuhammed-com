@@ -9,18 +9,25 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format:check": "prettier . --check",
+    "email:dev": "email dev --dir src/emails/templates"
   },
   "dependencies": {
     "@iconify/react": "^6.0.2",
+    "@sanity/image-url": "^2.1.1",
     "@shikijs/transformers": "^4.2.0",
     "framer-motion": "^12.42.2",
     "next": "^16.2.12",
+    "next-sanity": "^13.2.3",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "shiki": "^4.2.0"
+    "react-email": "^6.9.1",
+    "resend": "^6.18.1",
+    "shiki": "^4.2.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@react-email/ui": "^6.9.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

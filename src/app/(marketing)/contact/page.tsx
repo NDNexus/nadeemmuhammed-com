@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { ProcessExplorer } from "@/builders/ProcessExplorer";
 import { contactProcess } from "@/data/processes/contactProcess";
 
+import ContactForm from "./contact-form";
+
 /**
  * =========================================================
  * CONTACT PAGE METADATA
@@ -103,150 +105,10 @@ export default function ContactPage() {
              * ===================================================
              */}
 
-            <form className="gap-lg grid md:grid-cols-2">
-              {/** Name */}
+             <div className="flex flex-col flow-lg">
+            <ContactForm />
+             </div>
 
-              <div className="form-field">
-                <label className="form-label" htmlFor="name">
-                  Name
-                </label>
-
-                <input
-                  className="form-input"
-                  id="name"
-                  name="name"
-                  type="text"
-                  autoComplete="name"
-                  required
-                />
-              </div>
-
-              {/** Email */}
-
-              <div className="form-field">
-                <label className="form-label" htmlFor="email">
-                  Email
-                </label>
-
-                <input
-                  className="form-input"
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                />
-              </div>
-
-              {/** Business */}
-
-              <div className="form-field">
-                <label className="form-label" htmlFor="company">
-                  Business / Company
-                  <span className="text-subtle"> (optional)</span>
-                </label>
-
-                <input
-                  className="form-input"
-                  id="company"
-                  name="company"
-                  type="text"
-                  autoComplete="organization"
-                />
-              </div>
-
-              {/** Website */}
-
-              <div className="form-field">
-                <label className="form-label" htmlFor="website">
-                  Website
-                  <span className="text-subtle"> (optional)</span>
-                </label>
-
-                <input
-                  className="form-input"
-                  id="website"
-                  name="website"
-                  type="url"
-                  inputMode="url"
-                  autoComplete="url"
-                />
-              </div>
-
-              {/** Service */}
-
-              <div className="form-field">
-                <label className="form-label" htmlFor="service">
-                  What can I help you with?
-                </label>
-
-                <select
-                  className="form-select"
-                  id="service"
-                  name="service"
-                  defaultValue=""
-                  required
-                >
-                  <option value="" disabled>
-                    Select an option
-                  </option>
-
-                  <option value="strategy-consulting">Digital Strategy &amp; Consulting</option>
-
-                  <option value="websites">Websites &amp; Digital Experiences</option>
-
-                  <option value="systems-workflows">Systems &amp; Workflow Improvement</option>
-
-                  <option value="ongoing-support">Ongoing Support &amp; Improvement</option>
-
-                  <option value="not-sure">I&rsquo;m not sure yet</option>
-
-                  <option value="other">Something else</option>
-                </select>
-              </div>
-
-              {/** Timeline */}
-
-              <div className="form-field">
-                <label className="form-label" htmlFor="timeline">
-                  When are you looking to get started?
-                </label>
-
-                <select className="form-select" id="timeline" name="timeline" defaultValue="">
-                  <option value="" disabled>
-                    Select an option
-                  </option>
-
-                  <option value="asap">As soon as possible</option>
-
-                  <option value="1-3-months">Within 1–3 months</option>
-
-                  <option value="3-6-months">Within 3–6 months</option>
-
-                  <option value="exploring">I&rsquo;m just exploring</option>
-
-                  <option value="not-sure">I&rsquo;m not sure yet</option>
-                </select>
-              </div>
-
-              {/** Message */}
-
-              <div className="form-field md:col-span-2">
-                <label className="form-label" htmlFor="message">
-                  Tell me about what you&rsquo;re trying to improve.
-                </label>
-
-                <textarea className="form-textarea" id="message" name="message" rows={7} required />
-              </div>
-
-              {/** Submit */}
-
-              <div className="lg:col-span-2">
-                <button className="btn btn-primary" type="submit">
-                  Send Enquiry
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       </section>
