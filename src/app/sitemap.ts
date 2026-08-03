@@ -7,9 +7,10 @@ import type { MetadataRoute } from "next";
  *
  * PURPOSE
  * ---------------------------------------------------------
- * Defines discoverable URLs for search engines.
+ * Defines the canonical, indexable URLs that should be
+ * discoverable by search engines.
  *
- * Next.js automatically exposes:
+ * Next.js automatically exposes this as:
  *
  *   /sitemap.xml
  *
@@ -21,13 +22,11 @@ import type { MetadataRoute } from "next";
  *
  * FUTURE CMS INTEGRATION
  * ---------------------------------------------------------
- * Later this sitemap will include dynamic Sanity content:
+ * Dynamic Sanity content can be added here later, including:
  *
- * - blog posts
- * - service pages
+ * - writing posts
  * - case studies
- *
- * This initial implementation establishes the architecture.
+ * - other indexable CMS-managed content
  *
  * =========================================================
  */
@@ -38,9 +37,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: SITE_URL,
-      lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
+    },
+    {
+      url: `${SITE_URL}/about`,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/services`,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/contact`,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/writing`,
+      changeFrequency: "weekly",
+      priority: 0.8,
     },
   ];
 }

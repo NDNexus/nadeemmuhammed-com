@@ -128,6 +128,37 @@ export async function submitContactForm(
     };
   }
 
+  /* -------------------------------------------------------
+   RESOLVE SITE URL
+------------------------------------------------------- */
+
+  /**
+   * Get the canonical site URL for the current environment.
+   *
+   * SITE_URL is configured separately for each environment:
+   *
+   * Local:
+   * http://localhost:3000
+   *
+   * Preview / beta:
+   * https://beta.nadeemmuhammed.com
+   *
+   * Production:
+   * https://nadeemmuhammed.com
+   *
+   * This allows email templates to generate absolute asset
+   * and website URLs using the correct domain automatically,
+   * without hardcoding environment-specific URLs in the code.
+   *
+   * A site URL is required because email clients cannot resolve
+   * relative asset paths such as /logo/logo-email.png.
+   */
+  const siteUrl = process.env.SITE_URL;
+
+  if (!siteUrl) {
+    throw new Error("Missing SITE_URL environment variable.");
+  }
+
   /* =========================================================
    VALIDATION PASSED
 ========================================================= */
@@ -209,6 +240,7 @@ export async function submitContactForm(
       service,
       timeline,
       message,
+      baseUrl: siteUrl,
     }),
 
     /* -------------------------------------------------------

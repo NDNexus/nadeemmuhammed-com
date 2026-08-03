@@ -45,6 +45,14 @@ export const metadata: Metadata = {
   description:
     "Nadeem Muhammed helps service businesses build elegant digital systems, premium websites, and scalable online experiences.",
 
+  /* =========================================================
+     CANONICAL URL
+  ========================================================= */
+
+  alternates: {
+    canonical: "/",
+  },
+
   openGraph: {
     title: "Nadeem Muhammed | Digital Systems Consultant for Service Businesses",
 
@@ -116,7 +124,7 @@ const personSchema = {
   jobTitle: "Digital Systems Consultant for Service Businesses",
 
   description:
-    "Digital systems consultant helping service businesses build elegant digital systems and premium web experiences.",
+    "I help service businesses strengthen their digital foundations through clear strategy, effective websites, better systems, and practical workflow improvements.",
 };
 
 /**
@@ -364,7 +372,7 @@ export default function HomePage() {
 
         <section className="section">
           <div className="container-wide">
-            <div className="gap-2xl grid lg:grid-cols-2 items-center">
+            <div className="gap-2xl grid items-center lg:grid-cols-2">
               <div className="space-y-lg order-2 lg:order-1">
                 <h2 className="heading-lg">About Nadeem Muhammed</h2>
 

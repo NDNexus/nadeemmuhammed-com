@@ -24,7 +24,7 @@ export default function EmailFooter() {
             nadeemmuhammed.com
           </Link>
 
-          <span style={separator}> &nbsp;·&nbsp; </span>
+          <span style={separator}> &nbsp;|&nbsp; </span>
 
           <Link href="mailto:contact@nadeemmuhammed.com" style={link}>
             contact@nadeemmuhammed.com

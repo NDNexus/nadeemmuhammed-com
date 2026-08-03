@@ -14,7 +14,7 @@ type ContactEnquiryEmailProps = {
   service: string;
   timeline: string;
   message: string;
-  baseUrl?: string;
+  baseUrl: string;
 };
 
 /* =========================================================
@@ -50,7 +50,7 @@ export default function ContactEnquiryEmail({
   service,
   timeline,
   message,
-  baseUrl = "https://nadeemmuhammed.com",
+  baseUrl,
 }: ContactEnquiryEmailProps) {
   const serviceLabel = serviceLabels[service] ?? service;
   const timelineLabel = timelineLabels[timeline] ?? timeline;
@@ -194,7 +194,7 @@ ContactEnquiryEmail.PreviewProps = {
   timeline: "1-3-months",
   message:
     "I'm looking for help improving the digital foundation of my business. I would like to review the website, clarify the strategy, and improve the systems supporting the business.",
-  baseUrl: "http://localhost:3000",
+  baseUrl: "",
 } satisfies ContactEnquiryEmailProps;
 
 /* =========================================================
