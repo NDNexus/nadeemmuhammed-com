@@ -40,10 +40,10 @@ import { RevealText, RevealTextBreak } from "@/components/content/RevealText";
  */
 
 export const metadata: Metadata = {
-  title: "Digital Systems Consultant for Service Businesses",
+  title: "Digital Strategy & Systems Consultant for Service Businesses",
 
   description:
-    "Nadeem Muhammed helps service businesses build elegant digital systems, premium websites, and scalable online experiences.",
+    "I help service businesses strengthen their digital foundations through clear strategy, effective websites, better systems, and practical workflow improvements.",
 
   /* =========================================================
      CANONICAL URL
@@ -53,79 +53,84 @@ export const metadata: Metadata = {
     canonical: "/",
   },
 
+  /* =========================================================
+     OPEN GRAPH
+  ========================================================= */
+
   openGraph: {
-    title: "Nadeem Muhammed | Digital Systems Consultant for Service Businesses",
+    title: "Digital Strategy & Systems Consultant for Service Businesses | Nadeem Muhammed",
 
     description:
-      "Helping service businesses build elegant digital systems, premium websites, and scalable online experiences.",
+      "I help service businesses strengthen their digital foundations through clear strategy, effective websites, better systems, and practical workflow improvements.",
 
-    url: "https://nadeemmuhammed.com",
+    url: "/",
 
     images: [
       {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "Nadeem Muhammed — Digital Systems Consultant for Service Businesses",
+        alt: "Nadeem Muhammed — Digital Strategy & Systems Consultant",
       },
     ],
   },
 
+  /* =========================================================
+     TWITTER / X
+  ========================================================= */
+
   twitter: {
     card: "summary_large_image",
 
-    title: "Nadeem Muhammed | Digital Systems Consultant for Service Businesses",
+    title: "Digital Strategy & Systems Consultant for Service Businesses | Nadeem Muhammed",
 
     description:
-      "Helping service businesses build elegant digital systems, premium websites, and scalable online experiences.",
+      "I help service businesses strengthen their digital foundations through clear strategy, effective websites, better systems, and practical workflow improvements.",
 
     images: ["/opengraph-image.png"],
   },
 };
 
-/**
- * =========================================================
- * PERSON STRUCTURED DATA
- * =========================================================
- *
- * PURPOSE
- * ---------------------------------------------------------
- * Helps search engines explicitly understand:
- *
- * - who Nadeem Muhammed is
- * - professional role
- * - website identity
- *
- *
- * WHY THIS MATTERS
- * ---------------------------------------------------------
- * Without structured data:
- * Google guesses.
- *
- * With structured data:
- * Google receives explicit machine-readable meaning.
- *
- *
- * FUTURE CMS INTEGRATION
- * ---------------------------------------------------------
- * Later this can be sourced from Sanity site settings.
- *
- * =========================================================
- */
+/* =========================================================
+   HOMEPAGE STRUCTURED DATA
 
-const personSchema = {
+   Describes the website and the person behind it using
+   Schema.org JSON-LD.
+
+   WebSite establishes the site's identity and preferred
+   site name.
+
+   Person establishes a reusable identity for the site's
+   creator and consultant.
+========================================================= */
+
+const homepageSchema = {
   "@context": "https://schema.org",
-  "@type": "Person",
 
-  name: "Nadeem Muhammed",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://nadeemmuhammed.com/#website",
 
-  url: "https://nadeemmuhammed.com",
+      name: "Nadeem Muhammed",
+      url: "https://nadeemmuhammed.com/",
+    },
 
-  jobTitle: "Digital Systems Consultant for Service Businesses",
+    {
+      "@type": "Person",
+      "@id": "https://nadeemmuhammed.com/#person",
 
-  description:
-    "I help service businesses strengthen their digital foundations through clear strategy, effective websites, better systems, and practical workflow improvements.",
+      name: "Nadeem Muhammed",
+      url: "https://nadeemmuhammed.com/",
+
+      jobTitle: "Digital Strategy & Systems Consultant",
+
+      description:
+        "I help service businesses strengthen their digital foundations through clear strategy, effective websites, better systems, and practical workflow improvements.",
+    },
+  ],
 };
+
 
 /**
  * =========================================================
@@ -139,7 +144,7 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(personSchema),
+          __html: JSON.stringify(homepageSchema).replace(/</g, "\\u003c"),
         }}
       />
 

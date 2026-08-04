@@ -9,15 +9,81 @@ import Link from "next/link";
  */
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About — Digital Strategy & Systems Consultant",
 
   description:
-    "Learn about Nadeem Muhammed, a digital systems consultant helping service businesses design elegant digital systems and premium online experiences.",
+    "Learn how I help service businesses strengthen their digital foundations through clearer strategy, better systems, thoughtful websites, and practical technology decisions.",
+
+  alternates: {
+    canonical: "/about",
+  },
+
+  openGraph: {
+    title: "About Nadeem Muhammed — Digital Strategy & Systems Consultant",
+
+    description:
+      "Learn how I help service businesses strengthen their digital foundations through clearer strategy, better systems, thoughtful websites, and practical technology decisions.",
+
+    url: "/about",
+
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Nadeem Muhammed — Digital Strategy & Systems Consultant",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+
+    title: "About Nadeem Muhammed — Digital Strategy & Systems Consultant",
+
+    description:
+      "Learn how I help service businesses strengthen their digital foundations through clearer strategy, better systems, thoughtful websites, and practical technology decisions.",
+
+    images: ["/opengraph-image.png"],
+  },
+};
+
+/**
+ * Describes the About page as a profile page and connects it
+ * to the site's canonical Person entity.
+ */
+const aboutPageSchema = {
+  "@context": "https://schema.org",
+
+  "@type": "ProfilePage",
+  "@id": "https://nadeemmuhammed.com/about#profilepage",
+
+  url: "https://nadeemmuhammed.com/about",
+
+  mainEntity: {
+    "@type": "Person",
+    "@id": "https://nadeemmuhammed.com/#person",
+
+    name: "Nadeem Muhammed",
+    url: "https://nadeemmuhammed.com/",
+
+    jobTitle: "Digital Strategy & Systems Consultant",
+
+    description:
+      "I help service businesses strengthen their digital foundations through clear strategy, effective websites, better systems, and practical technology decisions.",
+  },
 };
 
 export default function AboutPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(aboutPageSchema).replace(/</g, "\\u003c"),
+        }}
+      />
+      
       {/** About Page Hero */}
       <section className="section bg-canvas-dark text-fg-on-dark">
         <div className="container-wide">

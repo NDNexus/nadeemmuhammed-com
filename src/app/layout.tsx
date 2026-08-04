@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans, Libre_Baskerville } from "next/font/google";
 
+import { SanityLive } from "@/sanity/lib/live";
+import { draftMode } from "next/headers";
+
 import "./globals.css";
 
 /* =========================================================
@@ -104,13 +107,16 @@ type RootLayoutProps = {
   children: React.ReactNode;
 };
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
+  const { isEnabled: isDraftMode } = await draftMode();
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <body
         className={` ${ibmPlexSans.variable} ${ibmPlexMono.variable} ${libreBaskerville.variable} `}
       >
         {children}
+
+        <SanityLive includeDrafts={isDraftMode} />
       </body>
     </html>
   );

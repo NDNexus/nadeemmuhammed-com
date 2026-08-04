@@ -31,6 +31,9 @@ export async function CodeBlock({
   code,
   language = "text",
 }: CodeBlockProps) {
+
+  "use cache";
+  
   const languageLabel = getLanguageLabel(language);
   const html = await highlightCode(code, language);
 
