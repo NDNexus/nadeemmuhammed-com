@@ -19,8 +19,8 @@ export default function TestHeader() {
           <p className="font-semibold">Nadeem Muhammed — Test Environment</p>
         </div>
 
-        <Link href="/" className="text-sm font-medium underline underline-offset-4">
-          Return to website homepage
+        <Link href="/test" className="text-sm font-medium underline underline-offset-4">
+          Return to test main page
         </Link>
       </div>
     </header>
