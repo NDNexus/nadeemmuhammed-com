@@ -4,6 +4,7 @@ import { ProcessExplorer } from "@/builders/ProcessExplorer";
 import { contactProcess } from "@/data/processes/contactProcess";
 
 import ContactForm from "./contact-form";
+import { Suspense } from "react";
 
 /**
  * =========================================================
@@ -105,10 +106,11 @@ export default function ContactPage() {
              * ===================================================
              */}
 
-             <div className="flex flex-col flow-lg">
-            <ContactForm />
-             </div>
-
+            <div className="flow-lg flex flex-col">
+              <Suspense fallback={<ContactFormFallback />}>
+                <ContactForm />
+              </Suspense>
+            </div>
           </div>
         </div>
       </section>
@@ -137,5 +139,19 @@ export default function ContactPage() {
         </div>
       </section>
     </>
+  );
+}
+
+/**
+ * Fallback to show when contact form is loading. This is used in conjunction with React Suspense to provide a better user experience while the form is being fetched and rendered.
+ *
+ * @see https://react.dev/reference/react/Suspense
+ * @returns void
+ */
+function ContactFormFallback() {
+  return (
+    <div className="form-status" role="status">
+      <p>Loading enquiry form...</p>
+    </div>
   );
 }
