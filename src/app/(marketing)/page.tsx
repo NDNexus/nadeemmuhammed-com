@@ -40,10 +40,10 @@ import { RevealText, RevealTextBreak } from "@/components/content/RevealText";
  */
 
 export const metadata: Metadata = {
-  title: "Digital Strategy & Systems Consultant for Service Businesses",
+  title: "Digital Systems Consultant for Service Businesses",
 
   description:
-    "I help service businesses strengthen their digital foundations through clear strategy, effective websites, better systems, and practical workflow improvements.",
+    "I help service businesses identify digital friction, simplify complexity, and build maintainable systems that support long-term growth.",
 
   /* =========================================================
      CANONICAL URL
@@ -58,10 +58,10 @@ export const metadata: Metadata = {
   ========================================================= */
 
   openGraph: {
-    title: "Digital Strategy & Systems Consultant for Service Businesses | Nadeem Muhammed",
+    title: "Digital Systems Consultant for Service Businesses | Nadeem Muhammed",
 
     description:
-      "I help service businesses strengthen their digital foundations through clear strategy, effective websites, better systems, and practical workflow improvements.",
+      "I help service businesses identify digital friction, simplify complexity, and build maintainable systems that support long-term growth.",
 
     url: "/",
 
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "Nadeem Muhammed — Digital Strategy & Systems Consultant",
+        alt: "Nadeem Muhammed — Digital Systems Consultant",
       },
     ],
   },
@@ -82,11 +82,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Digital Strategy & Systems Consultant for Service Businesses | Nadeem Muhammed",
+    title: "Digital Systems Consultant for Service Businesses | Nadeem Muhammed",
 
     description:
-      "I help service businesses strengthen their digital foundations through clear strategy, effective websites, better systems, and practical workflow improvements.",
-
+      "I help service businesses identify digital friction, simplify complexity, and build maintainable systems that support long-term growth.",
     images: ["/opengraph-image.png"],
   },
 };
@@ -114,6 +113,14 @@ const homepageSchema = {
 
       name: "Nadeem Muhammed",
       url: "https://nadeemmuhammed.com/",
+
+      author: {
+        "@id": "https://nadeemmuhammed.com/#person",
+      },
+
+      publisher: {
+        "@id": "https://nadeemmuhammed.com/#person",
+      },
     },
 
     {
@@ -123,10 +130,10 @@ const homepageSchema = {
       name: "Nadeem Muhammed",
       url: "https://nadeemmuhammed.com/",
 
-      jobTitle: "Digital Strategy & Systems Consultant",
+      jobTitle: "Digital Systems Consultant",
 
       description:
-        "I help service businesses strengthen their digital foundations through clear strategy, effective websites, better systems, and practical workflow improvements.",
+        "I help service businesses identify digital friction, simplify complexity, and build maintainable systems that support long-term growth.",
     },
   ],
 };

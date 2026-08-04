@@ -2,11 +2,13 @@
 
 This directory contains the frontend infrastructure used to connect the Next.js application to Sanity CMS.
 
-Sanity is maintained as a separate project and repository. The Next.js application does not contain the Sanity Studio or its schemas. Instead, it connects to the Sanity Content Lake through the Sanity API.
+Sanity Studio is maintained as a separate project and repository. The Next.js application does not contain the Studio or the source schema definitions used to configure the editing experience.
+
+Instead, the frontend connects to the Sanity Content Lake through the Sanity API and maintains the generated schema information required for typed frontend development.
 
 ---
 
-## Architecture
+# Architecture
 
 The two applications have separate responsibilities:
 
@@ -21,26 +23,30 @@ Sanity Content Lake
         ▼
 Next.js Repository
         │
-        ├── pages
-        ├── components
+        ├── typed Sanity queries
+        ├── cached content fetching
+        ├── live revalidation
+        ├── pages and components
         ├── metadata
         ├── structured data
         └── other frontend behavior
 ```
 
-### Sanity owns
+## Sanity owns
 
 Sanity is the source of truth for editable content, including:
 
 - site-wide settings
 - posts
 - categories
+- tags
+- technologies
 - authors
 - projects and case studies
 - editorial SEO overrides
 - images and other CMS-managed content
 
-### Next.js owns
+## Next.js owns
 
 Next.js is responsible for interpreting and presenting that content, including:
 
@@ -49,34 +55,50 @@ Next.js is responsible for interpreting and presenting that content, including:
 - layouts
 - design and styling
 - technical SEO
-- metadata generation
+- metadata resolution
 - canonical URL generation
 - structured data
 - sitemap generation
 - robots configuration
 - Sanity image rendering
+- caching behavior
+- frontend live-content integration
 
 This separation keeps editorial content independent from application and deployment logic.
 
 ---
 
-# Directory Structure
+# Frontend Sanity Structure
+
+The primary frontend integration lives under:
 
 ```text
 src/sanity/
 │
 ├── README.md
 ├── env.ts
+├── sanity.types.ts
 │
 └── lib/
     ├── client.ts
     ├── image.ts
+    ├── live.ts
+    │
+    ├── fetch/
+    │   └── siteSettings.ts
     │
     └── queries/
         └── siteSettings.ts
 ```
 
-Each file has one responsibility.
+Additional TypeGen infrastructure exists at the project root:
+
+```text
+sanity.cli.ts
+schema.json
+```
+
+Each part has a distinct responsibility.
 
 ---
 
@@ -84,36 +106,44 @@ Each file has one responsibility.
 
 ## Purpose
 
-`env.ts` provides the Sanity configuration required by the frontend.
+`env.ts` provides the public Sanity configuration required by the frontend.
 
-It reads the relevant environment variables and exposes validated values to the rest of the Sanity integration.
+It reads the relevant environment variables, validates required values, and exposes them through one shared configuration module.
 
-Example environment variables:
+Current configuration includes:
 
 ```env
-NEXT_PUBLIC_SANITY_PROJECT_ID=p5f7m1cp
-NEXT_PUBLIC_SANITY_DATASET=production
-NEXT_PUBLIC_SANITY_API_VERSION=2026-03-01
+NEXT_PUBLIC_SANITY_PROJECT_ID=
+NEXT_PUBLIC_SANITY_DATASET=
+NEXT_PUBLIC_SANITY_API_VERSION=
+NEXT_PUBLIC_SANITY_STUDIO_URL=
 ```
 
-The rest of the application should import these values from `env.ts` instead of repeatedly accessing `process.env`.
+The rest of the application should import these values from `env.ts` rather than repeatedly accessing `process.env`.
 
-Example:
+Conceptually:
 
-```ts
-import {apiVersion, dataset, projectId} from '@/sanity/env'
+```text
+Deployment environment
+        ↓
+      env.ts
+        ↓
+Sanity integration
 ```
 
-### Why this exists
+## Why this exists
 
-Centralizing configuration gives us one place to:
+Centralizing configuration gives the application one place to:
 
 - validate required values
-- define defaults
+- define intentional defaults
 - document the Sanity connection
+- configure the Studio URL
 - change configuration behavior later
 
-The project ID, dataset name, and API version used by the public Sanity client are configuration values rather than content.
+These `NEXT_PUBLIC_*` values are public configuration rather than authentication credentials.
+
+Secrets must not be added to this module as public environment variables.
 
 ---
 
@@ -121,39 +151,261 @@ The project ID, dataset name, and API version used by the public Sanity client a
 
 ## Purpose
 
-`client.ts` creates the shared Sanity client used by the application to query published content.
+`client.ts` creates the shared base Sanity client used by the frontend.
 
 Conceptually:
 
 ```text
 Environment configuration
         ↓
-     env.ts
+      env.ts
         ↓
-   client.ts
+    client.ts
         ↓
 Sanity Content Lake
 ```
 
-The client is configured with:
+The client provides the underlying connection used by the rest of the Sanity integration.
 
-- project ID
-- dataset
-- API version
+Its responsibilities include:
+
+- project configuration
+- dataset configuration
+- API versioning
 - CDN behavior
+- default published perspective
+- Studio location for Visual Editing metadata
 
-Example:
+Normal application content should generally use the shared fetching infrastructure in `live.ts` rather than scattering direct `client.fetch()` calls throughout pages and components.
 
-```ts
-export const client = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  useCdn: true,
-})
+The base client remains useful as the underlying Sanity connection and for infrastructure that specifically requires a client instance.
+
+---
+
+# `lib/live.ts`
+
+## Purpose
+
+`live.ts` provides the shared content-fetching and live-revalidation infrastructure for the application.
+
+It is built around Sanity's `defineLive()` integration.
+
+The module exposes:
+
+```text
+sanityFetch
+SanityLive
 ```
 
-Application code should reuse this client rather than creating separate Sanity clients throughout the project.
+along with shared helpers for different fetching contexts.
+
+Conceptually:
+
+```text
+GROQ query
+    ↓
+sanityFetch()
+    ↓
+Next.js cache
+    ↓
+rendered content
+    │
+    │ Sanity content changes
+    ▼
+<SanityLive />
+    ↓
+affected cache tags revalidated
+    ↓
+fresh content
+```
+
+This gives the application both efficient caching and automatic content freshness.
+
+---
+
+## `sanityFetch`
+
+`sanityFetch` is the primary fetching utility for Sanity content that should participate in Sanity Live.
+
+Rather than treating every CMS request as an unrelated network request, the integration allows Sanity and Next.js to associate query results with the content that produced them.
+
+When relevant content changes, affected cached queries can be revalidated automatically.
+
+This provides a useful combination:
+
+```text
+Cached content
+      +
+Automatic revalidation
+      =
+Fast responses without manually chosen revalidation intervals
+```
+
+---
+
+## `<SanityLive />`
+
+`SanityLive` is mounted at the application level.
+
+Its role is to listen for relevant Sanity content changes and coordinate revalidation of affected cached queries.
+
+Conceptually:
+
+```text
+Editor publishes change
+        ↓
+Sanity Content Lake changes
+        ↓
+Sanity Live detects relevant update
+        ↓
+Next.js cache tags are revalidated
+        ↓
+next request receives fresh content
+```
+
+This means long cache lifetimes do not imply that CMS content must remain stale for that entire period.
+
+Content can remain cached until the underlying Sanity data changes.
+
+---
+
+# Cache Components
+
+The application uses Next.js Cache Components.
+
+Sanity fetching is designed to work with this caching model rather than bypass it.
+
+The important distinction is between:
+
+```text
+Reusable data / computation
+        ↓
+cache when appropriate
+
+Request-specific or interactive behavior
+        ↓
+isolate behind the appropriate dynamic boundary
+```
+
+For Sanity content, caching is especially useful because the content is generally reusable between visitors.
+
+Sanity Live provides the mechanism for invalidating affected cached data when content changes.
+
+The application should not add `"use cache"` indiscriminately.
+
+Caching decisions should reflect whether a result can safely be reused.
+
+---
+
+# Content Perspectives
+
+Normal website visitors receive published content.
+
+Conceptually:
+
+```text
+Normal visitor
+      ↓
+published perspective
+      ↓
+no stega metadata
+```
+
+The live infrastructure also contains the foundation required to resolve draft-mode perspectives when preview functionality is used.
+
+Conceptually:
+
+```text
+Draft Mode
+    ↓
+request cookies
+    ↓
+resolved Sanity perspective
+    ↓
+draft-capable content
+    ↓
+stega metadata enabled
+```
+
+This keeps normal production delivery separate from editorial preview behavior.
+
+---
+
+# `getDynamicFetchOptions()`
+
+The shared live infrastructure can resolve request-specific fetching options.
+
+For normal visitors it returns:
+
+```text
+perspective → published
+stega       → false
+```
+
+When Draft Mode is active, it can resolve the appropriate draft perspective from the request and enable stega metadata.
+
+This logic belongs in the Sanity integration layer so individual pages do not need to independently implement perspective handling.
+
+---
+
+# Static Parameter Fetching
+
+`live.ts` provides a dedicated helper for Sanity data used by `generateStaticParams()`.
+
+Conceptually:
+
+```text
+generateStaticParams()
+        ↓
+sanityFetchStaticParams()
+        ↓
+published Sanity content
+        ↓
+known route parameters
+```
+
+Static route generation should use published content and should not include Visual Editing metadata.
+
+This will become particularly useful for routes such as:
+
+```text
+/writing/[post-slug]
+/projects/[project-slug]
+```
+
+as those routes are connected to real Sanity content.
+
+---
+
+# Metadata Fetching
+
+`live.ts` also provides a dedicated metadata-fetching helper.
+
+Metadata has slightly different requirements from normal rendered content.
+
+In particular, stega-encoded values must never appear inside:
+
+- page titles
+- descriptions
+- canonical URLs
+- Open Graph metadata
+- other document metadata
+
+The metadata helper therefore keeps stega disabled while still allowing the appropriate Sanity perspective to be supplied.
+
+Conceptually:
+
+```text
+Sanity content
+      ↓
+sanityFetchMetadata()
+      ↓
+clean metadata values
+      ↓
+Next.js generateMetadata()
+```
+
+This infrastructure will be used by the site's SEO implementation.
 
 ---
 
@@ -175,21 +427,16 @@ queries/
 └── projects.ts
 ```
 
-A page should therefore be able to do something conceptually similar to:
+Application components should consume query results through the appropriate fetching layer rather than embedding large GROQ queries directly inside UI components.
 
-```ts
-const post = await client.fetch(postQuery, {slug})
-```
-
-instead of embedding a large GROQ query directly inside the page component.
-
-### Why queries are centralized
+## Why queries are centralized
 
 This keeps:
 
 - page components easier to read
 - GROQ reusable
 - returned data predictable
+- TypeGen effective
 - CMS integration easier to maintain
 - future client projects easier to adapt
 
@@ -199,11 +446,11 @@ This keeps:
 
 ## Purpose
 
-This file contains the query for the single Site Settings document.
+This file contains the GROQ query for the Site Settings singleton.
 
 Site Settings is the CMS source of truth for editable values shared across the website.
 
-Examples include:
+Current examples include:
 
 ```text
 Site Settings
@@ -215,9 +462,9 @@ Site Settings
 └── Social Profiles
 ```
 
-The frontend can retrieve these values once and use them wherever appropriate.
+The frontend can retrieve these values and use them wherever appropriate.
 
-For example:
+Conceptually:
 
 ```text
 Sanity Site Settings
@@ -239,11 +486,71 @@ This avoids maintaining the same editable information in multiple places.
 
 ---
 
+# `lib/fetch/`
+
+## Purpose
+
+The `fetch` directory contains application-facing data-access functions.
+
+This provides a layer between:
+
+```text
+GROQ query definitions
+        ↓
+Sanity fetching infrastructure
+        ↓
+application code
+```
+
+For example:
+
+```text
+queries/siteSettings.ts
+        ↓
+fetch/siteSettings.ts
+        ↓
+layout / page / metadata / component
+```
+
+This prevents pages and components from needing to know every detail of how Sanity queries are executed.
+
+The fetch layer is also the appropriate place for content-specific guarantees and errors.
+
+For example, the Site Settings fetcher can ensure that the required singleton actually exists rather than forcing every consumer to repeat that check.
+
+---
+
+# `lib/fetch/siteSettings.ts`
+
+## Purpose
+
+This file provides the application-facing Site Settings fetcher.
+
+It retrieves the Site Settings singleton and treats its existence as an application requirement.
+
+Conceptually:
+
+```text
+SITE_SETTINGS_QUERY
+        ↓
+Sanity fetching
+        ↓
+getSiteSettings()
+        ↓
+validated Site Settings result
+        ↓
+application
+```
+
+If the required Site Settings singleton cannot be found, the fetcher can fail clearly rather than silently allowing unrelated parts of the website to receive missing global configuration.
+
+---
+
 # `lib/image.ts`
 
 ## Purpose
 
-Sanity image fields do not directly contain a normal image URL.
+Sanity image fields do not directly contain normal image URLs.
 
 They contain references to image assets together with information such as crop and hotspot data.
 
@@ -254,7 +561,7 @@ Conceptually:
 ```text
 Sanity image object
         ↓
-     urlFor()
+      urlFor()
         ↓
 Sanity image CDN URL
         ↓
@@ -270,7 +577,7 @@ urlFor(image)
   .url()
 ```
 
-The same infrastructure can later be used for:
+The same infrastructure can be used for:
 
 - featured images
 - author avatars
@@ -280,9 +587,197 @@ The same infrastructure can later be used for:
 
 ---
 
-# Data Flow
+# Type Generation
 
-A normal CMS request follows this flow:
+The frontend uses Sanity TypeGen so application code can work with types generated from the actual Sanity schema and GROQ queries.
+
+The workflow has two main stages:
+
+```text
+Sanity schema
+     ↓
+schema extraction
+     ↓
+schema.json
+     ↓
+TypeGen
+     ↓
+sanity.types.ts
+```
+
+TypeGen also inspects supported GROQ queries in the frontend and generates corresponding result types.
+
+This reduces the need to manually recreate CMS interfaces in TypeScript.
+
+---
+
+# `schema.json`
+
+`schema.json` is the extracted representation of the Sanity schema used by frontend TypeGen.
+
+It exists in the Next.js repository even though the actual Studio schema source lives in the separate Sanity Studio repository.
+
+Conceptually:
+
+```text
+Sanity Studio schema
+        ↓
+schema extraction
+        ↓
+Next.js schema.json
+        ↓
+TypeGen
+```
+
+This gives the frontend enough schema information to generate accurate TypeScript types without moving ownership of the Studio schema into the frontend repository.
+
+---
+
+# `sanity.cli.ts`
+
+`sanity.cli.ts` provides the Sanity CLI configuration required by frontend tooling.
+
+It allows commands such as schema extraction and TypeGen to identify the correct Sanity project and dataset.
+
+This is tooling configuration rather than application content.
+
+---
+
+# `sanity.types.ts`
+
+`sanity.types.ts` is generated by Sanity TypeGen.
+
+It contains types derived from:
+
+- the extracted Sanity schema
+- GROQ queries discovered by TypeGen
+
+For example, a named GROQ query can produce a generated result type representing the exact projected fields returned by that query.
+
+This gives the frontend a chain of type information based on the real CMS model:
+
+```text
+Sanity schema
+      ↓
+schema.json
+      ↓
+GROQ query
+      ↓
+TypeGen
+      ↓
+generated query result type
+      ↓
+frontend code
+```
+
+`sanity.types.ts` should be treated as generated output rather than manually maintained application code.
+
+---
+
+# TypeGen Workflow
+
+When the Sanity schema changes in a way that affects frontend types, extract the schema again:
+
+```bash
+npx sanity schema extract --enforce-required-fields --path "./schema.json"
+```
+
+The exact relative path may differ depending on which repository/directory the command is executed from.
+
+Then regenerate frontend types:
+
+```bash
+npx sanity typegen generate
+```
+
+Type generation should also be rerun when relevant GROQ queries change so their generated result types remain synchronized.
+
+The generated `sanity.types.ts` file should then reflect the current schema and supported queries.
+
+---
+
+# Environment Variables
+
+The integration uses both public configuration and a private server-side token.
+
+## Public Sanity configuration
+
+```env
+NEXT_PUBLIC_SANITY_PROJECT_ID=
+NEXT_PUBLIC_SANITY_DATASET=
+NEXT_PUBLIC_SANITY_API_VERSION=
+NEXT_PUBLIC_SANITY_STUDIO_URL=
+```
+
+These values configure the frontend connection.
+
+Because they use the `NEXT_PUBLIC_*` prefix, they must never contain secrets.
+
+The Studio URL identifies the separate Sanity Studio application used by Visual Editing-related infrastructure.
+
+For this project, the production Studio is hosted separately from the frontend.
+
+---
+
+## Private Sanity read token
+
+```env
+SANITY_API_READ_TOKEN=
+```
+
+This is an authentication credential.
+
+It must:
+
+- remain secret
+- never use the `NEXT_PUBLIC_*` prefix
+- never be committed to Git
+- be configured securely in deployment environments
+- use only the permissions required by the application
+
+The current integration uses a read-only token for authenticated Sanity fetching and live/preview infrastructure.
+
+The token should not be rendered into application output, logged, or exposed through public configuration.
+
+---
+
+## Local development
+
+Local environment configuration belongs in:
+
+```text
+.env.local
+```
+
+`.env.local` must remain outside version control when it contains secrets.
+
+---
+
+## Deployment environments
+
+Environment variables required by the frontend must also be configured in the deployment platform.
+
+Local `.env.local` values are not automatically transferred when source code is pushed to Git.
+
+Conceptually:
+
+```text
+Local development
+      ↓
+.env.local
+
+Vercel deployment
+      ↓
+Vercel Environment Variables
+```
+
+Production and Preview deployments should receive the appropriate Sanity configuration for the environment in which they run.
+
+---
+
+# Current Data Flow
+
+A normal published-content request now follows this general flow:
 
 ```text
 Editor
@@ -296,24 +791,41 @@ Sanity Content Lake
   │
   │ GROQ
   ▼
-Sanity Client
+Query definition
   │
   ▼
-Query
+Sanity fetching layer
   │
   ▼
-Next.js Server
+Next.js Cache Components
   │
-  ├── render content
-  ├── generate metadata
-  ├── generate structured data
-  └── build page
+  ├── page rendering
+  ├── metadata generation
+  ├── structured data
+  └── other application consumers
   │
   ▼
 Visitor / Search Engine
 ```
 
-The important architectural rule is:
+When the underlying content changes:
+
+```text
+Sanity Content Lake
+        │
+        │ content update
+        ▼
+    Sanity Live
+        │
+        │ affected cache tags
+        ▼
+Next.js revalidation
+        │
+        ▼
+fresh content
+```
+
+The important architectural rule remains:
 
 > Sanity provides content. Next.js decides how that content becomes a website.
 
@@ -367,8 +879,10 @@ Site name                         Production origin
 Tagline                           Sanity project ID
 Site description                  Sanity dataset
 Contact email                     Sanity API version
-Social profiles                   Canonical construction
-Default social image              robots.txt logic
+Social profiles                   Sanity authentication tokens
+Default social image              Studio URL configuration
+                                  Canonical construction
+                                  robots.txt logic
                                   sitemap logic
                                   schema identifiers
 ```
@@ -402,9 +916,9 @@ Editors should not normally need to complete every SEO field for every piece of 
 
 ## Next.js
 
-Next.js will contain the SEO resolution logic.
+Next.js contains the SEO resolution and technical implementation logic.
 
-For example, a post may eventually resolve metadata using:
+For example, a post can resolve metadata using:
 
 ```text
 TITLE
@@ -452,13 +966,15 @@ post.metadata.noIndex
 indexable by default
 ```
 
-This allows good metadata to be generated automatically while still giving editors control when an override is genuinely useful.
+This allows strong metadata to be generated automatically while still giving editors control when an override is genuinely useful.
+
+Metadata fetching should use the dedicated Sanity metadata infrastructure so stega-encoded values cannot leak into document metadata.
 
 ---
 
 # Structured Data
 
-Sanity can also provide the content required to construct structured data.
+Sanity can provide the content required to construct structured data.
 
 For example:
 
@@ -491,90 +1007,137 @@ This prevents schema implementation details from becoming CMS content.
 
 ---
 
-# Environment Variables
+# Visual Editing and Preview Foundation
 
-Local development configuration belongs in:
+The integration already contains some infrastructure required for future Visual Editing and draft-preview workflows:
 
-```text
-.env.local
-```
+- Studio URL configuration
+- stega configuration
+- server authentication
+- browser/live authentication support
+- perspective resolution
+- Draft Mode awareness
+- Sanity Live
 
-Example:
+These foundations do not mean that every Visual Editing or preview workflow is fully implemented.
 
-```env
-NEXT_PUBLIC_SANITY_PROJECT_ID=p5f7m1cp
-NEXT_PUBLIC_SANITY_DATASET=production
-NEXT_PUBLIC_SANITY_API_VERSION=2026-03-01
-```
+Additional application-level work may still be required before a complete editorial preview experience is exposed.
 
-`.env.local` should not be committed if it contains secrets.
+This distinction keeps infrastructure readiness separate from finished product functionality.
 
-Public Sanity configuration values such as project ID and dataset are not authentication credentials.
+---
 
-If private datasets, draft access, preview functionality, or authenticated mutations are introduced later, tokens must be treated as secrets and must never be exposed through `NEXT_PUBLIC_*` variables.
+# Testing
+
+Sanity integration behavior can be verified through dedicated internal test routes during development.
+
+Tests can be used to confirm:
+
+- frontend connectivity to Sanity
+- Site Settings fetching
+- generated data shape
+- live content updates
+- cache revalidation behavior
+
+Test routes are development infrastructure and should not contain secrets or sensitive server information.
+
+A test route being hidden from search engines does not make it private.
+
+Anything requiring genuine privacy should use proper authentication and authorization.
 
 ---
 
 # Future Extensions
 
-The integration may later include additional infrastructure such as:
+The integration can grow as the application requires additional CMS capabilities.
+
+Likely future additions include:
 
 ```text
 src/sanity/
-├── env.ts
-│
 └── lib/
-    ├── client.ts
-    ├── image.ts
-    ├── queries/
+    ├── fetch/
     │   ├── siteSettings.ts
     │   ├── posts.ts
     │   ├── categories.ts
     │   └── projects.ts
     │
-    └── ...
+    └── queries/
+        ├── siteSettings.ts
+        ├── posts.ts
+        ├── categories.ts
+        └── projects.ts
 ```
 
 Possible future capabilities include:
 
-- draft and preview support
-- Sanity Visual Editing
-- live content updates
-- generated Sanity types
-- typed GROQ query results
-- cache/revalidation integration
-- additional content queries
+- complete draft preview workflows
+- full Sanity Visual Editing integration
+- post and project route generation
+- additional typed content queries
+- richer image helpers
+- reusable metadata resolution utilities
+- structured-data builders backed by CMS content
+- additional global settings where editorial control is appropriate
 
-These should be introduced only when the application needs them.
+These should be introduced when the application actually needs them rather than pre-building unnecessary abstraction.
 
 ---
 
 # Design Principles
 
-The integration follows a few important rules.
+The integration follows several important rules.
 
-### 1. Sanity owns editable content
+## 1. Sanity owns editable content
 
-If a client should reasonably be able to change something globally, it should generally come from the CMS.
+If an editor should reasonably be able to change something globally, it should generally come from the CMS.
 
-### 2. Next.js owns application behavior
+## 2. Next.js owns application behavior
 
-Routing, canonical generation, metadata resolution, schema construction, robots rules, and other technical behavior belong to the application.
+Routing, canonical generation, metadata resolution, schema construction, robots rules, caching boundaries, and other technical behavior belong to the application.
 
-### 3. Avoid duplicated sources of truth
+## 3. Avoid duplicated sources of truth
 
 Global editable values should have one authoritative source whenever possible.
 
-### 4. SEO should work by default
+## 4. SEO should work by default
 
 Editors should not have to manually populate every SEO field.
 
 Content fields provide sensible defaults, while dedicated SEO fields provide optional overrides.
 
-### 5. Keep queries centralized
+## 5. Keep queries centralized
 
 GROQ should live in the Sanity integration layer rather than being scattered throughout UI components.
 
-### 6. Keep the integration reusable
+## 6. Separate queries from application-facing fetchers
+
+Queries define what data Sanity should return.
+
+Fetchers define how the application obtains and validates that data.
+
+Keeping these responsibilities separate makes both easier to maintain.
+
+## 7. Prefer generated types over duplicated manual types
+
+When Sanity TypeGen can derive a type from the real schema and query, that generated type should generally be preferred over manually recreating the same structure.
+
+## 8. Cache intentionally
+
+Reusable content and deterministic computation can benefit from caching.
+
+Request-specific, user-specific, or interactive behavior should not be cached merely to satisfy framework constraints.
+
+## 9. Keep secrets server-side
+
+Authentication tokens must never be exposed through public environment variables, rendered content, logs, or client-side code.
+
+## 10. Keep the integration reusable
 
 The Sanity infrastructure should remain sufficiently generic that it can be adapted to future service-business websites without rebuilding the CMS integration from scratch.
+
+## 11. Add infrastructure when there is a real requirement
+
+Avoid introducing authentication, preview systems, additional abstraction layers, or other infrastructure solely because they may be useful someday.
+
+The integration should grow alongside actual application requirements.
