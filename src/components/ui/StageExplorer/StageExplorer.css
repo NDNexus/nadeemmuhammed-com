@@ -118,6 +118,7 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.12em;
+  white-space: nowrap;
 }
 
 .stage-explorer-item__subtitle {
@@ -178,7 +179,7 @@
 
   .stage-explorer-item {
     flex: 0 0 auto;
-    min-width: 180px;
+    min-width: 250px;
   }
 
   .stage-explorer-item__subtitle {
@@ -259,5 +260,9 @@
   .stage-explorer-nav__arrow.is-hidden {
     opacity: 0;
     pointer-events: none;
+  }
+
+  .stage-explorer-item__content{
+    min-width: fit-content;
   }
 }
