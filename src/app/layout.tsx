@@ -36,6 +36,12 @@ const libreBaskerville = Libre_Baskerville({
   display: "swap",
 });
 
+/**
+ * Environment detection for conditional logic in the layout. This is used to determine if the application is running in a production environment or not. The value is derived from the VERCEL_ENV environment variable, which is set by Vercel during deployment. If the value of VERCEL_ENV is "production", then isProduction will be true; otherwise, it will be false. This can be useful for enabling or disabling certain features or behaviors based on the environment.
+ */
+
+const isProduction = process.env.VERCEL_ENV === "production";
+
 /* =========================================================
    GLOBAL METADATA
 
@@ -70,12 +76,12 @@ export const metadata: Metadata = {
   publisher: "Nadeem Muhammed",
 
   robots: {
-    index: true,
-    follow: true,
+    index: isProduction,
+    follow: isProduction,
 
     googleBot: {
-      index: true,
-      follow: true,
+      index: isProduction,
+      follow: isProduction,
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
