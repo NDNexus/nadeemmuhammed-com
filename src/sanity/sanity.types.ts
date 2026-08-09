@@ -589,6 +589,458 @@ export type AllSanitySchemaTypes =
   | SanityImageAsset
   | Geopoint;
 
+// Source: src/sanity/lib/queries/posts.ts
+// Variable: POSTS_QUERY
+// Query: *[  _type == "post" &&  defined(title) &&  defined(slug.current) &&  defined(excerpt) &&  defined(featuredImage.asset) &&  defined(featuredImage.alt) &&  defined(author) &&  defined(category) &&  defined(publishedAt)]  | order(publishedAt desc) {    _id,    title,    "slug": slug.current,    excerpt,    publishedAt,    featuredImage {      ...,      asset->    },    category-> {      _id,      name,      "slug": slug.current,      badgeTheme    },    tags[]-> {      _id,      name,      "slug": slug.current,      badgeTheme    },    author-> {      _id,      name,      "slug": slug.current    }  }
+export type POSTS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  publishedAt: string;
+  featuredImage: {
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash: string;
+      extension: string;
+      mimeType: string;
+      size: number;
+      assetId: string;
+      uploadId?: string;
+      path: string;
+      url: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
+  category: {
+    _id: string;
+    name: string;
+    slug: string;
+    badgeTheme:
+      | "amber"
+      | "blue"
+      | "cyan"
+      | "emerald"
+      | "indigo"
+      | "lime"
+      | "orange"
+      | "purple"
+      | "red"
+      | "rose"
+      | "sky"
+      | "slate"
+      | "stone"
+      | "teal"
+      | "violet"
+      | "yellow";
+  };
+  tags: Array<{
+    _id: string;
+    name: string;
+    slug: string;
+    badgeTheme:
+      | "amber"
+      | "blue"
+      | "cyan"
+      | "emerald"
+      | "indigo"
+      | "lime"
+      | "orange"
+      | "purple"
+      | "red"
+      | "rose"
+      | "sky"
+      | "slate"
+      | "stone"
+      | "teal"
+      | "violet"
+      | "yellow";
+  }> | null;
+  author: {
+    _id: string;
+    name: string;
+    slug: string;
+  };
+}>;
+
+// Source: src/sanity/lib/queries/posts.ts
+// Variable: POST_QUERY
+// Query: *[    _type == "post" &&    slug.current == $slug  ][0] {    _id,    _updatedAt,    title,    "slug": slug.current,    excerpt,    publishedAt,    featuredImage {      ...,      asset->    },    body[] {      ...,      _type == "image" => {        ...,        asset->      }    },    author-> {      _id,      name,      "slug": slug.current,      avatar {        ...,        asset->      },      bio,      website,      github,      linkedin,      x,      expertise    },    category-> {      _id,      name,      "slug": slug.current,      description,      badgeTheme    },    tags[]-> {      _id,      name,      "slug": slug.current,      badgeTheme    },    technologies[]-> {      _id,      title,      "slug": slug.current,      description,      logo {        ...,        asset->      },      badgeTheme    }  }
+export type POST_QUERY_RESULT = {
+  _id: string;
+  _updatedAt: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  publishedAt: string;
+  featuredImage: {
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash: string;
+      extension: string;
+      mimeType: string;
+      size: number;
+      assetId: string;
+      uploadId?: string;
+      path: string;
+      url: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
+  body: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href: string;
+          openInNewTab?: boolean;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        _key: string;
+        _type: "callout";
+        type: "info" | "note" | "warning";
+        title?: string;
+        content: Array<{
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href: string;
+            openInNewTab?: boolean;
+            _type: "link";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }>;
+      }
+    | {
+        _key: string;
+        _type: "code";
+        language?: string;
+        filename?: string;
+        code?: string;
+        highlightedLines?: Array<number>;
+      }
+    | {
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash: string;
+          extension: string;
+          mimeType: string;
+          size: number;
+          assetId: string;
+          uploadId?: string;
+          path: string;
+          url: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt: string;
+        caption?: string;
+        _type: "image";
+        _key: string;
+      }
+    | {
+        _key: string;
+        _type: "richTable";
+        rows: Array<
+          {
+            _key: string;
+          } & Row
+        >;
+        columnHeaders?: Array<
+          {
+            _key: string;
+          } & ColumnHeader
+        >;
+        hasColumnTitles?: boolean;
+        hasRowTitles?: boolean;
+        rowTitleWidth?: number;
+      }
+  >;
+  author: {
+    _id: string;
+    name: string;
+    slug: string;
+    avatar: {
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash: string;
+        extension: string;
+        mimeType: string;
+        size: number;
+        assetId: string;
+        uploadId?: string;
+        path: string;
+        url: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+    bio: PortableText | null;
+    website: string | null;
+    github: string | null;
+    linkedin: string | null;
+    x: string | null;
+    expertise: Array<string> | null;
+  };
+  category: {
+    _id: string;
+    name: string;
+    slug: string;
+    description: string | null;
+    badgeTheme:
+      | "amber"
+      | "blue"
+      | "cyan"
+      | "emerald"
+      | "indigo"
+      | "lime"
+      | "orange"
+      | "purple"
+      | "red"
+      | "rose"
+      | "sky"
+      | "slate"
+      | "stone"
+      | "teal"
+      | "violet"
+      | "yellow";
+  };
+  tags: Array<{
+    _id: string;
+    name: string;
+    slug: string;
+    badgeTheme:
+      | "amber"
+      | "blue"
+      | "cyan"
+      | "emerald"
+      | "indigo"
+      | "lime"
+      | "orange"
+      | "purple"
+      | "red"
+      | "rose"
+      | "sky"
+      | "slate"
+      | "stone"
+      | "teal"
+      | "violet"
+      | "yellow";
+  }> | null;
+  technologies: Array<{
+    _id: string;
+    title: string;
+    slug: string;
+    description: string | null;
+    logo: {
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash: string;
+        extension: string;
+        mimeType: string;
+        size: number;
+        assetId: string;
+        uploadId?: string;
+        path: string;
+        url: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+    badgeTheme:
+      | "amber"
+      | "blue"
+      | "cyan"
+      | "emerald"
+      | "indigo"
+      | "lime"
+      | "orange"
+      | "purple"
+      | "red"
+      | "rose"
+      | "sky"
+      | "slate"
+      | "stone"
+      | "teal"
+      | "violet"
+      | "yellow";
+  }> | null;
+} | null;
+
+// Source: src/sanity/lib/queries/posts.ts
+// Variable: POST_METADATA_QUERY
+// Query: *[    _type == "post" &&    slug.current == $slug  ][0] {    title,    "slug": slug.current,    excerpt,    publishedAt,    _updatedAt,    featuredImage {      ...,      asset->    },    metadata {      title,      description,      socialImage {        ...,        asset->      },      socialImageAlt,      canonical,      noIndex    },    author-> {      name    }  }
+export type POST_METADATA_QUERY_RESULT = {
+  title: string;
+  slug: string;
+  excerpt: string;
+  publishedAt: string;
+  _updatedAt: string;
+  featuredImage: {
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash: string;
+      extension: string;
+      mimeType: string;
+      size: number;
+      assetId: string;
+      uploadId?: string;
+      path: string;
+      url: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
+  metadata: {
+    title: string | null;
+    description: string | null;
+    socialImage: {
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash: string;
+        extension: string;
+        mimeType: string;
+        size: number;
+        assetId: string;
+        uploadId?: string;
+        path: string;
+        url: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+    socialImageAlt: string | null;
+    canonical: string | null;
+    noIndex: boolean | null;
+  } | null;
+  author: {
+    name: string;
+  };
+} | null;
+
+// Source: src/sanity/lib/queries/posts.ts
+// Variable: POST_SLUGS_QUERY
+// Query: *[    _type == "post" &&    defined(slug.current)  ] {    "slug": slug.current  }
+export type POST_SLUGS_QUERY_RESULT = Array<{
+  slug: string;
+}>;
+
 // Source: src/sanity/lib/queries/siteSettings.ts
 // Variable: SITE_SETTINGS_QUERY
 // Query: *[_type == "siteSettings"][0] {    _id,    siteName,    tagline,    siteDescription,    defaultSocialImage {      asset,      crop,      hotspot    },    contactEmail,    github,    linkedin,    x,    youtube,    instagram  }
@@ -614,6 +1066,10 @@ export type SITE_SETTINGS_QUERY_RESULT = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    '\n  *[\n  _type == "post" &&\n  defined(title) &&\n  defined(slug.current) &&\n  defined(excerpt) &&\n  defined(featuredImage.asset) &&\n  defined(featuredImage.alt) &&\n  defined(author) &&\n  defined(category) &&\n  defined(publishedAt)\n]\n  | order(publishedAt desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    excerpt,\n    publishedAt,\n\n    featuredImage {\n      ...,\n      asset->\n    },\n\n    category-> {\n      _id,\n      name,\n      "slug": slug.current,\n      badgeTheme\n    },\n\n    tags[]-> {\n      _id,\n      name,\n      "slug": slug.current,\n      badgeTheme\n    },\n\n    author-> {\n      _id,\n      name,\n      "slug": slug.current\n    }\n  }\n': POSTS_QUERY_RESULT;
+    '\n  *[\n    _type == "post" &&\n    slug.current == $slug\n  ][0] {\n    _id,\n    _updatedAt,\n\n    title,\n    "slug": slug.current,\n    excerpt,\n    publishedAt,\n\n    featuredImage {\n      ...,\n      asset->\n    },\n\n    body[] {\n      ...,\n\n      _type == "image" => {\n        ...,\n        asset->\n      }\n    },\n\n    author-> {\n      _id,\n      name,\n      "slug": slug.current,\n      avatar {\n        ...,\n        asset->\n      },\n      bio,\n      website,\n      github,\n      linkedin,\n      x,\n      expertise\n    },\n\n    category-> {\n      _id,\n      name,\n      "slug": slug.current,\n      description,\n      badgeTheme\n    },\n\n    tags[]-> {\n      _id,\n      name,\n      "slug": slug.current,\n      badgeTheme\n    },\n\n    technologies[]-> {\n      _id,\n      title,\n      "slug": slug.current,\n      description,\n      logo {\n        ...,\n        asset->\n      },\n      badgeTheme\n    }\n  }\n': POST_QUERY_RESULT;
+    '\n  *[\n    _type == "post" &&\n    slug.current == $slug\n  ][0] {\n    title,\n    "slug": slug.current,\n    excerpt,\n    publishedAt,\n    _updatedAt,\n\n    featuredImage {\n      ...,\n      asset->\n    },\n\n    metadata {\n      title,\n      description,\n\n      socialImage {\n        ...,\n        asset->\n      },\n\n      socialImageAlt,\n      canonical,\n      noIndex\n    },\n\n    author-> {\n      name\n    }\n  }\n': POST_METADATA_QUERY_RESULT;
+    '\n  *[\n    _type == "post" &&\n    defined(slug.current)\n  ] {\n    "slug": slug.current\n  }\n': POST_SLUGS_QUERY_RESULT;
     '\n  *[_type == "siteSettings"][0] {\n    _id,\n\n    siteName,\n    tagline,\n    siteDescription,\n\n    defaultSocialImage {\n      asset,\n      crop,\n      hotspot\n    },\n\n    contactEmail,\n\n    github,\n    linkedin,\n    x,\n    youtube,\n    instagram\n  }\n': SITE_SETTINGS_QUERY_RESULT;
   }
 }

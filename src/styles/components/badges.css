@@ -1,0 +1,220 @@
+/**
+ * =========================================================
+ * NADEEM MUHAMMED DESIGN SYSTEM — BADGES
+ * =========================================================
+ *
+ * PURPOSE
+ * ---------------------------------------------------------
+ * Provides the reusable badge component used for
+ * categorical labels across the website.
+ *
+ * COMMON USES
+ * ---------------------------------------------------------
+ * - Categories
+ * - Tags
+ * - Technologies
+ * - Topics
+ * - Other CMS-controlled labels
+ *
+ * THEMING
+ * ---------------------------------------------------------
+ * Badge themes are selected by the CMS using a theme name:
+ *
+ *   "blue"
+ *   "emerald"
+ *   "purple"
+ *   etc.
+ *
+ * The badge maps that theme to semantic design tokens
+ * defined in tokens.css:
+ *
+ *   --color-badge-{theme}-fg
+ *   --color-badge-{theme}-bg
+ *   --color-badge-{theme}-border
+ *
+ * The component does not contain colour values.
+ *
+ * STRUCTURE
+ * ---------------------------------------------------------
+ * <span class="badge" data-theme="blue">
+ *   Category name
+ * </span>
+ *
+ * PRINCIPLES
+ * ---------------------------------------------------------
+ * - Small and unobtrusive
+ * - Readable text
+ * - Subtle tinted background
+ * - Matching border
+ * - Consistent spacing
+ * - Theme controlled by the design system
+ * - No content-specific styling
+ *
+ * =========================================================
+ */
+
+ @layer components {
+
+  /* =========================================================
+     BASE BADGE
+  ========================================================= */
+
+  .badge {
+    /* Theme defaults */
+    --badge-fg: var(--color-fg-default);
+    --badge-bg: transparent;
+    --badge-border: var(--color-default);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: fit-content;
+    max-width: 100%;
+
+    padding: 0.25rem 0.55rem;
+
+    border: 1px solid var(--badge-border);
+    border-radius: var(--radius-full);
+
+    background: var(--badge-bg);
+    color: var(--badge-fg);
+
+    font-size: 0.7rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease;
+  }
+
+
+  /* =========================================================
+     BADGE THEMES
+  ========================================================= */
+
+  .badge[data-theme="slate"] {
+    --badge-fg: var(--color-badge-slate-fg);
+    --badge-bg: var(--color-badge-slate-bg);
+    --badge-border: var(--color-badge-slate-border);
+  }
+
+  .badge[data-theme="stone"] {
+    --badge-fg: var(--color-badge-stone-fg);
+    --badge-bg: var(--color-badge-stone-bg);
+    --badge-border: var(--color-badge-stone-border);
+  }
+
+  .badge[data-theme="rose"] {
+    --badge-fg: var(--color-badge-rose-fg);
+    --badge-bg: var(--color-badge-rose-bg);
+    --badge-border: var(--color-badge-rose-border);
+  }
+
+  .badge[data-theme="red"] {
+    --badge-fg: var(--color-badge-red-fg);
+    --badge-bg: var(--color-badge-red-bg);
+    --badge-border: var(--color-badge-red-border);
+  }
+
+  .badge[data-theme="orange"] {
+    --badge-fg: var(--color-badge-orange-fg);
+    --badge-bg: var(--color-badge-orange-bg);
+    --badge-border: var(--color-badge-orange-border);
+  }
+
+  .badge[data-theme="amber"] {
+    --badge-fg: var(--color-badge-amber-fg);
+    --badge-bg: var(--color-badge-amber-bg);
+    --badge-border: var(--color-badge-amber-border);
+  }
+
+  .badge[data-theme="yellow"] {
+    --badge-fg: var(--color-badge-yellow-fg);
+    --badge-bg: var(--color-badge-yellow-bg);
+    --badge-border: var(--color-badge-yellow-border);
+  }
+
+  .badge[data-theme="lime"] {
+    --badge-fg: var(--color-badge-lime-fg);
+    --badge-bg: var(--color-badge-lime-bg);
+    --badge-border: var(--color-badge-lime-border);
+  }
+
+  .badge[data-theme="emerald"] {
+    --badge-fg: var(--color-badge-emerald-fg);
+    --badge-bg: var(--color-badge-emerald-bg);
+    --badge-border: var(--color-badge-emerald-border);
+  }
+
+  .badge[data-theme="teal"] {
+    --badge-fg: var(--color-badge-teal-fg);
+    --badge-bg: var(--color-badge-teal-bg);
+    --badge-border: var(--color-badge-teal-border);
+  }
+
+  .badge[data-theme="cyan"] {
+    --badge-fg: var(--color-badge-cyan-fg);
+    --badge-bg: var(--color-badge-cyan-bg);
+    --badge-border: var(--color-badge-cyan-border);
+  }
+
+  .badge[data-theme="sky"] {
+    --badge-fg: var(--color-badge-sky-fg);
+    --badge-bg: var(--color-badge-sky-bg);
+    --badge-border: var(--color-badge-sky-border);
+  }
+
+  .badge[data-theme="blue"] {
+    --badge-fg: var(--color-badge-blue-fg);
+    --badge-bg: var(--color-badge-blue-bg);
+    --badge-border: var(--color-badge-blue-border);
+  }
+
+  .badge[data-theme="indigo"] {
+    --badge-fg: var(--color-badge-indigo-fg);
+    --badge-bg: var(--color-badge-indigo-bg);
+    --badge-border: var(--color-badge-indigo-border);
+  }
+
+  .badge[data-theme="violet"] {
+    --badge-fg: var(--color-badge-violet-fg);
+    --badge-bg: var(--color-badge-violet-bg);
+    --badge-border: var(--color-badge-violet-border);
+  }
+
+  .badge[data-theme="purple"] {
+    --badge-fg: var(--color-badge-purple-fg);
+    --badge-bg: var(--color-badge-purple-bg);
+    --badge-border: var(--color-badge-purple-border);
+  }
+
+
+  /* =========================================================
+     OPTIONAL INTERACTION
+  ========================================================= */
+
+  /*
+   * Badges are normally informational and therefore have
+   * no hover treatment.
+   *
+   * If a badge later becomes interactive, create an explicit
+   * interactive variant rather than making every badge behave
+   * like a button.
+   */
+
+
+  /* =========================================================
+     ACCESSIBILITY
+  ========================================================= */
+
+  @media (prefers-reduced-motion: reduce) {
+    .badge {
+      transition: none;
+    }
+  }
+
+}

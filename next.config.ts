@@ -19,6 +19,18 @@ import { sanity } from "next-sanity/live/cache-life";
 
 const nextConfig: NextConfig = {
   /* =========================================================
+     SANITY IMAGE CDN
+  ========================================================= */
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
+    ],
+  },
+
+  /* =========================================================
      CACHE COMPONENTS
   ========================================================= */
 

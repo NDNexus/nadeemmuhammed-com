@@ -25,7 +25,6 @@
    primitives stay constant. Components never need to know.
    ============================================================ */
 
-
 /* ============================================================
    TIER 0 — PRIMITIVE PALETTE
    ─────────────────────────────────────────────────────────────
@@ -38,57 +37,118 @@
    ============================================================ */
 
 :root {
-   /* darkest navy — core brand dark */
-   --palette-prussian-blue: #02102B;
+  /* darkest navy — core brand dark */
+  --palette-prussian-blue: #02102b;
 
-   /* rich navy — secondary dark */
-   --palette-imperial-blue: #052261;
+  /* rich navy — secondary dark */
+  --palette-imperial-blue: #052261;
 
-   /* deep rose — accent primary */
-   --palette-rosewood: #BB3A60;
+  /* deep rose — accent primary */
+  --palette-rosewood: #bb3a60;
 
-   /* slate-600 — body text */
-   --palette-blue-slate: #475569;
+  /* slate-600 — body text */
+  --palette-blue-slate: #475569;
 
-   /* medium gray — muted/subtle text */
-   --palette-cool-steel: #979FAB;
+  /* medium gray — muted/subtle text */
+  --palette-cool-steel: #979fab;
 
-   /* light gray — borders, dividers */
-   --palette-platinum: #E6E8ED;
+  /* light gray — borders, dividers */
+  --palette-platinum: #e6e8ed;
 
-   /* pure white */
-   --palette-white: #FFFFFF;
+  /* pure white */
+  --palette-white: #ffffff;
 
-   /* warm off-white — alt backgrounds */
-   --palette-parchment: #F5F1EB;
+  /* warm off-white — alt backgrounds */
+  --palette-parchment: #f5f1eb;
 
-   /* light blue — highlights, tints */
-   --palette-icy-blue: #B9E0FA;
+  /* light blue — highlights, tints */
+  --palette-icy-blue: #b9e0fa;
 
-   /* Derived primitives (computed from base palette)
+  /* Derived primitives (computed from base palette)
      Used when a specific shade between two swatches is needed. */
-   --palette-prussian-blue-90: color-mix(in srgb, var(--palette-prussian-blue) 90%, white);
+  --palette-prussian-blue-90: color-mix(in srgb, var(--palette-prussian-blue) 90%, white);
 
-   /* light icy blue tint for section highlights */
-   --palette-icy-blue-30: color-mix(in srgb, var(--palette-icy-blue) 30%, white);
+  /* light icy blue tint for section highlights */
+  --palette-icy-blue-30: color-mix(in srgb, var(--palette-icy-blue) 30%, white);
 
-   /* light rosewood tint for interactive elements */
-   --palette-rosewood-90: color-mix(in srgb, var(--palette-rosewood) 90%, white);
+  /* light rosewood tint for interactive elements */
+  --palette-rosewood-90: color-mix(in srgb, var(--palette-rosewood) 90%, white);
 
-   /* light rosewood tint for secondary buttons */
-   --palette-rosewood-10: color-mix(in srgb, var(--palette-rosewood) 10%, white);
-   --palette-rosewood-15: color-mix(in srgb, var(--palette-rosewood) 15%, white);
+  /* light rosewood tint for secondary buttons */
+  --palette-rosewood-10: color-mix(in srgb, var(--palette-rosewood) 10%, white);
+  --palette-rosewood-15: color-mix(in srgb, var(--palette-rosewood) 15%, white);
 
-   /* Derived platinum for subtle borders */
-   --palette-platinum-50: color-mix(in srgb, var(--palette-platinum) 50%, white);
+  /* Derived platinum for subtle borders */
+  --palette-platinum-50: color-mix(in srgb, var(--palette-platinum) 50%, white);
 
-   /* Derived tints for overlays */
-   --palette-prussian-blue-80: color-mix(in srgb, var(--palette-prussian-blue) 80%, white);
-   --palette-prussian-blue-10: color-mix(in srgb, var(--palette-prussian-blue) 10%, white);
+  /* Derived tints for overlays */
+  --palette-prussian-blue-80: color-mix(in srgb, var(--palette-prussian-blue) 80%, white);
+  --palette-prussian-blue-10: color-mix(in srgb, var(--palette-prussian-blue) 10%, white);
 
-   --palette-white-50: rgb(255 255 255 / 50%);
+  --palette-white-50: rgb(255 255 255 / 50%);
+
+  /* ============================================================
+   BADGE THEME PALETTE — TIER 0
+   ─────────────────────────────────────────────────────────────
+   These are the base hue values used by the badge theme system.
+
+   The CMS stores ONLY the theme name:
+     "blue"
+     "purple"
+     "emerald"
+     etc.
+
+   These primitives are never referenced directly by components.
+   Tier 1 semantic badge tokens handle that.
+
+   Each hue is intentionally restrained so badges remain:
+   - readable
+   - professional
+   - visually distinct
+   - suitable for both categories and tags
+   ============================================================ */
+
+  /* ──────────────────────────────────────────────────────────
+      Neutral
+      ────────────────────────────────────────────────────────── */
+
+  --palette-badge-slate: #475569;
+  --palette-badge-stone: #57534e;
+
+  /* ──────────────────────────────────────────────────────────
+      Warm
+      ────────────────────────────────────────────────────────── */
+
+  --palette-badge-rose: #be123c;
+  --palette-badge-red: #b91c1c;
+  --palette-badge-orange: #c2410c;
+  --palette-badge-amber: #b45309;
+  --palette-badge-yellow: #a16207;
+
+  /* ──────────────────────────────────────────────────────────
+      Green
+      ────────────────────────────────────────────────────────── */
+
+  --palette-badge-lime: #4d7c0f;
+  --palette-badge-emerald: #047857;
+  --palette-badge-teal: #0f766e;
+
+  /* ──────────────────────────────────────────────────────────
+      Blue
+      ────────────────────────────────────────────────────────── */
+
+  --palette-badge-cyan: #0e7490;
+  --palette-badge-sky: #0369a1;
+  --palette-badge-blue: #1d4ed8;
+  --palette-badge-indigo: #4338ca;
+
+  /* ──────────────────────────────────────────────────────────
+      Purple
+      ────────────────────────────────────────────────────────── */
+
+  --palette-badge-violet: #6d28d9;
+  --palette-badge-purple: #7e22ce;
 }
-
 
 /* ============================================================
    TIER 1 — SEMANTIC TOKENS
@@ -115,17 +175,15 @@
    ============================================================ */
 
 @theme inline {
-
-   /* ──────────────────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
      FONTS
      ────────────────────────────────────────────────────────── */
 
-   --font-sans: var(--font-ibm-plex-sans);
-   --font-serif: var(--font-libre-baskerville);
-   --font-mono: var(--font-ibm-plex-mono);
+  --font-sans: var(--font-ibm-plex-sans);
+  --font-serif: var(--font-libre-baskerville);
+  --font-mono: var(--font-ibm-plex-mono);
 
-
-   /* ──────────────────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
      CANVAS — Page-level backgrounds
 
      Used by: <body>, section wrappers, page-level layout
@@ -137,13 +195,12 @@
      highlight → light callout or tinted sections
      ────────────────────────────────────────────────────────── */
 
-   --color-canvas-default: var(--palette-white);
-   --color-canvas-subtle: var(--palette-parchment);
-   --color-canvas-dark: var(--palette-prussian-blue);
-   --color-canvas-highlight: var(--palette-icy-blue-30);
+  --color-canvas-default: var(--palette-white);
+  --color-canvas-subtle: var(--palette-parchment);
+  --color-canvas-dark: var(--palette-prussian-blue);
+  --color-canvas-highlight: var(--palette-icy-blue-30);
 
-
-   /* ──────────────────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
      SURFACE — Component-level backgrounds
 
      Used by: Card, Dropdown, Modal, Tooltip, Sidebar, Navbar
@@ -156,26 +213,48 @@
      inverse   → card on dark canvas (e.g., white card in dark footer)
      ────────────────────────────────────────────────────────── */
 
-   --color-surface-default: var(--palette-white);
-   --color-surface-raised: var(--palette-white);
-   /* pair with shadow utility */
-   --color-surface-overlay: var(--palette-white);
-   --color-surface-dark: var(--palette-prussian-blue-90);
-   --color-surface-inverse: var(--palette-icy-blue);
+  --color-surface-default: var(--palette-white);
+  --color-surface-raised: var(--palette-white);
+  /* pair with shadow utility */
+  --color-surface-overlay: var(--palette-white);
+  --color-surface-dark: var(--palette-prussian-blue-90);
+  --color-surface-inverse: var(--palette-icy-blue);
 
-   /* Gradient surface for cards and panels */
-   --color-surface-gradient: linear-gradient(180deg, var(--palette-icy-blue) 0%, var(--palette-rosewood-10) 100%);
+  /* Gradient surface for cards and panels */
+  --color-surface-gradient: linear-gradient(
+    180deg,
+    var(--palette-icy-blue) 0%,
+    var(--palette-rosewood-10) 100%
+  );
 
+  /* Gradients */
+  --background-image-gradient-brand: linear-gradient(
+    135deg,
+    var(--palette-rosewood) 0%,
+    color-mix(in srgb, var(--palette-rosewood) 85%, white) 100%
+  );
+  --background-image-gradient-deep: linear-gradient(
+    135deg,
+    var(--palette-prussian-blue) 0%,
+    var(--palette-imperial-blue) 100%
+  );
+  --background-image-gradient-subtle: linear-gradient(
+    180deg,
+    var(--palette-parchment) 0%,
+    white 100%
+  );
+  --background-image-gradient-luminous: linear-gradient(
+    135deg,
+    var(--palette-icy-blue-30) 0%,
+    var(--palette-icy-blue) 100%
+  );
+  --background-image-gradient-interactive: linear-gradient(
+    135deg,
+    var(--palette-rosewood-10) 0%,
+    var(--palette-rosewood-15) 100%
+  );
 
-   /* Gradients */
-   --background-image-gradient-brand: linear-gradient(135deg, var(--palette-rosewood) 0%, color-mix(in srgb, var(--palette-rosewood) 85%, white) 100%);
-   --background-image-gradient-deep: linear-gradient(135deg, var(--palette-prussian-blue) 0%, var(--palette-imperial-blue) 100%);
-   --background-image-gradient-subtle: linear-gradient(180deg, var(--palette-parchment) 0%, white 100%);
-   --background-image-gradient-luminous: linear-gradient(135deg, var(--palette-icy-blue-30) 0%, var(--palette-icy-blue) 100%);
-   --background-image-gradient-interactive: linear-gradient(135deg, var(--palette-rosewood-10) 0%, var(--palette-rosewood-15) 100%);
-
-
-   /* ──────────────────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
      FOREGROUND — All text and icon content
 
      Used by: <p>, <span>, <li>, icons, captions, labels
@@ -196,18 +275,17 @@
      because the value must change independently of default text.
      ────────────────────────────────────────────────────────── */
 
-   --color-fg-default: var(--palette-blue-slate);
-   --color-fg-subtle: var(--palette-cool-steel);
-   --color-fg-muted: color-mix(in srgb, var(--palette-cool-steel) 80%, white);
-   --color-fg-placeholder: color-mix(in srgb, var(--palette-cool-steel) 60%, white);
-   --color-fg-on-dark: var(--palette-white);
-   --color-fg-on-dark-subtle: var(--palette-white-50);
-   --color-fg-on-emphasis: var(--palette-icy-blue);
-   --color-fg-link: var(--palette-rosewood);
-   --color-fg-link-hover: var(--palette-rosewood);
+  --color-fg-default: var(--palette-blue-slate);
+  --color-fg-subtle: var(--palette-cool-steel);
+  --color-fg-muted: color-mix(in srgb, var(--palette-cool-steel) 80%, white);
+  --color-fg-placeholder: color-mix(in srgb, var(--palette-cool-steel) 60%, white);
+  --color-fg-on-dark: var(--palette-white);
+  --color-fg-on-dark-subtle: var(--palette-white-50);
+  --color-fg-on-emphasis: var(--palette-icy-blue);
+  --color-fg-link: var(--palette-rosewood);
+  --color-fg-link-hover: var(--palette-rosewood);
 
-
-   /* ──────────────────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
      HEADING — Heading-specific text colors
 
      Used by: h1–h6, display text, section titles
@@ -219,13 +297,12 @@
      accent    → decorative headings with brand accent
      ────────────────────────────────────────────────────────── */
 
-   --color-heading-primary: var(--palette-prussian-blue);
-   --color-heading-secondary: var(--palette-imperial-blue);
-   --color-heading-on-dark: var(--palette-white);
-   --color-heading-accent: var(--palette-rosewood);
+  --color-heading-primary: var(--palette-prussian-blue);
+  --color-heading-secondary: var(--palette-imperial-blue);
+  --color-heading-on-dark: var(--palette-white);
+  --color-heading-accent: var(--palette-rosewood);
 
-
-   /* ──────────────────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
      INTERACTIVE — Buttons, links, focusable elements
 
      Used by: Button, Link, Checkbox, Radio, Select, Switch
@@ -245,37 +322,36 @@
      focus-ring → keyboard focus indicator (outline)
      ────────────────────────────────────────────────────────── */
 
-   /* Primary button */
-   --color-interactive-primary: var(--palette-prussian-blue);
-   --color-interactive-primary-hover: var(--palette-imperial-blue);
-   --color-interactive-primary-active: color-mix(in srgb, var(--palette-imperial-blue) 85%, black);
-   --color-interactive-primary-fg: var(--palette-white);
+  /* Primary button */
+  --color-interactive-primary: var(--palette-prussian-blue);
+  --color-interactive-primary-hover: var(--palette-imperial-blue);
+  --color-interactive-primary-active: color-mix(in srgb, var(--palette-imperial-blue) 85%, black);
+  --color-interactive-primary-fg: var(--palette-white);
 
-   /* Secondary button (outline/bordered style) */
-   --color-interactive-secondary: transparent;
-   --color-interactive-secondary-hover: var(--palette-rosewood-10);
-   --color-interactive-secondary-active: var(--palette-rosewood-15);
-   --color-interactive-secondary-fg: var(--palette-rosewood);
-   --color-interactive-secondary-border: var(--palette-rosewood);
+  /* Secondary button (outline/bordered style) */
+  --color-interactive-secondary: transparent;
+  --color-interactive-secondary-hover: var(--palette-rosewood-10);
+  --color-interactive-secondary-active: var(--palette-rosewood-15);
+  --color-interactive-secondary-fg: var(--palette-rosewood);
+  --color-interactive-secondary-border: var(--palette-rosewood);
 
-   /* Ghost button (text-only) */
-   --color-interactive-ghost: transparent;
-   --color-interactive-ghost-hover: var(--palette-platinum-50);
-   --color-interactive-ghost-fg: var(--palette-blue-slate);
+  /* Ghost button (text-only) */
+  --color-interactive-ghost: transparent;
+  --color-interactive-ghost-hover: var(--palette-platinum-50);
+  --color-interactive-ghost-fg: var(--palette-blue-slate);
 
-   /* Accent button (filled rosewood — use for CTAs in dark sections) */
-   --color-interactive-accent: var(--palette-rosewood);
-   --color-interactive-accent-hover: var(--palette-rosewood-90);
-   --color-interactive-accent-active: color-mix(in srgb, var(--palette-rosewood) 85%, black);
-   --color-interactive-accent-fg: var(--palette-white);
+  /* Accent button (filled rosewood — use for CTAs in dark sections) */
+  --color-interactive-accent: var(--palette-rosewood);
+  --color-interactive-accent-hover: var(--palette-rosewood-90);
+  --color-interactive-accent-active: color-mix(in srgb, var(--palette-rosewood) 85%, black);
+  --color-interactive-accent-fg: var(--palette-white);
 
-   /* Shared interactive states */
-   --color-interactive-disabled-bg: var(--palette-cool-steel);
-   --color-interactive-disabled-fg: var(--palette-white);
-   --color-interactive-focus-ring: var(--palette-rosewood);
+  /* Shared interactive states */
+  --color-interactive-disabled-bg: var(--palette-cool-steel);
+  --color-interactive-disabled-fg: var(--palette-white);
+  --color-interactive-focus-ring: var(--palette-rosewood);
 
-
-   /* ──────────────────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
      BORDER — All borders, dividers, rules
 
      Used by: hr, table rows, card edges, input outlines, dividers
@@ -291,16 +367,13 @@
        border-focus → the border color change on the element itself
      ────────────────────────────────────────────────────────── */
 
-   --color-default: var(--palette-platinum);
-   --color-subtle: var(--palette-platinum-50);
-   --color-strong: var(--palette-prussian-blue);
-   --color-accent: var(--palette-rosewood);
-   --color-focus: var(--palette-imperial-blue);
+  --color-default: var(--palette-platinum);
+  --color-subtle: var(--palette-platinum-50);
+  --color-strong: var(--palette-prussian-blue);
+  --color-accent: var(--palette-rosewood);
+  --color-focus: var(--palette-imperial-blue);
 
-
-
-
-   /* ──────────────────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
      FEEDBACK — Status and alert states
 
      Used by: Alert, Toast, Badge, FormField (validation), Banner
@@ -316,39 +389,37 @@
        readable text. One token per state is insufficient.
      ────────────────────────────────────────────────────────── */
 
-   /* Success */
-   --color-feedback-success: #16a34a;
-   --color-feedback-success-bg: color-mix(in srgb, #16a34a 8%, white);
-   --color-feedback-success-fg: #14532d;
+  /* Success */
+  --color-feedback-success: #16a34a;
+  --color-feedback-success-bg: color-mix(in srgb, #16a34a 8%, white);
+  --color-feedback-success-fg: #14532d;
 
-   /* Warning */
-   --color-feedback-warning: #d97706;
-   --color-feedback-warning-bg: color-mix(in srgb, #d97706 10%, white);
-   --color-feedback-warning-fg: #78350f;
+  /* Warning */
+  --color-feedback-warning: #d97706;
+  --color-feedback-warning-bg: color-mix(in srgb, #d97706 10%, white);
+  --color-feedback-warning-fg: #78350f;
 
-   /* Error */
-   --color-feedback-error: #dc2626;
-   --color-feedback-error-bg: color-mix(in srgb, #dc2626 8%, white);
-   --color-feedback-error-fg: #7f1d1d;
+  /* Error */
+  --color-feedback-error: #dc2626;
+  --color-feedback-error-bg: color-mix(in srgb, #dc2626 8%, white);
+  --color-feedback-error-fg: #7f1d1d;
 
-   /* Info */
-   --color-feedback-info: var(--palette-imperial-blue);
-   --color-feedback-info-bg: color-mix(in srgb, var(--palette-imperial-blue) 8%, white);
-   --color-feedback-info-fg: var(--palette-prussian-blue);
+  /* Info */
+  --color-feedback-info: var(--palette-imperial-blue);
+  --color-feedback-info-bg: color-mix(in srgb, var(--palette-imperial-blue) 8%, white);
+  --color-feedback-info-fg: var(--palette-prussian-blue);
 
-
-   /* ──────────────────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
      OVERLAY — Scrims and dimming layers
 
      Used by: Modal backdrop, Drawer backdrop, Dropdown scrim
      Not for: backgrounds of opaque components
      ────────────────────────────────────────────────────────── */
 
-   --color-overlay-scrim: var(--palette-prussian-blue-80);
-   --color-overlay-tint: var(--palette-prussian-blue-10);
+  --color-overlay-scrim: var(--palette-prussian-blue-80);
+  --color-overlay-tint: var(--palette-prussian-blue-10);
 
-
-   /* ──────────────────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
      SPACING SCALE
 
      xs → tight component padding (badges, tags, chips)
@@ -358,46 +429,180 @@
      xl → major section vertical rhythm
      ────────────────────────────────────────────────────────── */
 
-   --space-xs: 0.5rem;
-   /*  8px */
-   --space-sm: 0.75rem;
-   /* 12px */
-   --space-md: 1rem;
-   /* 16px */
-   --space-lg: 1.5rem;
-   /* 24px */
-   --space-xl: 2rem;
-   /* 32px */
-   --space-2xl: 3rem;
-   /* 48px */
-   --space-3xl: 5rem;
-   /* 80px */
+  --space-xs: 0.5rem;
+  /*  8px */
+  --space-sm: 0.75rem;
+  /* 12px */
+  --space-md: 1rem;
+  /* 16px */
+  --space-lg: 1.5rem;
+  /* 24px */
+  --space-xl: 2rem;
+  /* 32px */
+  --space-2xl: 3rem;
+  /* 48px */
+  --space-3xl: 5rem;
+  /* 80px */
 
-
-   /* ──────────────────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
      BORDER RADIUS SCALE
      ────────────────────────────────────────────────────────── */
 
-   --radius-sm: 0.25rem;
-   /* 4px  — inputs, small badges */
-   --radius-md: 0.5rem;
-   /* 8px  — cards, buttons */
-   --radius-lg: 0.75rem;
-   /* 12px — large cards, modals */
-   --radius-xl: 1rem;
-   /* 16px — hero illustrations, feature cards */
-   --radius-full: 999px;
-   /* pills, avatar rings */
+  --radius-sm: 0.25rem;
+  /* 4px  — inputs, small badges */
+  --radius-md: 0.5rem;
+  /* 8px  — cards, buttons */
+  --radius-lg: 0.75rem;
+  /* 12px — large cards, modals */
+  --radius-xl: 1rem;
+  /* 16px — hero illustrations, feature cards */
+  --radius-full: 999px;
+  /* pills, avatar rings */
 
-
-   /* ──────────────────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
      LAYOUT TOKENS
      ────────────────────────────────────────────────────────── */
 
-   --navbar-height: 64px;
-   /* default: mobile */
-}
+  --navbar-height: 64px;
+  /* default: mobile */
 
+     /* ──────────────────────────────────────────────────────────
+     BADGE THEMES — Categorical Colour System
+
+     Used by:
+       - Categories
+       - Tags
+       - Technologies
+       - Other CMS-controlled labels
+
+     The CMS stores only a theme name such as "blue".
+
+     Each theme provides three semantic roles:
+
+       fg      → readable text / icon colour
+       bg      → subtle tinted background
+       border  → matching but restrained border
+
+     Components never reference the palette directly.
+
+     Example:
+       --color-badge-blue-fg
+       --color-badge-blue-bg
+       --color-badge-blue-border
+     ────────────────────────────────────────────────────────── */
+
+
+   /* Neutral — Slate */
+
+   --color-badge-slate-fg: var(--palette-badge-slate);
+   --color-badge-slate-bg: color-mix(in srgb, var(--palette-badge-slate) 8%, transparent);
+   --color-badge-slate-border: color-mix(in srgb, var(--palette-badge-slate) 28%, transparent);
+
+
+   /* Neutral — Stone */
+
+   --color-badge-stone-fg: var(--palette-badge-stone);
+   --color-badge-stone-bg: color-mix(in srgb, var(--palette-badge-stone) 8%, transparent);
+   --color-badge-stone-border: color-mix(in srgb, var(--palette-badge-stone) 28%, transparent);
+
+
+   /* Warm — Rose */
+
+   --color-badge-rose-fg: var(--palette-badge-rose);
+   --color-badge-rose-bg: color-mix(in srgb, var(--palette-badge-rose) 8%, transparent);
+   --color-badge-rose-border: color-mix(in srgb, var(--palette-badge-rose) 28%, transparent);
+
+
+   /* Warm — Red */
+
+   --color-badge-red-fg: var(--palette-badge-red);
+   --color-badge-red-bg: color-mix(in srgb, var(--palette-badge-red) 8%, transparent);
+   --color-badge-red-border: color-mix(in srgb, var(--palette-badge-red) 28%, transparent);
+
+
+   /* Warm — Orange */
+
+   --color-badge-orange-fg: var(--palette-badge-orange);
+   --color-badge-orange-bg: color-mix(in srgb, var(--palette-badge-orange) 8%, transparent);
+   --color-badge-orange-border: color-mix(in srgb, var(--palette-badge-orange) 28%, transparent);
+
+
+   /* Warm — Amber */
+
+   --color-badge-amber-fg: var(--palette-badge-amber);
+   --color-badge-amber-bg: color-mix(in srgb, var(--palette-badge-amber) 8%, transparent);
+   --color-badge-amber-border: color-mix(in srgb, var(--palette-badge-amber) 28%, transparent);
+
+
+   /* Warm — Yellow */
+
+   --color-badge-yellow-fg: var(--palette-badge-yellow);
+   --color-badge-yellow-bg: color-mix(in srgb, var(--palette-badge-yellow) 8%, transparent);
+   --color-badge-yellow-border: color-mix(in srgb, var(--palette-badge-yellow) 28%, transparent);
+
+
+   /* Green — Lime */
+
+   --color-badge-lime-fg: var(--palette-badge-lime);
+   --color-badge-lime-bg: color-mix(in srgb, var(--palette-badge-lime) 8%, transparent);
+   --color-badge-lime-border: color-mix(in srgb, var(--palette-badge-lime) 28%, transparent);
+
+
+   /* Green — Emerald */
+
+   --color-badge-emerald-fg: var(--palette-badge-emerald);
+   --color-badge-emerald-bg: color-mix(in srgb, var(--palette-badge-emerald) 8%, transparent);
+   --color-badge-emerald-border: color-mix(in srgb, var(--palette-badge-emerald) 28%, transparent);
+
+
+   /* Green — Teal */
+
+   --color-badge-teal-fg: var(--palette-badge-teal);
+   --color-badge-teal-bg: color-mix(in srgb, var(--palette-badge-teal) 8%, transparent);
+   --color-badge-teal-border: color-mix(in srgb, var(--palette-badge-teal) 28%, transparent);
+
+
+   /* Blue — Cyan */
+
+   --color-badge-cyan-fg: var(--palette-badge-cyan);
+   --color-badge-cyan-bg: color-mix(in srgb, var(--palette-badge-cyan) 8%, transparent);
+   --color-badge-cyan-border: color-mix(in srgb, var(--palette-badge-cyan) 28%, transparent);
+
+
+   /* Blue — Sky */
+
+   --color-badge-sky-fg: var(--palette-badge-sky);
+   --color-badge-sky-bg: color-mix(in srgb, var(--palette-badge-sky) 8%, transparent);
+   --color-badge-sky-border: color-mix(in srgb, var(--palette-badge-sky) 28%, transparent);
+
+
+   /* Blue — Blue */
+
+   --color-badge-blue-fg: var(--palette-badge-blue);
+   --color-badge-blue-bg: color-mix(in srgb, var(--palette-badge-blue) 8%, transparent);
+   --color-badge-blue-border: color-mix(in srgb, var(--palette-badge-blue) 28%, transparent);
+
+
+   /* Blue — Indigo */
+
+   --color-badge-indigo-fg: var(--palette-badge-indigo);
+   --color-badge-indigo-bg: color-mix(in srgb, var(--palette-badge-indigo) 8%, transparent);
+   --color-badge-indigo-border: color-mix(in srgb, var(--palette-badge-indigo) 28%, transparent);
+
+
+   /* Purple — Violet */
+
+   --color-badge-violet-fg: var(--palette-badge-violet);
+   --color-badge-violet-bg: color-mix(in srgb, var(--palette-badge-violet) 8%, transparent);
+   --color-badge-violet-border: color-mix(in srgb, var(--palette-badge-violet) 28%, transparent);
+
+
+   /* Purple — Purple */
+
+   --color-badge-purple-fg: var(--palette-badge-purple);
+   --color-badge-purple-bg: color-mix(in srgb, var(--palette-badge-purple) 8%, transparent);
+   --color-badge-purple-border: color-mix(in srgb, var(--palette-badge-purple) 28%, transparent);
+}
 
 /* ============================================================
    RESPONSIVE TOKEN OVERRIDES
@@ -407,17 +612,16 @@
    ============================================================ */
 
 @media (min-width: 768px) {
-   :root {
-      --navbar-height: 72px;
-   }
+  :root {
+    --navbar-height: 72px;
+  }
 }
 
 @media (min-width: 1024px) {
-   :root {
-      --navbar-height: 84px;
-   }
+  :root {
+    --navbar-height: 84px;
+  }
 }
-
 
 /* ============================================================
    DARK MODE — Future extension point

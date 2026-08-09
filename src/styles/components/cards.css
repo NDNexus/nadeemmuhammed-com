@@ -84,11 +84,7 @@
   .card__footer {
     padding: 1rem 1.25rem 1.25rem;
     margin-top: auto;
-
-    border-top: 1px solid var(--color-default);
-
     display: flex;
-    /* justify-content: center; */
   }
 
   /* =========================================================
@@ -319,15 +315,190 @@
   }
 
   /* =========================================================
-     CONTENT CARD (BLOG / ARTICLES)
-  ========================================================= */
+   CONTENT CARD (BLOG / ARTICLES)
+========================================================= */
 
   .card-content .card__media {
+    position: relative;
     aspect-ratio: 16 / 9;
   }
 
+  .card-content__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* =========================================================
+   CONTENT CARD — CATEGORY
+========================================================= */
+
+  .card-content__category {
+    --category-color: var(--color-fg-secondary);
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    color: var(--category-color);
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .card-content__category-line {
+    width: 2rem;
+    height: 1px;
+
+    flex-shrink: 0;
+
+    background: var(--category-color);
+  }
+
+  /* =========================================================
+   CATEGORY THEMES
+========================================================= */
+
+  .card-content__category[data-theme="slate"] {
+    --category-color: var(--color-badge-slate-fg);
+  }
+
+  .card-content__category[data-theme="stone"] {
+    --category-color: var(--color-badge-stone-fg);
+  }
+
+  .card-content__category[data-theme="rose"] {
+    --category-color: var(--color-badge-rose-fg);
+  }
+
+  .card-content__category[data-theme="red"] {
+    --category-color: var(--color-badge-red-fg);
+  }
+
+  .card-content__category[data-theme="orange"] {
+    --category-color: var(--color-badge-orange-fg);
+  }
+
+  .card-content__category[data-theme="amber"] {
+    --category-color: var(--color-badge-amber-fg);
+  }
+
+  .card-content__category[data-theme="yellow"] {
+    --category-color: var(--color-badge-yellow-fg);
+  }
+
+  .card-content__category[data-theme="lime"] {
+    --category-color: var(--color-badge-lime-fg);
+  }
+
+  .card-content__category[data-theme="emerald"] {
+    --category-color: var(--color-badge-emerald-fg);
+  }
+
+  .card-content__category[data-theme="teal"] {
+    --category-color: var(--color-badge-teal-fg);
+  }
+
+  .card-content__category[data-theme="cyan"] {
+    --category-color: var(--color-badge-cyan-fg);
+  }
+
+  .card-content__category[data-theme="sky"] {
+    --category-color: var(--color-badge-sky-fg);
+  }
+
+  .card-content__category[data-theme="blue"] {
+    --category-color: var(--color-badge-blue-fg);
+  }
+
+  .card-content__category[data-theme="indigo"] {
+    --category-color: var(--color-badge-indigo-fg);
+  }
+
+  .card-content__category[data-theme="violet"] {
+    --category-color: var(--color-badge-violet-fg);
+  }
+
+  .card-content__category[data-theme="purple"] {
+    --category-color: var(--color-badge-purple-fg);
+  }
+
+  /* Title */
+
+  .card-content h2 {
+    margin: 0;
+
+    transition: color 200ms ease;
+  }
+
+  /* Excerpt */
+
+  .card-content .text-body {
+    margin: 0;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Tags */
+
+  .card-content .card__meta {
+    margin-top: 0.35rem;
+  }
+
+  /* Subtle link indicator */
+
+  .card-content__indicator {
+    align-self: flex-end;
+
+    margin-top: auto;
+
+    color: var(--color-fg-secondary);
+
+    font-size: 1rem;
+    line-height: 1;
+
+    opacity: 0.45;
+
+    transform: translate(0, 0);
+
+    transition:
+      opacity 200ms ease,
+      transform 200ms ease,
+      color 200ms ease;
+  }
+
+  /* Hover / keyboard focus */
+
+  .card-content:hover h2,
+  .card-content:focus-within h2 {
+    color: var(--color-accent);
+  }
+
+  .card-content:hover .card-content__indicator,
+  .card-content:focus-within .card-content__indicator {
+    color: var(--color-accent);
+    opacity: 1;
+    transform: translate(3px, -3px);
+  }
+
+  .card-content:focus-within {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  /* Content cards do not use the generic footer */
+
   .card-content .card__footer {
-    justify-content: flex-start;
+    display: none;
   }
 
   /* =========================================================
