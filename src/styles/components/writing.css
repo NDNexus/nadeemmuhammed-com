@@ -251,6 +251,14 @@
   }
 
   /* =========================================================
+   WITHOUT TABLE OF CONTENTS
+   ========================================================= */
+
+  .post__reading-layout--without-toc {
+    grid-template-columns: minmax(0, 760px);
+  }
+
+  /* =========================================================
    TABLE OF CONTENTS RAIL
 ========================================================= */
 
@@ -425,7 +433,7 @@
 ========================================================= */
 
   .blog-content :not(pre) > code {
-        display: inline-block;
+    display: inline-block;
 
     padding: 0.1em 0.35em;
 
@@ -674,11 +682,11 @@
    NOTE
 ========================================================= */
 
-.blog-content__callout--note {
+  .blog-content__callout--note {
     border-color: color-mix(
-        in srgb,
-        var(--color-feedback-success) 28%,
-        var(--color-border-default)
+      in srgb,
+      var(--color-feedback-success) 28%,
+      var(--color-border-default)
     );
 
     border-inline-start-color: var(--color-feedback-success);
@@ -686,15 +694,15 @@
     background: var(--color-feedback-success-bg);
 
     color: var(--color-feedback-success-fg);
-}
+  }
 
-.blog-content__callout--note .blog-content__callout-icon {
+  .blog-content__callout--note .blog-content__callout-icon {
     color: var(--color-feedback-success);
-}
+  }
 
-.blog-content__callout--note .blog-content__callout-title {
+  .blog-content__callout--note .blog-content__callout-title {
     color: var(--color-feedback-success-fg);
-}
+  }
 
   /* =========================================================
    WARNING
@@ -769,6 +777,10 @@
         minmax(0, 1fr);
 
       gap: var(--space-xl);
+    }
+
+    .post__reading-layout--without-toc {
+      grid-template-columns: minmax(0, 760px);
     }
   }
 

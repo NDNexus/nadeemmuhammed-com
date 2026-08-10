@@ -192,7 +192,11 @@ export default function SinglePost({ post }: SinglePostProps) {
 
       <section className="section post__body-section">
         <div className="container-wide">
-          <div className="post__reading-layout">
+          <div
+            className={`post__reading-layout${
+              tocItems.length === 0 ? "post__reading-layout--without-toc" : ""
+            }`}
+          >
             {/* =================================================
                 TABLE OF CONTENTS
             ================================================= */}
@@ -210,7 +214,6 @@ export default function SinglePost({ post }: SinglePostProps) {
             <div className="post__content text-content">
               <PostBody value={post.body} />
             </div>
-
           </div>
         </div>
       </section>

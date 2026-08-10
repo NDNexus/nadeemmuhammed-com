@@ -413,7 +413,11 @@ function createArticleSchema(
       url: siteConfig.url,
     },
 
-    articleSection: post.category.name,
+    ...(post.category?.name
+      ? {
+          articleSection: post.category.name,
+        }
+      : {}),
 
     ...(imageUrl
       ? {
