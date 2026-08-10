@@ -1,0 +1,846 @@
+/**
+ * =========================================================
+ * NADEEM MUHAMMED DESIGN SYSTEM — WRITING
+ * =========================================================
+ *
+ * PURPOSE
+ * ---------------------------------------------------------
+ * Article-specific composition and content presentation for
+ * the single writing page.
+ *
+ * GLOBAL DESIGN SYSTEM OWNS
+ * ---------------------------------------------------------
+ * - containers
+ * - sections
+ * - grids
+ * - typography scale
+ * - spacing tokens
+ * - colours / design tokens
+ * - badges
+ *
+ * THIS FILE OWNS
+ * ---------------------------------------------------------
+ * - article header composition
+ * - breadcrumbs
+ * - featured media
+ * - article metadata
+ * - reading layout
+ * - article content rhythm
+ * - Portable Text presentation
+ * - article images
+ * - code blocks
+ * - tables
+ * - callouts
+ *
+ * COMPONENT LOGIC REMAINS IN TSX
+ * ---------------------------------------------------------
+ * This stylesheet does not control:
+ *
+ * - data fetching
+ * - Sanity queries
+ * - Portable Text parsing
+ * - heading ID generation
+ * - TOC extraction
+ * - scroll-spy logic
+ *
+ * =========================================================
+ */
+
+@layer components {
+  /* =========================================================
+   ARTICLE HEADER
+========================================================= */
+
+  .post__header-grid {
+    align-items: center;
+  }
+
+  /* =========================================================
+   BREADCRUMBS
+========================================================= */
+
+  .post__breadcrumbs {
+    margin-bottom: var(--space-xl);
+  }
+
+  .post__breadcrumbs ol {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: var(--space-xs);
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+
+    color: var(--color-fg-subtle);
+    font-size: var(--text-sm);
+  }
+
+  .post__breadcrumbs li {
+    margin: 0;
+  }
+
+  .post__breadcrumbs a {
+    color: inherit;
+  }
+
+  .post__breadcrumbs a:hover {
+    color: var(--color-fg-link-hover);
+  }
+
+  .post__breadcrumbs li:last-child {
+    overflow: hidden;
+
+    max-width: 40ch;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* =========================================================
+   FEATURED IMAGE
+========================================================= */
+
+  .post__featured-image {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 16 / 10;
+
+    overflow: hidden;
+
+    border-radius: var(--radius-xl);
+
+    background: var(--color-surface-gradient);
+  }
+
+  .post__featured-image img {
+    object-fit: cover;
+
+    transition: transform 400ms ease;
+  }
+
+  .post__featured-image:hover img {
+    transform: scale(1.02);
+  }
+
+  .post__featured-image-placeholder {
+    width: 100%;
+    height: 100%;
+
+    background: var(--color-surface-gradient);
+  }
+
+  /* =========================================================
+   HEADER CONTENT
+========================================================= */
+
+  .post__header-content {
+    display: flex;
+    flex-direction: column;
+
+    gap: var(--space-md);
+
+    min-width: 0;
+  }
+
+  .post__header-content h1 {
+    margin: 0;
+  }
+
+  .post__header-content > p {
+    margin: 0;
+  }
+
+  /* =========================================================
+   CATEGORY
+========================================================= */
+
+  .post__category {
+    display: flex;
+    align-items: center;
+
+    gap: var(--space-sm);
+  }
+
+  .post__category-line {
+    width: 2rem;
+    height: 1px;
+
+    flex: 0 0 auto;
+
+    background: var(--color-accent);
+
+    opacity: 0.65;
+  }
+
+  /* =========================================================
+   TAGS
+========================================================= */
+
+  .post__tags {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: var(--space-xs);
+  }
+
+  /* =========================================================
+   ARTICLE META
+========================================================= */
+
+  .post__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: var(--space-sm);
+
+    margin-top: var(--space-sm);
+
+    padding-top: var(--space-md);
+
+    border-top: 1px solid var(--color-border-subtle);
+
+    color: var(--color-fg-subtle);
+
+    font-size: var(--text-sm);
+  }
+
+  .meta-separator {
+    width: 4px;
+    height: 4px;
+
+    flex: 0 0 auto;
+
+    border-radius: 999px;
+
+    background: currentColor;
+  }
+
+  /* =========================================================
+   READING LAYOUT
+========================================================= */
+
+  /*
+ * The TOC gets its own narrow editorial rail.
+ *
+ * The article itself remains independently readable.
+ *
+ * This deliberately does NOT use 72ch for the grid track.
+ * `.text-content` already provides the general 72ch reading
+ * constraint from the global typography system.
+ */
+
+  .post__reading-layout {
+    display: grid;
+
+    grid-template-columns:
+      minmax(180px, 220px)
+      minmax(0, 760px);
+
+    justify-content: center;
+
+    align-items: start;
+
+    gap: var(--space-2xl);
+  }
+
+  /* =========================================================
+   TABLE OF CONTENTS RAIL
+========================================================= */
+
+  .post__toc {
+    position: sticky;
+
+    top: calc(var(--header-height) + var(--space-lg));
+
+    min-width: 0;
+
+    align-self: start;
+  }
+
+  /* =========================================================
+   ARTICLE CONTENT ROOT
+========================================================= */
+
+  .post__content {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .post__content > :first-child {
+    margin-top: 0;
+  }
+
+  /* =========================================================
+   PORTABLE TEXT CONTENT
+========================================================= */
+
+  /*
+ * PostBody should render its Portable Text inside:
+ *
+ * <div className="blog-content">
+ *
+ * This creates a dedicated styling boundary between the
+ * article and the rest of the application.
+ */
+
+  .blog-content {
+    width: 100%;
+  }
+
+  /* =========================================================
+   PARAGRAPHS
+========================================================= */
+
+  .blog-content p {
+    margin-block: 0 var(--space-lg);
+
+    font-size: 1.125rem;
+    line-height: 1.8;
+  }
+
+  .blog-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* =========================================================
+   HEADINGS
+========================================================= */
+
+  .blog-content h2,
+  .blog-content h3,
+  .blog-content h4 {
+    scroll-margin-top: calc(var(--header-height) + var(--space-lg));
+  }
+
+  .blog-content h2 {
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-md);
+
+    font-size: clamp(1.7rem, 2.5vw, 2.125rem);
+    line-height: 1.25;
+  }
+
+  .blog-content h3 {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+
+    font-size: clamp(1.35rem, 2vw, 1.7rem);
+    line-height: 1.3;
+  }
+
+  .blog-content h4 {
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
+
+    font-size: 1.15rem;
+    line-height: 1.4;
+  }
+
+  /*
+ * Avoid excessive spacing when a heading is followed
+ * immediately by another content block.
+ */
+
+  .blog-content h2:first-child,
+  .blog-content h3:first-child,
+  .blog-content h4:first-child {
+    margin-top: 0;
+  }
+
+  /* =========================================================
+   INLINE LINKS
+========================================================= */
+
+  .blog-content a {
+    color: var(--color-fg-link);
+
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+
+    transition:
+      color 150ms ease,
+      text-decoration-color 150ms ease;
+  }
+
+  .blog-content a:hover {
+    color: var(--color-fg-link-hover);
+  }
+
+  /* =========================================================
+   LISTS
+========================================================= */
+
+  .blog-content ul,
+  .blog-content ol {
+    margin-block: 0 var(--space-lg);
+    padding-left: 1.5rem;
+  }
+
+  .blog-content li {
+    margin-block: var(--space-xs);
+
+    line-height: 1.7;
+  }
+
+  .blog-content li > ul,
+  .blog-content li > ol {
+    margin-top: var(--space-xs);
+    margin-bottom: 0;
+  }
+
+  /* =========================================================
+   BLOCKQUOTES
+========================================================= */
+
+  .blog-content blockquote {
+    margin-block: var(--space-xl);
+
+    padding-block: var(--space-md);
+    padding-inline: var(--space-lg);
+
+    border-inline-start: 3px solid var(--color-accent);
+
+    color: var(--color-fg-subtle);
+
+    font-family: theme(--font-serif);
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  .blog-content blockquote p {
+    margin: 0;
+  }
+
+  /* =========================================================
+   INLINE CODE
+========================================================= */
+
+  .blog-content :not(pre) > code {
+        display: inline-block;
+
+    padding: 0.1em 0.35em;
+
+    border: 1px solid var(--color-default);
+    border-radius: var(--radius-sm);
+
+    background: var(--color-surface-subtle);
+
+    color: var(--color-heading-primary);
+
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* =========================================================
+   ARTICLE IMAGES
+========================================================= */
+
+  .blog-content__image {
+    margin-block: var(--space-xl);
+  }
+
+  .blog-content__image-media {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+
+    border-radius: var(--radius-lg);
+
+    background: var(--color-surface-subtle);
+  }
+
+  .blog-content__image-media img {
+    object-fit: cover;
+  }
+
+  .blog-content__image figcaption,
+  .blog-content__image > figcaption {
+    margin-top: var(--space-sm);
+
+    color: var(--color-fg-subtle);
+
+    font-size: var(--text-body-sm);
+    text-align: center;
+  }
+
+  /* =========================================================
+   TABLES
+========================================================= */
+
+  /*
+ * The table wrapper is intentionally wider than the text
+ * column on smaller screens so dense tables remain usable.
+ */
+
+  .blog-content .table-wrapper {
+    margin-block: var(--space-xl);
+
+    margin-inline: calc(-1 * var(--space-md));
+
+    padding-inline: var(--space-md);
+
+    overflow-x: auto;
+
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .blog-content h2 + .table-wrapper,
+  .blog-content h3 + .table-wrapper,
+  .blog-content h4 + .table-wrapper {
+    margin-top: var(--space-md);
+  }
+
+  .blog-content table {
+    width: max-content;
+    min-width: 100%;
+
+    border-collapse: collapse;
+
+    font-size: 1rem;
+  }
+
+  .blog-content th,
+  .blog-content td {
+    padding: var(--space-sm);
+
+    border: 1px solid var(--color-border-default);
+
+    text-align: left;
+    vertical-align: top;
+
+    white-space: nowrap;
+  }
+
+  .blog-content th {
+    background: var(--color-surface-subtle);
+
+    font-weight: 600;
+  }
+
+  .blog-content tbody tr:nth-child(even) {
+    background: rgb(0 0 0 / 0.02);
+  }
+
+  .blog-content tbody tr {
+    transition: background 200ms ease;
+  }
+
+  .blog-content tbody tr:hover {
+    background: rgb(194 165 95 / 0.08);
+  }
+
+  /* =========================================================
+   CALLOUTS
+========================================================= */
+
+  /*
+ * Editorial callouts communicate semantic information inside
+ * long-form content.
+ *
+ * Visual language:
+ *
+ * info
+ * → informational / blue
+ *
+ * note
+ * → neutral editorial note / accent
+ *
+ * warning
+ * → caution / amber
+ *
+ * The icon is rendered by React.
+ * CSS controls its placement, size and semantic colour.
+ */
+
+  /* =========================================================
+   BASE
+========================================================= */
+
+  .blog-content__callout {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+
+    column-gap: var(--space-md);
+
+    margin-block: var(--space-xl);
+
+    padding: var(--space-lg);
+
+    border: 1px solid var(--color-border-default);
+    border-inline-start: 4px solid var(--color-accent);
+
+    border-radius: var(--radius-lg);
+
+    background: var(--color-surface-subtle);
+  }
+
+  /* =========================================================
+   ICON
+========================================================= */
+
+  .blog-content__callout-icon {
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: center;
+
+    width: 2rem;
+    height: 2rem;
+
+    flex: 0 0 2rem;
+
+    padding-top: 0.1rem;
+
+    color: var(--color-accent);
+  }
+
+  .blog-content__callout-icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+
+    flex: 0 0 auto;
+  }
+
+  /* =========================================================
+   CONTENT
+========================================================= */
+
+  .blog-content__callout-body {
+    min-width: 0;
+  }
+
+  .blog-content__callout-title {
+    margin: 0 0 var(--space-xs);
+
+    color: var(--color-heading-primary);
+
+    font-family: theme(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .blog-content__callout-content {
+    min-width: 0;
+  }
+
+  .blog-content__callout-content > :first-child {
+    margin-top: 0;
+  }
+
+  .blog-content__callout-content > :last-child {
+    margin-bottom: 0;
+  }
+
+  /* =========================================================
+   INFO
+========================================================= */
+
+  .blog-content__callout--info {
+    border-color: color-mix(in srgb, var(--color-feedback-info) 25%, var(--color-border-default));
+
+    border-inline-start-color: var(--color-feedback-info);
+
+    background: var(--color-feedback-info-bg);
+
+    color: var(--color-feedback-info-fg);
+  }
+
+  .blog-content__callout--info .blog-content__callout-icon {
+    color: var(--color-feedback-info);
+  }
+
+  .blog-content__callout--info .blog-content__callout-title {
+    color: var(--color-feedback-info-fg);
+  }
+
+  /* =========================================================
+   NOTE
+========================================================= */
+
+.blog-content__callout--note {
+    border-color: color-mix(
+        in srgb,
+        var(--color-feedback-success) 28%,
+        var(--color-border-default)
+    );
+
+    border-inline-start-color: var(--color-feedback-success);
+
+    background: var(--color-feedback-success-bg);
+
+    color: var(--color-feedback-success-fg);
+}
+
+.blog-content__callout--note .blog-content__callout-icon {
+    color: var(--color-feedback-success);
+}
+
+.blog-content__callout--note .blog-content__callout-title {
+    color: var(--color-feedback-success-fg);
+}
+
+  /* =========================================================
+   WARNING
+========================================================= */
+
+  .blog-content__callout--warning {
+    border-color: color-mix(
+      in srgb,
+      var(--color-feedback-warning) 28%,
+      var(--color-border-default)
+    );
+
+    border-inline-start-color: var(--color-feedback-warning);
+
+    background: var(--color-feedback-warning-bg);
+
+    color: var(--color-feedback-warning-fg);
+  }
+
+  .blog-content__callout--warning .blog-content__callout-icon {
+    color: var(--color-feedback-warning);
+  }
+
+  .blog-content__callout--warning .blog-content__callout-title {
+    color: var(--color-feedback-warning-fg);
+  }
+
+  /* =========================================================
+   LINKS INSIDE CALLOUTS
+========================================================= */
+
+  .blog-content__callout a {
+    color: inherit;
+
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* =========================================================
+   MOBILE
+========================================================= */
+
+  @media (max-width: 480px) {
+    .blog-content__callout {
+      column-gap: var(--space-sm);
+
+      padding: var(--space-md);
+    }
+
+    .blog-content__callout-icon {
+      width: 1.75rem;
+      height: 1.75rem;
+
+      flex-basis: 1.75rem;
+    }
+
+    .blog-content__callout-icon svg {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+  }
+
+  /* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+  @media (max-width: 1024px) {
+    .post__reading-layout {
+      grid-template-columns:
+        minmax(160px, 200px)
+        minmax(0, 1fr);
+
+      gap: var(--space-xl);
+    }
+  }
+
+  /* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+  @media (max-width: 768px) {
+    .post__header-grid {
+      grid-template-columns: 1fr;
+
+      gap: var(--space-lg);
+    }
+
+    .post__featured-image {
+      aspect-ratio: 16 / 10;
+    }
+
+    /*
+     * Desktop TOC rail becomes a normal block.
+     *
+     * TableOfContents owns the mobile trigger/drawer UI.
+     */
+
+    .post__reading-layout {
+      display: block;
+    }
+
+    .post__toc {
+      position: static;
+
+      margin-bottom: var(--space-xl);
+    }
+
+    .blog-content p {
+      line-height: 1.75;
+    }
+
+    .blog-content__image-media {
+      aspect-ratio: 16 / 10;
+    }
+  }
+
+  /* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+  @media (max-width: 480px) {
+    .post__breadcrumbs {
+      margin-bottom: var(--space-lg);
+    }
+
+    .post__meta {
+      align-items: flex-start;
+
+      gap: var(--space-xs);
+    }
+
+    .blog-content blockquote {
+      padding-inline: var(--space-md);
+
+      font-size: 1.1rem;
+    }
+
+    /* .blog-content .code-block__content {
+        padding: var(--space-md);
+
+        font-size: 0.85rem;
+    } */
+
+    .blog-content__callout {
+      padding: var(--space-md);
+    }
+  }
+}

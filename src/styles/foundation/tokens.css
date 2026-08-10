@@ -219,6 +219,7 @@
   --color-surface-overlay: var(--palette-white);
   --color-surface-dark: var(--palette-prussian-blue-90);
   --color-surface-inverse: var(--palette-icy-blue);
+  --color-surface-subtle: var(--palette-platinum-50);
 
   /* Gradient surface for cards and panels */
   --color-surface-gradient: linear-gradient(
@@ -466,7 +467,7 @@
   --navbar-height: 64px;
   /* default: mobile */
 
-     /* ──────────────────────────────────────────────────────────
+  /* ──────────────────────────────────────────────────────────
      BADGE THEMES — Categorical Colour System
 
      Used by:
@@ -491,117 +492,101 @@
        --color-badge-blue-border
      ────────────────────────────────────────────────────────── */
 
+  /* Neutral — Slate */
 
-   /* Neutral — Slate */
+  --color-badge-slate-fg: var(--palette-badge-slate);
+  --color-badge-slate-bg: color-mix(in srgb, var(--palette-badge-slate) 8%, transparent);
+  --color-badge-slate-border: color-mix(in srgb, var(--palette-badge-slate) 28%, transparent);
 
-   --color-badge-slate-fg: var(--palette-badge-slate);
-   --color-badge-slate-bg: color-mix(in srgb, var(--palette-badge-slate) 8%, transparent);
-   --color-badge-slate-border: color-mix(in srgb, var(--palette-badge-slate) 28%, transparent);
+  /* Neutral — Stone */
 
+  --color-badge-stone-fg: var(--palette-badge-stone);
+  --color-badge-stone-bg: color-mix(in srgb, var(--palette-badge-stone) 8%, transparent);
+  --color-badge-stone-border: color-mix(in srgb, var(--palette-badge-stone) 28%, transparent);
 
-   /* Neutral — Stone */
+  /* Warm — Rose */
 
-   --color-badge-stone-fg: var(--palette-badge-stone);
-   --color-badge-stone-bg: color-mix(in srgb, var(--palette-badge-stone) 8%, transparent);
-   --color-badge-stone-border: color-mix(in srgb, var(--palette-badge-stone) 28%, transparent);
+  --color-badge-rose-fg: var(--palette-badge-rose);
+  --color-badge-rose-bg: color-mix(in srgb, var(--palette-badge-rose) 8%, transparent);
+  --color-badge-rose-border: color-mix(in srgb, var(--palette-badge-rose) 28%, transparent);
 
+  /* Warm — Red */
 
-   /* Warm — Rose */
+  --color-badge-red-fg: var(--palette-badge-red);
+  --color-badge-red-bg: color-mix(in srgb, var(--palette-badge-red) 8%, transparent);
+  --color-badge-red-border: color-mix(in srgb, var(--palette-badge-red) 28%, transparent);
 
-   --color-badge-rose-fg: var(--palette-badge-rose);
-   --color-badge-rose-bg: color-mix(in srgb, var(--palette-badge-rose) 8%, transparent);
-   --color-badge-rose-border: color-mix(in srgb, var(--palette-badge-rose) 28%, transparent);
+  /* Warm — Orange */
 
+  --color-badge-orange-fg: var(--palette-badge-orange);
+  --color-badge-orange-bg: color-mix(in srgb, var(--palette-badge-orange) 8%, transparent);
+  --color-badge-orange-border: color-mix(in srgb, var(--palette-badge-orange) 28%, transparent);
 
-   /* Warm — Red */
+  /* Warm — Amber */
 
-   --color-badge-red-fg: var(--palette-badge-red);
-   --color-badge-red-bg: color-mix(in srgb, var(--palette-badge-red) 8%, transparent);
-   --color-badge-red-border: color-mix(in srgb, var(--palette-badge-red) 28%, transparent);
+  --color-badge-amber-fg: var(--palette-badge-amber);
+  --color-badge-amber-bg: color-mix(in srgb, var(--palette-badge-amber) 8%, transparent);
+  --color-badge-amber-border: color-mix(in srgb, var(--palette-badge-amber) 28%, transparent);
 
+  /* Warm — Yellow */
 
-   /* Warm — Orange */
+  --color-badge-yellow-fg: var(--palette-badge-yellow);
+  --color-badge-yellow-bg: color-mix(in srgb, var(--palette-badge-yellow) 8%, transparent);
+  --color-badge-yellow-border: color-mix(in srgb, var(--palette-badge-yellow) 28%, transparent);
 
-   --color-badge-orange-fg: var(--palette-badge-orange);
-   --color-badge-orange-bg: color-mix(in srgb, var(--palette-badge-orange) 8%, transparent);
-   --color-badge-orange-border: color-mix(in srgb, var(--palette-badge-orange) 28%, transparent);
+  /* Green — Lime */
 
+  --color-badge-lime-fg: var(--palette-badge-lime);
+  --color-badge-lime-bg: color-mix(in srgb, var(--palette-badge-lime) 8%, transparent);
+  --color-badge-lime-border: color-mix(in srgb, var(--palette-badge-lime) 28%, transparent);
 
-   /* Warm — Amber */
+  /* Green — Emerald */
 
-   --color-badge-amber-fg: var(--palette-badge-amber);
-   --color-badge-amber-bg: color-mix(in srgb, var(--palette-badge-amber) 8%, transparent);
-   --color-badge-amber-border: color-mix(in srgb, var(--palette-badge-amber) 28%, transparent);
+  --color-badge-emerald-fg: var(--palette-badge-emerald);
+  --color-badge-emerald-bg: color-mix(in srgb, var(--palette-badge-emerald) 8%, transparent);
+  --color-badge-emerald-border: color-mix(in srgb, var(--palette-badge-emerald) 28%, transparent);
 
+  /* Green — Teal */
 
-   /* Warm — Yellow */
+  --color-badge-teal-fg: var(--palette-badge-teal);
+  --color-badge-teal-bg: color-mix(in srgb, var(--palette-badge-teal) 8%, transparent);
+  --color-badge-teal-border: color-mix(in srgb, var(--palette-badge-teal) 28%, transparent);
 
-   --color-badge-yellow-fg: var(--palette-badge-yellow);
-   --color-badge-yellow-bg: color-mix(in srgb, var(--palette-badge-yellow) 8%, transparent);
-   --color-badge-yellow-border: color-mix(in srgb, var(--palette-badge-yellow) 28%, transparent);
+  /* Blue — Cyan */
 
+  --color-badge-cyan-fg: var(--palette-badge-cyan);
+  --color-badge-cyan-bg: color-mix(in srgb, var(--palette-badge-cyan) 8%, transparent);
+  --color-badge-cyan-border: color-mix(in srgb, var(--palette-badge-cyan) 28%, transparent);
 
-   /* Green — Lime */
+  /* Blue — Sky */
 
-   --color-badge-lime-fg: var(--palette-badge-lime);
-   --color-badge-lime-bg: color-mix(in srgb, var(--palette-badge-lime) 8%, transparent);
-   --color-badge-lime-border: color-mix(in srgb, var(--palette-badge-lime) 28%, transparent);
+  --color-badge-sky-fg: var(--palette-badge-sky);
+  --color-badge-sky-bg: color-mix(in srgb, var(--palette-badge-sky) 8%, transparent);
+  --color-badge-sky-border: color-mix(in srgb, var(--palette-badge-sky) 28%, transparent);
 
+  /* Blue — Blue */
 
-   /* Green — Emerald */
+  --color-badge-blue-fg: var(--palette-badge-blue);
+  --color-badge-blue-bg: color-mix(in srgb, var(--palette-badge-blue) 8%, transparent);
+  --color-badge-blue-border: color-mix(in srgb, var(--palette-badge-blue) 28%, transparent);
 
-   --color-badge-emerald-fg: var(--palette-badge-emerald);
-   --color-badge-emerald-bg: color-mix(in srgb, var(--palette-badge-emerald) 8%, transparent);
-   --color-badge-emerald-border: color-mix(in srgb, var(--palette-badge-emerald) 28%, transparent);
+  /* Blue — Indigo */
 
+  --color-badge-indigo-fg: var(--palette-badge-indigo);
+  --color-badge-indigo-bg: color-mix(in srgb, var(--palette-badge-indigo) 8%, transparent);
+  --color-badge-indigo-border: color-mix(in srgb, var(--palette-badge-indigo) 28%, transparent);
 
-   /* Green — Teal */
+  /* Purple — Violet */
 
-   --color-badge-teal-fg: var(--palette-badge-teal);
-   --color-badge-teal-bg: color-mix(in srgb, var(--palette-badge-teal) 8%, transparent);
-   --color-badge-teal-border: color-mix(in srgb, var(--palette-badge-teal) 28%, transparent);
+  --color-badge-violet-fg: var(--palette-badge-violet);
+  --color-badge-violet-bg: color-mix(in srgb, var(--palette-badge-violet) 8%, transparent);
+  --color-badge-violet-border: color-mix(in srgb, var(--palette-badge-violet) 28%, transparent);
 
+  /* Purple — Purple */
 
-   /* Blue — Cyan */
-
-   --color-badge-cyan-fg: var(--palette-badge-cyan);
-   --color-badge-cyan-bg: color-mix(in srgb, var(--palette-badge-cyan) 8%, transparent);
-   --color-badge-cyan-border: color-mix(in srgb, var(--palette-badge-cyan) 28%, transparent);
-
-
-   /* Blue — Sky */
-
-   --color-badge-sky-fg: var(--palette-badge-sky);
-   --color-badge-sky-bg: color-mix(in srgb, var(--palette-badge-sky) 8%, transparent);
-   --color-badge-sky-border: color-mix(in srgb, var(--palette-badge-sky) 28%, transparent);
-
-
-   /* Blue — Blue */
-
-   --color-badge-blue-fg: var(--palette-badge-blue);
-   --color-badge-blue-bg: color-mix(in srgb, var(--palette-badge-blue) 8%, transparent);
-   --color-badge-blue-border: color-mix(in srgb, var(--palette-badge-blue) 28%, transparent);
-
-
-   /* Blue — Indigo */
-
-   --color-badge-indigo-fg: var(--palette-badge-indigo);
-   --color-badge-indigo-bg: color-mix(in srgb, var(--palette-badge-indigo) 8%, transparent);
-   --color-badge-indigo-border: color-mix(in srgb, var(--palette-badge-indigo) 28%, transparent);
-
-
-   /* Purple — Violet */
-
-   --color-badge-violet-fg: var(--palette-badge-violet);
-   --color-badge-violet-bg: color-mix(in srgb, var(--palette-badge-violet) 8%, transparent);
-   --color-badge-violet-border: color-mix(in srgb, var(--palette-badge-violet) 28%, transparent);
-
-
-   /* Purple — Purple */
-
-   --color-badge-purple-fg: var(--palette-badge-purple);
-   --color-badge-purple-bg: color-mix(in srgb, var(--palette-badge-purple) 8%, transparent);
-   --color-badge-purple-border: color-mix(in srgb, var(--palette-badge-purple) 28%, transparent);
+  --color-badge-purple-fg: var(--palette-badge-purple);
+  --color-badge-purple-bg: color-mix(in srgb, var(--palette-badge-purple) 8%, transparent);
+  --color-badge-purple-border: color-mix(in srgb, var(--palette-badge-purple) 28%, transparent);
 }
 
 /* ============================================================

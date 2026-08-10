@@ -1,4 +1,4 @@
-import { CodeBlock } from "@/components/content/CodeBlock";
+import { CodeBlock } from "@/components/writing/CodeBlock";
 import { getSiteSettings } from "@/sanity/lib/fetch/siteSettings";
 
 /**

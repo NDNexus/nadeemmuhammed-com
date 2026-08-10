@@ -1,4 +1,4 @@
-import { CodeBlock } from "@/components/content/CodeBlock";
+import { CodeBlock } from "@/components/writing/CodeBlock";
 import Link from "next/link";
 
 const AuditPage = () => {

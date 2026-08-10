@@ -1,15 +1,14 @@
-
 import Footer from "@layout/Footer";
 import Header from "@layout/Header";
 
 import { getPosts } from "@/sanity/lib/fetch/posts";
 
-import  PostCard  from "@/components/content/PostCard";
+import PostCard from "@/components/writing/PostCard";
 
 export default async function WritingPage() {
   const posts = await getPosts();
 
-console.dir(posts, { depth: null });
+  console.dir(posts, { depth: null });
 
   return (
     <>

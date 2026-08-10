@@ -318,6 +318,11 @@
    CONTENT CARD (BLOG / ARTICLES)
 ========================================================= */
 
+  .card-content {
+    width: 100%;
+    max-width: 420px;
+  }
+
   .card-content .card__media {
     position: relative;
     aspect-ratio: 16 / 9;

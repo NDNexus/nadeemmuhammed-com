@@ -10,6 +10,11 @@ import { defineQuery } from "next-sanity";
  *
  * Only fields required by the frontend are projected.
  * Technical configuration remains owned by Next.js.
+ *
+ * The default social image expands its Sanity asset
+ * reference so the frontend can access the resolved asset
+ * data, including its CDN URL.
+ *
  * =========================================================
  */
 
@@ -19,6 +24,7 @@ import { defineQuery } from "next-sanity";
  * Used for site identity, default metadata, contact details,
  * social profiles, and other site-wide frontend content.
  */
+
 export const SITE_SETTINGS_QUERY = defineQuery(`
   *[_type == "siteSettings"][0] {
     _id,
@@ -28,7 +34,8 @@ export const SITE_SETTINGS_QUERY = defineQuery(`
     siteDescription,
 
     defaultSocialImage {
-      asset,
+      ...,
+      asset->,
       crop,
       hotspot
     },

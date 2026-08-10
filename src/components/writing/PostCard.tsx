@@ -17,7 +17,7 @@ interface PostCardProps {
  * PURPOSE
  * ---------------------------------------------------------
  * Displays a single writing/article preview in the content
- * archive.
+ * archive. (writing page)
  *
  * RESPONSIBILITIES
  * ---------------------------------------------------------

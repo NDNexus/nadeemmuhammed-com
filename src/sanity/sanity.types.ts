@@ -1043,16 +1043,39 @@ export type POST_SLUGS_QUERY_RESULT = Array<{
 
 // Source: src/sanity/lib/queries/siteSettings.ts
 // Variable: SITE_SETTINGS_QUERY
-// Query: *[_type == "siteSettings"][0] {    _id,    siteName,    tagline,    siteDescription,    defaultSocialImage {      asset,      crop,      hotspot    },    contactEmail,    github,    linkedin,    x,    youtube,    instagram  }
+// Query: *[_type == "siteSettings"][0] {    _id,    siteName,    tagline,    siteDescription,    defaultSocialImage {      ...,      asset->,      crop,      hotspot    },    contactEmail,    github,    linkedin,    x,    youtube,    instagram  }
 export type SITE_SETTINGS_QUERY_RESULT = {
   _id: string;
   siteName: string;
   tagline: string | null;
   siteDescription: string;
   defaultSocialImage: {
-    asset: SanityImageAssetReference | null;
-    crop: SanityImageCrop | null;
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash: string;
+      extension: string;
+      mimeType: string;
+      size: number;
+      assetId: string;
+      uploadId?: string;
+      path: string;
+      url: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    media?: unknown;
     hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    _type: "image";
   } | null;
   contactEmail: string;
   github: string | null;
@@ -1070,6 +1093,6 @@ declare module "@sanity/client" {
     '\n  *[\n    _type == "post" &&\n    slug.current == $slug\n  ][0] {\n    _id,\n    _updatedAt,\n\n    title,\n    "slug": slug.current,\n    excerpt,\n    publishedAt,\n\n    featuredImage {\n      ...,\n      asset->\n    },\n\n    body[] {\n      ...,\n\n      _type == "image" => {\n        ...,\n        asset->\n      }\n    },\n\n    author-> {\n      _id,\n      name,\n      "slug": slug.current,\n      avatar {\n        ...,\n        asset->\n      },\n      bio,\n      website,\n      github,\n      linkedin,\n      x,\n      expertise\n    },\n\n    category-> {\n      _id,\n      name,\n      "slug": slug.current,\n      description,\n      badgeTheme\n    },\n\n    tags[]-> {\n      _id,\n      name,\n      "slug": slug.current,\n      badgeTheme\n    },\n\n    technologies[]-> {\n      _id,\n      title,\n      "slug": slug.current,\n      description,\n      logo {\n        ...,\n        asset->\n      },\n      badgeTheme\n    }\n  }\n': POST_QUERY_RESULT;
     '\n  *[\n    _type == "post" &&\n    slug.current == $slug\n  ][0] {\n    title,\n    "slug": slug.current,\n    excerpt,\n    publishedAt,\n    _updatedAt,\n\n    featuredImage {\n      ...,\n      asset->\n    },\n\n    metadata {\n      title,\n      description,\n\n      socialImage {\n        ...,\n        asset->\n      },\n\n      socialImageAlt,\n      canonical,\n      noIndex\n    },\n\n    author-> {\n      name\n    }\n  }\n': POST_METADATA_QUERY_RESULT;
     '\n  *[\n    _type == "post" &&\n    defined(slug.current)\n  ] {\n    "slug": slug.current\n  }\n': POST_SLUGS_QUERY_RESULT;
-    '\n  *[_type == "siteSettings"][0] {\n    _id,\n\n    siteName,\n    tagline,\n    siteDescription,\n\n    defaultSocialImage {\n      asset,\n      crop,\n      hotspot\n    },\n\n    contactEmail,\n\n    github,\n    linkedin,\n    x,\n    youtube,\n    instagram\n  }\n': SITE_SETTINGS_QUERY_RESULT;
+    '\n  *[_type == "siteSettings"][0] {\n    _id,\n\n    siteName,\n    tagline,\n    siteDescription,\n\n    defaultSocialImage {\n      ...,\n      asset->,\n      crop,\n      hotspot\n    },\n\n    contactEmail,\n\n    github,\n    linkedin,\n    x,\n    youtube,\n    instagram\n  }\n': SITE_SETTINGS_QUERY_RESULT;
   }
 }
