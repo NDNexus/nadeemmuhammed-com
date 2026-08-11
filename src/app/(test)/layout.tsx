@@ -1,23 +1,8 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
-import TestFooter from "@/Test/components/TestFooter";
-import TestHeader from "@/Test/components/TestHeader";
 
-/**
- * =========================================================
- * TEST LAYOUT
- * =========================================================
- *
- * Shared layout for internal testing routes.
- *
- * Provides a clearly identifiable testing environment with
- * its own header and footer while keeping development pages
- * separate from production-facing website layouts.
- *
- * All routes using this layout are excluded from search
- * engine indexing.
- * =========================================================
- */
+import TestAccessBoundary from "./test/TestAccessBoundary";
 
 export const metadata: Metadata = {
   robots: {
@@ -30,14 +15,49 @@ type TestLayoutProps = {
   children: React.ReactNode;
 };
 
+/**
+ * =========================================================
+ * TEST LAYOUT
+ * =========================================================
+ *
+ * Shared layout for the internal test environment.
+ *
+ * Request-specific authentication is intentionally handled
+ * by TestAccessBoundary rather than directly in this layout.
+ *
+ * This allows Next.js to keep the route shell prefetched and
+ * stream the runtime-dependent access check separately.
+ * =========================================================
+ */
 export default function TestLayout({ children }: TestLayoutProps) {
   return (
-    <div className="flex min-h-screen flex-col">
-      <TestHeader />
+    <Suspense fallback={<TestAccessFallback />}>
+      <TestAccessBoundary>{children}</TestAccessBoundary>
+    </Suspense>
+  );
+}
 
-      <main className="flex-1">{children}</main>
+/**
+ * =========================================================
+ * ACCESS FALLBACK
+ * =========================================================
+ *
+ * Lightweight UI displayed while the server resolves the
+ * request-specific test-area access state.
+ * =========================================================
+ */
+function TestAccessFallback() {
+  return (
+    <main className="section">
+      <div className="container-wide">
+        <div className="space-y-sm max-w-prose">
+          <p className="text-overline">Private Area</p>
 
-      <TestFooter />
-    </div>
+          <h1 className="heading-lg">Test Environment</h1>
+
+          <p className="text-body">Checking access…</p>
+        </div>
+      </div>
+    </main>
   );
 }

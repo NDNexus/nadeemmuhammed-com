@@ -1,0 +1,64 @@
+/* =========================================================
+   TEST PASSWORD GATE
+   ========================================================= */
+
+.test-password {
+  min-height: 100vh;
+
+  display: grid;
+  place-items: center;
+
+  padding: var(--space-xl);
+}
+
+.test-password__card {
+  width: min(100%, 32rem);
+
+  padding: var(--space-2xl);
+
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+
+  background: var(--color-surface-default);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.test-password__header {
+  display: grid;
+  gap: var(--space-sm);
+
+  margin-bottom: var(--space-xl);
+}
+
+.test-password__header .text-overline {
+  margin-bottom: 0;
+}
+
+.test-password__form {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.test-password__form button {
+  width: 100%;
+}
+
+.test-password__form button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+  .test-password {
+    padding: var(--space-md);
+  }
+
+  .test-password__card {
+    padding: var(--space-xl);
+  }
+}

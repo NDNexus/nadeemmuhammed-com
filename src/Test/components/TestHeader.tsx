@@ -1,4 +1,7 @@
 import Link from "next/link";
+
+import TestLockButton from "@/app/(test)/test/TestLockButton";
+
 /**
  * Header used across internal testing routes.
  *
@@ -22,6 +25,8 @@ export default function TestHeader() {
         <Link href="/test" className="text-sm font-medium underline underline-offset-4">
           Return to test main page
         </Link>
+
+        <TestLockButton />
       </div>
     </header>
   );
