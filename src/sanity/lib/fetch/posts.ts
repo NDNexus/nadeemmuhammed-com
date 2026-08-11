@@ -11,7 +11,25 @@ import {
   POST_QUERY,
   POSTS_QUERY,
   POST_SLUGS_QUERY,
+  WRITING_FILTERS_QUERY,
+  LATEST_POSTS_QUERY,
 } from "../queries/posts";
+
+/**
+ * =========================================================
+ * POST FILTERS
+ * =========================================================
+ *
+ * URL-derived state used by the Writing archive.
+ * =========================================================
+ */
+
+export type PostFilters = {
+  q: string;
+  category: string;
+  topic: string;
+  page: number;
+};
 
 /**
  * =========================================================
@@ -26,22 +44,30 @@ import {
  */
 
 /**
- * Returns posts for the /writing index.
+ * Returns filtered and paginated posts for the /writing
+ * archive.
  */
-export async function getPosts() {
+export async function getPosts(filters: PostFilters) {
   const options = await getDynamicFetchOptions();
 
-  return getCachedPosts(options);
+  return getCachedPosts(filters, options);
 }
 
 /**
- * Cached Sanity fetch for the writing index.
+ * Cached Sanity fetch for the Writing archive.
  */
-async function getCachedPosts(options: DynamicFetchOptions) {
+async function getCachedPosts(filters: PostFilters, options: DynamicFetchOptions) {
   "use cache";
 
   const { data } = await sanityFetch({
     query: POSTS_QUERY,
+    params: {
+      q: filters.q,
+      category: filters.category,
+      topic: filters.topic,
+      offset: (filters.page - 1) * 12,
+      limit: filters.page * 12,
+    },
     ...options,
   });
 
@@ -60,10 +86,7 @@ export async function getPost(slug: string) {
 /**
  * Cached Sanity fetch for an individual post.
  */
-async function getCachedPost(
-  slug: string,
-  options: DynamicFetchOptions,
-) {
+async function getCachedPost(slug: string, options: DynamicFetchOptions) {
   "use cache";
 
   const { data } = await sanityFetch({
@@ -99,6 +122,72 @@ export async function getPostMetadata(slug: string) {
 export async function getPostSlugs() {
   const { data } = await sanityFetchStaticParams({
     query: POST_SLUGS_QUERY,
+  });
+
+  return data;
+}
+
+/**
+ * =========================================================
+ * WRITING FILTER OPTIONS
+ * =========================================================
+ *
+ * Returns categories and topics available to the Writing
+ * archive controls.
+ * =========================================================
+ */
+export async function getWritingFilters() {
+  const options = await getDynamicFetchOptions();
+
+  return getCachedWritingFilters(options);
+}
+
+/**
+ * Cached Sanity fetch for Writing archive filter options.
+ */
+async function getCachedWritingFilters(
+  options: DynamicFetchOptions,
+) {
+  "use cache";
+
+  const { data } = await sanityFetch({
+    query: WRITING_FILTERS_QUERY,
+    ...options,
+  });
+
+  return data;
+}
+
+/**
+ * =========================================================
+ * LATEST POSTS
+ * =========================================================
+ *
+ * Returns the latest published posts for editorial sections
+ * such as the homepage.
+ * =========================================================
+ */
+export async function getLatestPosts(limit = 3) {
+  const options = await getDynamicFetchOptions();
+
+  return getCachedLatestPosts(limit, options);
+}
+
+/**
+ * Cached Sanity fetch for latest published posts.
+ */
+async function getCachedLatestPosts(
+  limit: number,
+  options: DynamicFetchOptions,
+) {
+  "use cache";
+
+  const { data } = await sanityFetch({
+    query: LATEST_POSTS_QUERY,
+    params: {
+      limit,
+    },
+    ...options,
   });
 
   return data;

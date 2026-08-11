@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import PostCard from "@/components/writing/PostCard";
+import { getLatestPosts } from "@/sanity/lib/fetch/posts";
+
 import { RevealText, RevealTextBreak } from "@/components/content/RevealText";
 
 /**
@@ -145,7 +148,10 @@ const homepageSchema = {
  * =========================================================
  */
 
-export default function HomePage() {
+export default async function HomePage() {
+
+  const latestPosts = await getLatestPosts(6);
+
   return (
     <>
       <script
@@ -174,7 +180,7 @@ export default function HomePage() {
 
               <div className="gap-lg flex flex-wrap justify-center">
                 <a href="/contact" className="btn btn-accent">
-                  Book a Consultation
+                  Start a conversation
                 </a>
 
                 <a href="#approach" className="btn btn-secondary">
@@ -424,80 +430,24 @@ export default function HomePage() {
 
         <section className="section bg-canvas-subtle">
           <div className="container-wide">
-            <div className="flow-lg max-w-prose">
-              <h2 className="heading-lg">Writing & Insights</h2>
+            <div className="flow-lg mb-6 max-w-prose">
+              <h2 className="heading-lg">Ideas for Building Better Digital Systems</h2>
 
               <p className="text-subtle">
-                Thoughts on systems, operations, websites, and business growth.
+                Practical thinking on technology, digital systems, and the decisions that make
+                businesses simpler to run, easier to maintain, and ready to grow.
               </p>
             </div>
 
-            <div className="gap-xl grid lg:grid-cols-3">
-              {/* Article 1 */}
-
-              <article className="card card-content">
-                <div className="card__media">{/* Article Illustration */}</div>
-
-                <div className="card__body">
-                  <div className="card__meta">
-                    <span>Systems Thinking</span>
-                    <span className="meta-separator" />
-                    <span>7 min read</span>
-                  </div>
-
-                  <h3 className="heading-md">Why Most Businesses Don&rsquo;t Need More Software</h3>
-
-                  <p className="card__description">
-                    Technology rarely solves operational problems on its own. Discover why
-                    simplifying workflows and reducing unnecessary complexity often creates more
-                    value than adding another tool.
-                  </p>
-                </div>
-              </article>
-
-              {/* Article 2 */}
-
-              <article className="card card-content">
-                <div className="card__media">{/* Article Illustration */}</div>
-
-                <div className="card__body">
-                  <div className="card__meta">
-                    <span>Digital Strategy</span>
-                    <span className="meta-separator" />
-                    <span>9 min read</span>
-                  </div>
-
-                  <h3 className="heading-md">The Hidden Cost of Operational Friction</h3>
-
-                  <p className="card__description">
-                    Every manual process, disconnected workflow, and unnecessary handoff quietly
-                    costs your business time, money, and customer trust. Learn how to identify and
-                    eliminate digital friction.
-                  </p>
-                </div>
-              </article>
-
-              {/* Article 3 */}
-
-              <article className="card card-content">
-                <div className="card__media">{/* Article Illustration */}</div>
-
-                <div className="card__body">
-                  <div className="card__meta">
-                    <span>Web Architecture</span>
-                    <span className="meta-separator" />
-                    <span>11 min read</span>
-                  </div>
-
-                  <h3 className="heading-md">Designing Digital Systems That Continue To Scale</h3>
-
-                  <p className="card__description">
-                    Sustainable growth comes from maintainable digital foundations. Learn how
-                    thoughtful architecture helps businesses scale with confidence instead of
-                    rebuilding from scratch.
-                  </p>
-                </div>
-              </article>
+            <div className="grid-md gap-xl grid">
+              {latestPosts.map((post) => (
+                <PostCard key={post._id} post={post} />
+              ))}
+            </div>
+            <div className="flex items-center justify-center">
+              <Link href="/writing" className="btn btn-primary">
+                Explore more articles
+              </Link>
             </div>
           </div>
         </section>
@@ -517,7 +467,7 @@ export default function HomePage() {
               </p>
 
               <a href="/contact" className="btn btn-accent">
-                Book a Consultation
+                Start a conversation
               </a>
             </div>
           </div>

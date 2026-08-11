@@ -4,6 +4,8 @@ import { IBM_Plex_Mono, IBM_Plex_Sans, Libre_Baskerville } from "next/font/googl
 import { SanityLive } from "@/sanity/lib/live";
 import { draftMode } from "next/headers";
 
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+
 import "./globals.css";
 
 /* =========================================================
@@ -120,7 +122,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       <body
         className={` ${ibmPlexSans.variable} ${ibmPlexMono.variable} ${libreBaskerville.variable} `}
       >
-        {children}
+        <NuqsAdapter>{children}</NuqsAdapter>
 
         <SanityLive includeDrafts={isDraftMode} />
       </body>

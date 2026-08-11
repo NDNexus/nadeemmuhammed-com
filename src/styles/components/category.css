@@ -1,0 +1,73 @@
+@layer components {
+  /* =========================================================
+     CATEGORY THEME
+  ========================================================= */
+
+  .category-theme {
+    --category-color: var(--color-fg-secondary);
+  }
+
+  .category-theme[data-theme="slate"] {
+    --category-color: var(--color-badge-slate-fg);
+  }
+
+  .category-theme[data-theme="stone"] {
+    --category-color: var(--color-badge-stone-fg);
+  }
+
+  .category-theme[data-theme="rose"] {
+    --category-color: var(--color-badge-rose-fg);
+  }
+
+  .category-theme[data-theme="red"] {
+    --category-color: var(--color-badge-red-fg);
+  }
+
+  .category-theme[data-theme="orange"] {
+    --category-color: var(--color-badge-orange-fg);
+  }
+
+  .category-theme[data-theme="amber"] {
+    --category-color: var(--color-badge-amber-fg);
+  }
+
+  .category-theme[data-theme="yellow"] {
+    --category-color: var(--color-badge-yellow-fg);
+  }
+
+  .category-theme[data-theme="lime"] {
+    --category-color: var(--color-badge-lime-fg);
+  }
+
+  .category-theme[data-theme="emerald"] {
+    --category-color: var(--color-badge-emerald-fg);
+  }
+
+  .category-theme[data-theme="teal"] {
+    --category-color: var(--color-badge-teal-fg);
+  }
+
+  .category-theme[data-theme="cyan"] {
+    --category-color: var(--color-badge-cyan-fg);
+  }
+
+  .category-theme[data-theme="sky"] {
+    --category-color: var(--color-badge-sky-fg);
+  }
+
+  .category-theme[data-theme="blue"] {
+    --category-color: var(--color-badge-blue-fg);
+  }
+
+  .category-theme[data-theme="indigo"] {
+    --category-color: var(--color-badge-indigo-fg);
+  }
+
+  .category-theme[data-theme="violet"] {
+    --category-color: var(--color-badge-violet-fg);
+  }
+
+  .category-theme[data-theme="purple"] {
+    --category-color: var(--color-badge-purple-fg);
+  }
+}

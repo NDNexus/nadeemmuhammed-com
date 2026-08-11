@@ -10,6 +10,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
+    "typegen": "sanity typegen generate",
     "email:dev": "email dev --dir src/emails/templates"
   },
   "dependencies": {
@@ -19,6 +20,7 @@
     "framer-motion": "^12.42.2",
     "next": "^16.2.12",
     "next-sanity": "^13.2.3",
+    "nuqs": "^2.9.5",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-email": "^6.9.1",

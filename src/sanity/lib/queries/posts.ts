@@ -25,56 +25,117 @@ import { defineQuery } from "next-sanity";
 
 /**
  * =========================================================
- * WRITING INDEX
+ * WRITING ARCHIVE
  * =========================================================
  *
- * Returns the data required to render post listings.
+ * Returns filtered and paginated posts for the /writing
+ * archive together with the total matching result count.
  *
- * Posts are ordered by publication date, newest first.
+ * Supported filters:
+ * - q         — search query
+ * - category  — category slug
+ * - topic       — tag slug
+ * - offset    — pagination start position
+ * - limit     — pagination end position
+ * =========================================================
  */
 export const POSTS_QUERY = defineQuery(`
-  *[
-  _type == "post" &&
-  defined(title) &&
-  defined(slug.current) &&
-  defined(excerpt) &&
-  defined(featuredImage.asset) &&
-  defined(featuredImage.alt) &&
-  defined(author) &&
-  defined(category) &&
-  defined(publishedAt)
-]
-  | order(publishedAt desc) {
-    _id,
-    title,
-    "slug": slug.current,
-    excerpt,
-    publishedAt,
+  {
+    "posts": *[
+      _type == "post" &&
+      defined(title) &&
+      defined(slug.current) &&
+      defined(excerpt) &&
+      defined(featuredImage.asset) &&
+      defined(featuredImage.alt) &&
+      defined(author) &&
+      defined(category) &&
+      defined(publishedAt) &&
+      publishedAt <= now() &&
 
-    featuredImage {
-      ...,
-      asset->
-    },
+      (
+        $category == "" ||
+        category->slug.current == $category
+      ) &&
 
-    category-> {
+      (
+        $topic == "" ||
+        count(tags[@->slug.current == $topic]) > 0
+      ) &&
+
+      (
+        $q == "" ||
+        title match $q ||
+        excerpt match $q ||
+        category->name match $q ||
+        count(tags[@->name match $q]) > 0
+      )
+    ]
+    | order(publishedAt desc)
+    [$offset...$limit]
+    {
       _id,
-      name,
+      title,
       "slug": slug.current,
-      badgeTheme
+      excerpt,
+      publishedAt,
+
+     featuredImage {
+      "url": asset->url,
+      alt
     },
 
-    tags[]-> {
-      _id,
-      name,
-      "slug": slug.current,
-      badgeTheme
+      category-> {
+        _id,
+        name,
+        "slug": slug.current,
+        badgeTheme
+      },
+
+      tags[]-> {
+        _id,
+        name,
+        "slug": slug.current,
+        badgeTheme
+      },
+
+      author-> {
+        _id,
+        name,
+        "slug": slug.current
+      }
     },
 
-    author-> {
-      _id,
-      name,
-      "slug": slug.current
-    }
+    "total": count(*[
+      _type == "post" &&
+      defined(title) &&
+      defined(slug.current) &&
+      defined(excerpt) &&
+      defined(featuredImage.asset) &&
+      defined(featuredImage.alt) &&
+      defined(author) &&
+      defined(category) &&
+      defined(publishedAt) &&
+      publishedAt <= now() &&
+
+      (
+        $category == "" ||
+        category->slug.current == $category
+      ) &&
+
+      (
+        $topic == "" ||
+        count(tags[@->slug.current == $topic]) > 0
+      ) &&
+
+      (
+        $q == "" ||
+        title match $q ||
+        excerpt match $q ||
+        category->name match $q ||
+        count(tags[@->name match $q]) > 0
+      )
+    ])
   }
 `);
 
@@ -219,5 +280,100 @@ export const POST_SLUGS_QUERY = defineQuery(`
     defined(slug.current)
   ] {
     "slug": slug.current
+  }
+`);
+
+/**
+ * =========================================================
+ * WRITING FILTER OPTIONS
+ * =========================================================
+ *
+ * Returns the available categories and topics used by the
+ * Writing archive filters.
+ * =========================================================
+ */
+export const WRITING_FILTERS_QUERY = defineQuery(`
+  {
+    "categories": *[
+      _type == "category" &&
+      defined(name) &&
+      defined(slug.current)
+    ] | order(name asc) {
+      _id,
+      name,
+      "slug": slug.current,
+      badgeTheme
+    },
+
+    "topics": *[
+      _type == "tag" &&
+      defined(name) &&
+      defined(slug.current)
+    ] | order(name asc) {
+      _id,
+      name,
+      "slug": slug.current,
+      badgeTheme
+    }
+  }
+`);
+
+/**
+ * =========================================================
+ * LATEST POSTS
+ * =========================================================
+ *
+ * Returns the latest published posts for homepage and other
+ * limited editorial sections.
+ *
+ * The number of posts is controlled by the $limit parameter.
+ * =========================================================
+ */
+export const LATEST_POSTS_QUERY = defineQuery(`
+  *[
+    _type == "post" &&
+    defined(title) &&
+    defined(slug.current) &&
+    defined(excerpt) &&
+    defined(featuredImage.asset) &&
+    defined(featuredImage.alt) &&
+    defined(author) &&
+    defined(category) &&
+    defined(publishedAt) &&
+    publishedAt <= now()
+  ]
+  | order(publishedAt desc)
+  [0...$limit]
+  {
+    _id,
+    title,
+    "slug": slug.current,
+    excerpt,
+    publishedAt,
+
+    featuredImage {
+      "url": asset->url,
+      "alt": alt
+},
+
+    category-> {
+      _id,
+      name,
+      "slug": slug.current,
+      badgeTheme
+    },
+
+    tags[]-> {
+      _id,
+      name,
+      "slug": slug.current,
+      badgeTheme
+    },
+
+    author-> {
+      _id,
+      name,
+      "slug": slug.current
+    }
   }
 `);

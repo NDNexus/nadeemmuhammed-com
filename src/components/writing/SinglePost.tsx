@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Icon } from "@iconify/react";
 
 import TableOfContents from "./TableOfContents/TableOfContents";
 import { extractTableOfContents } from "./TableOfContents/headingUtils";
 import PostBody from "./PostBody";
 
 import Badge from "@/components/ui/Badge";
+import { DiamondIcon } from "@/components/ui/DiamondIcon";
 
 import type { POST_QUERY_RESULT } from "@/sanity/sanity.types";
 
@@ -18,7 +20,7 @@ import type { POST_QUERY_RESULT } from "@/sanity/sanity.types";
  * ---------------------------------------------------------
  * Presentation template for an individual writing article.
  *
-* RESPONSIBILITIES
+ * RESPONSIBILITIES
  * ---------------------------------------------------------
  *
  * - Render article breadcrumbs
@@ -67,8 +69,7 @@ type SinglePostProps = {
 };
 
 export default function SinglePost({ post }: SinglePostProps) {
-
-    const tocItems = extractTableOfContents(post.body);
+  const tocItems = extractTableOfContents(post.body);
 
   return (
     <article className="post">
@@ -76,7 +77,7 @@ export default function SinglePost({ post }: SinglePostProps) {
           ARTICLE HEADER
       ================================================= */}
 
-      <section className="section post__header-section">
+      <section className="section bg-canvas-subtle post__header-section">
         <div className="container-wide">
           {/* =================================================
               BREADCRUMBS
@@ -85,16 +86,24 @@ export default function SinglePost({ post }: SinglePostProps) {
           <nav className="post__breadcrumbs" aria-label="Breadcrumb">
             <ol>
               <li>
-                <Link href="/">Home</Link>
+                <Link href="/" aria-label="Home" className="post__breadcrumb-home">
+                  <Icon icon="solar:home-2-linear" aria-hidden="true" />
+
+                  <span>Home</span>
+                </Link>
               </li>
 
-              <li aria-hidden="true">/</li>
+              <li className="post__breadcrumb-separator" aria-hidden="true">
+                <Icon icon="solar:alt-arrow-right-linear" />
+              </li>
 
               <li>
                 <Link href="/writing">Writing</Link>
               </li>
 
-              <li aria-hidden="true">/</li>
+              <li className="post__breadcrumb-separator" aria-hidden="true">
+                <Icon icon="solar:alt-arrow-right-linear" />
+              </li>
 
               <li aria-current="page">{post.title}</li>
             </ol>
@@ -117,6 +126,7 @@ export default function SinglePost({ post }: SinglePostProps) {
                   fill
                   priority
                   sizes="(max-width: 767px) 100vw, 50vw"
+                  className="post__featured-image-image"
                 />
               ) : (
                 <div className="post__featured-image-placeholder" aria-hidden="true" />
@@ -133,10 +143,17 @@ export default function SinglePost({ post }: SinglePostProps) {
               ------------------------------------------- */}
 
               {post.category ? (
-                <div className="post__category">
-                  <span className="post__category-line" aria-hidden="true" />
+                <div
+                  className="post__category category-theme"
+                  data-theme={post.category.badgeTheme}
+                >
+                  <span
+                    className="post__category-line"
+                    data-theme={post.category.badgeTheme}
+                    aria-hidden="true"
+                  />
 
-                  <Badge theme={post.category.badgeTheme}>{post.category.name}</Badge>
+                  <span className="post__category-name">{post.category.name}</span>
                 </div>
               ) : null}
 
@@ -158,6 +175,7 @@ export default function SinglePost({ post }: SinglePostProps) {
 
               {post.tags?.length ? (
                 <div className="post__tags" aria-label="Topics">
+                  <span className="post__tags-label">Tagged:</span>
                   {post.tags.map((tag) => (
                     <Badge key={tag._id} theme={tag.badgeTheme}>
                       {tag.name}
@@ -171,14 +189,39 @@ export default function SinglePost({ post }: SinglePostProps) {
               ------------------------------------------- */}
 
               <div className="post__meta">
-                <span>By {post.author.name}</span>
+                <div className="post__author">
+                  <div className="post__author-avatar">
+                    {post.author.avatar?.asset?.url ? (
+                      <Image
+                        src={post.author.avatar.asset.url}
+                        alt={post.author.name}
+                        width={48}
+                        height={48}
+                      />
+                    ) : (
+                      <div className="post__author-avatar-placeholder" aria-hidden="true" />
+                    )}
+                  </div>
 
-                <span className="meta-separator" aria-hidden="true" />
+                  <div className="post__author-info">
+                    <span className="post__author-name">{post.author.name}</span>
 
-                <time dateTime={post.publishedAt}>
-                  {new Intl.DateTimeFormat("en", {
-                    dateStyle: "long",
-                  }).format(new Date(post.publishedAt))}
+                    <span className="post__author-role">Digital Systems Consultant</span>
+                  </div>
+                </div>
+
+                <span className="post__meta-separator" aria-hidden="true">
+                  <DiamondIcon />
+                </span>
+
+                <time className="post__published" dateTime={post.publishedAt}>
+                  <span className="post__published-label">Published</span>
+
+                  <span>
+                    {new Intl.DateTimeFormat("en", {
+                      dateStyle: "long",
+                    }).format(new Date(post.publishedAt))}
+                  </span>
                 </time>
               </div>
             </header>

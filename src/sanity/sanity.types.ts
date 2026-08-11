@@ -591,92 +591,70 @@ export type AllSanitySchemaTypes =
 
 // Source: src/sanity/lib/queries/posts.ts
 // Variable: POSTS_QUERY
-// Query: *[  _type == "post" &&  defined(title) &&  defined(slug.current) &&  defined(excerpt) &&  defined(featuredImage.asset) &&  defined(featuredImage.alt) &&  defined(author) &&  defined(category) &&  defined(publishedAt)]  | order(publishedAt desc) {    _id,    title,    "slug": slug.current,    excerpt,    publishedAt,    featuredImage {      ...,      asset->    },    category-> {      _id,      name,      "slug": slug.current,      badgeTheme    },    tags[]-> {      _id,      name,      "slug": slug.current,      badgeTheme    },    author-> {      _id,      name,      "slug": slug.current    }  }
-export type POSTS_QUERY_RESULT = Array<{
-  _id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  publishedAt: string;
-  featuredImage: {
-    asset: {
-      _id: string;
-      _type: "sanity.imageAsset";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      originalFilename?: string;
-      label?: string;
-      title?: string;
-      description?: string;
-      altText?: string;
-      sha1hash: string;
-      extension: string;
-      mimeType: string;
-      size: number;
-      assetId: string;
-      uploadId?: string;
-      path: string;
-      url: string;
-      metadata?: SanityImageMetadata;
-      source?: SanityAssetSourceData;
+// Query: {    "posts": *[      _type == "post" &&      defined(title) &&      defined(slug.current) &&      defined(excerpt) &&      defined(featuredImage.asset) &&      defined(featuredImage.alt) &&      defined(author) &&      defined(category) &&      defined(publishedAt) &&      publishedAt <= now() &&      (        $category == "" ||        category->slug.current == $category      ) &&      (        $topic == "" ||        count(tags[@->slug.current == $topic]) > 0      ) &&      (        $q == "" ||        title match $q ||        excerpt match $q ||        category->name match $q ||        count(tags[@->name match $q]) > 0      )    ]    | order(publishedAt desc)    [$offset...$limit]    {      _id,      title,      "slug": slug.current,      excerpt,      publishedAt,     featuredImage {      "url": asset->url,      alt    },      category-> {        _id,        name,        "slug": slug.current,        badgeTheme      },      tags[]-> {        _id,        name,        "slug": slug.current,        badgeTheme      },      author-> {        _id,        name,        "slug": slug.current      }    },    "total": count(*[      _type == "post" &&      defined(title) &&      defined(slug.current) &&      defined(excerpt) &&      defined(featuredImage.asset) &&      defined(featuredImage.alt) &&      defined(author) &&      defined(category) &&      defined(publishedAt) &&      publishedAt <= now() &&      (        $category == "" ||        category->slug.current == $category      ) &&      (        $topic == "" ||        count(tags[@->slug.current == $topic]) > 0      ) &&      (        $q == "" ||        title match $q ||        excerpt match $q ||        category->name match $q ||        count(tags[@->name match $q]) > 0      )    ])  }
+export type POSTS_QUERY_RESULT = {
+  posts: Array<{
+    _id: string;
+    title: string;
+    slug: string;
+    excerpt: string;
+    publishedAt: string;
+    featuredImage: {
+      url: string | null;
+      alt: string;
     };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "image";
-  };
-  category: {
-    _id: string;
-    name: string;
-    slug: string;
-    badgeTheme:
-      | "amber"
-      | "blue"
-      | "cyan"
-      | "emerald"
-      | "indigo"
-      | "lime"
-      | "orange"
-      | "purple"
-      | "red"
-      | "rose"
-      | "sky"
-      | "slate"
-      | "stone"
-      | "teal"
-      | "violet"
-      | "yellow";
-  };
-  tags: Array<{
-    _id: string;
-    name: string;
-    slug: string;
-    badgeTheme:
-      | "amber"
-      | "blue"
-      | "cyan"
-      | "emerald"
-      | "indigo"
-      | "lime"
-      | "orange"
-      | "purple"
-      | "red"
-      | "rose"
-      | "sky"
-      | "slate"
-      | "stone"
-      | "teal"
-      | "violet"
-      | "yellow";
-  }> | null;
-  author: {
-    _id: string;
-    name: string;
-    slug: string;
-  };
-}>;
+    category: {
+      _id: string;
+      name: string;
+      slug: string;
+      badgeTheme:
+        | "amber"
+        | "blue"
+        | "cyan"
+        | "emerald"
+        | "indigo"
+        | "lime"
+        | "orange"
+        | "purple"
+        | "red"
+        | "rose"
+        | "sky"
+        | "slate"
+        | "stone"
+        | "teal"
+        | "violet"
+        | "yellow";
+    };
+    tags: Array<{
+      _id: string;
+      name: string;
+      slug: string;
+      badgeTheme:
+        | "amber"
+        | "blue"
+        | "cyan"
+        | "emerald"
+        | "indigo"
+        | "lime"
+        | "orange"
+        | "purple"
+        | "red"
+        | "rose"
+        | "sky"
+        | "slate"
+        | "stone"
+        | "teal"
+        | "violet"
+        | "yellow";
+    }> | null;
+    author: {
+      _id: string;
+      name: string;
+      slug: string;
+    };
+  }>;
+  total: number;
+};
 
 // Source: src/sanity/lib/queries/posts.ts
 // Variable: POST_QUERY
@@ -1041,6 +1019,120 @@ export type POST_SLUGS_QUERY_RESULT = Array<{
   slug: string;
 }>;
 
+// Source: src/sanity/lib/queries/posts.ts
+// Variable: WRITING_FILTERS_QUERY
+// Query: {    "categories": *[      _type == "category" &&      defined(name) &&      defined(slug.current)    ] | order(name asc) {      _id,      name,      "slug": slug.current,      badgeTheme    },    "topics": *[      _type == "tag" &&      defined(name) &&      defined(slug.current)    ] | order(name asc) {      _id,      name,      "slug": slug.current,      badgeTheme    }  }
+export type WRITING_FILTERS_QUERY_RESULT = {
+  categories: Array<{
+    _id: string;
+    name: string;
+    slug: string;
+    badgeTheme:
+      | "amber"
+      | "blue"
+      | "cyan"
+      | "emerald"
+      | "indigo"
+      | "lime"
+      | "orange"
+      | "purple"
+      | "red"
+      | "rose"
+      | "sky"
+      | "slate"
+      | "stone"
+      | "teal"
+      | "violet"
+      | "yellow";
+  }>;
+  topics: Array<{
+    _id: string;
+    name: string;
+    slug: string;
+    badgeTheme:
+      | "amber"
+      | "blue"
+      | "cyan"
+      | "emerald"
+      | "indigo"
+      | "lime"
+      | "orange"
+      | "purple"
+      | "red"
+      | "rose"
+      | "sky"
+      | "slate"
+      | "stone"
+      | "teal"
+      | "violet"
+      | "yellow";
+  }>;
+};
+
+// Source: src/sanity/lib/queries/posts.ts
+// Variable: LATEST_POSTS_QUERY
+// Query: *[    _type == "post" &&    defined(title) &&    defined(slug.current) &&    defined(excerpt) &&    defined(featuredImage.asset) &&    defined(featuredImage.alt) &&    defined(author) &&    defined(category) &&    defined(publishedAt) &&    publishedAt <= now()  ]  | order(publishedAt desc)  [0...$limit]  {    _id,    title,    "slug": slug.current,    excerpt,    publishedAt,    featuredImage {      "url": asset->url,      "alt": alt},    category-> {      _id,      name,      "slug": slug.current,      badgeTheme    },    tags[]-> {      _id,      name,      "slug": slug.current,      badgeTheme    },    author-> {      _id,      name,      "slug": slug.current    }  }
+export type LATEST_POSTS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  publishedAt: string;
+  featuredImage: {
+    url: string | null;
+    alt: string;
+  };
+  category: {
+    _id: string;
+    name: string;
+    slug: string;
+    badgeTheme:
+      | "amber"
+      | "blue"
+      | "cyan"
+      | "emerald"
+      | "indigo"
+      | "lime"
+      | "orange"
+      | "purple"
+      | "red"
+      | "rose"
+      | "sky"
+      | "slate"
+      | "stone"
+      | "teal"
+      | "violet"
+      | "yellow";
+  };
+  tags: Array<{
+    _id: string;
+    name: string;
+    slug: string;
+    badgeTheme:
+      | "amber"
+      | "blue"
+      | "cyan"
+      | "emerald"
+      | "indigo"
+      | "lime"
+      | "orange"
+      | "purple"
+      | "red"
+      | "rose"
+      | "sky"
+      | "slate"
+      | "stone"
+      | "teal"
+      | "violet"
+      | "yellow";
+  }> | null;
+  author: {
+    _id: string;
+    name: string;
+    slug: string;
+  };
+}>;
+
 // Source: src/sanity/lib/queries/siteSettings.ts
 // Variable: SITE_SETTINGS_QUERY
 // Query: *[_type == "siteSettings"][0] {    _id,    siteName,    tagline,    siteDescription,    defaultSocialImage {      ...,      asset->,      crop,      hotspot    },    contactEmail,    github,    linkedin,    x,    youtube,    instagram  }
@@ -1089,10 +1181,12 @@ export type SITE_SETTINGS_QUERY_RESULT = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[\n  _type == "post" &&\n  defined(title) &&\n  defined(slug.current) &&\n  defined(excerpt) &&\n  defined(featuredImage.asset) &&\n  defined(featuredImage.alt) &&\n  defined(author) &&\n  defined(category) &&\n  defined(publishedAt)\n]\n  | order(publishedAt desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    excerpt,\n    publishedAt,\n\n    featuredImage {\n      ...,\n      asset->\n    },\n\n    category-> {\n      _id,\n      name,\n      "slug": slug.current,\n      badgeTheme\n    },\n\n    tags[]-> {\n      _id,\n      name,\n      "slug": slug.current,\n      badgeTheme\n    },\n\n    author-> {\n      _id,\n      name,\n      "slug": slug.current\n    }\n  }\n': POSTS_QUERY_RESULT;
+    '\n  {\n    "posts": *[\n      _type == "post" &&\n      defined(title) &&\n      defined(slug.current) &&\n      defined(excerpt) &&\n      defined(featuredImage.asset) &&\n      defined(featuredImage.alt) &&\n      defined(author) &&\n      defined(category) &&\n      defined(publishedAt) &&\n      publishedAt <= now() &&\n\n      (\n        $category == "" ||\n        category->slug.current == $category\n      ) &&\n\n      (\n        $topic == "" ||\n        count(tags[@->slug.current == $topic]) > 0\n      ) &&\n\n      (\n        $q == "" ||\n        title match $q ||\n        excerpt match $q ||\n        category->name match $q ||\n        count(tags[@->name match $q]) > 0\n      )\n    ]\n    | order(publishedAt desc)\n    [$offset...$limit]\n    {\n      _id,\n      title,\n      "slug": slug.current,\n      excerpt,\n      publishedAt,\n\n     featuredImage {\n      "url": asset->url,\n      alt\n    },\n\n      category-> {\n        _id,\n        name,\n        "slug": slug.current,\n        badgeTheme\n      },\n\n      tags[]-> {\n        _id,\n        name,\n        "slug": slug.current,\n        badgeTheme\n      },\n\n      author-> {\n        _id,\n        name,\n        "slug": slug.current\n      }\n    },\n\n    "total": count(*[\n      _type == "post" &&\n      defined(title) &&\n      defined(slug.current) &&\n      defined(excerpt) &&\n      defined(featuredImage.asset) &&\n      defined(featuredImage.alt) &&\n      defined(author) &&\n      defined(category) &&\n      defined(publishedAt) &&\n      publishedAt <= now() &&\n\n      (\n        $category == "" ||\n        category->slug.current == $category\n      ) &&\n\n      (\n        $topic == "" ||\n        count(tags[@->slug.current == $topic]) > 0\n      ) &&\n\n      (\n        $q == "" ||\n        title match $q ||\n        excerpt match $q ||\n        category->name match $q ||\n        count(tags[@->name match $q]) > 0\n      )\n    ])\n  }\n': POSTS_QUERY_RESULT;
     '\n  *[\n    _type == "post" &&\n    slug.current == $slug\n  ][0] {\n    _id,\n    _updatedAt,\n\n    title,\n    "slug": slug.current,\n    excerpt,\n    publishedAt,\n\n    featuredImage {\n      ...,\n      asset->\n    },\n\n    body[] {\n      ...,\n\n      _type == "image" => {\n        ...,\n        asset->\n      }\n    },\n\n    author-> {\n      _id,\n      name,\n      "slug": slug.current,\n      avatar {\n        ...,\n        asset->\n      },\n      bio,\n      website,\n      github,\n      linkedin,\n      x,\n      expertise\n    },\n\n    category-> {\n      _id,\n      name,\n      "slug": slug.current,\n      description,\n      badgeTheme\n    },\n\n    tags[]-> {\n      _id,\n      name,\n      "slug": slug.current,\n      badgeTheme\n    },\n\n    technologies[]-> {\n      _id,\n      title,\n      "slug": slug.current,\n      description,\n      logo {\n        ...,\n        asset->\n      },\n      badgeTheme\n    }\n  }\n': POST_QUERY_RESULT;
     '\n  *[\n    _type == "post" &&\n    slug.current == $slug\n  ][0] {\n    title,\n    "slug": slug.current,\n    excerpt,\n    publishedAt,\n    _updatedAt,\n\n    featuredImage {\n      ...,\n      asset->\n    },\n\n    metadata {\n      title,\n      description,\n\n      socialImage {\n        ...,\n        asset->\n      },\n\n      socialImageAlt,\n      canonical,\n      noIndex\n    },\n\n    author-> {\n      name\n    }\n  }\n': POST_METADATA_QUERY_RESULT;
     '\n  *[\n    _type == "post" &&\n    defined(slug.current)\n  ] {\n    "slug": slug.current\n  }\n': POST_SLUGS_QUERY_RESULT;
+    '\n  {\n    "categories": *[\n      _type == "category" &&\n      defined(name) &&\n      defined(slug.current)\n    ] | order(name asc) {\n      _id,\n      name,\n      "slug": slug.current,\n      badgeTheme\n    },\n\n    "topics": *[\n      _type == "tag" &&\n      defined(name) &&\n      defined(slug.current)\n    ] | order(name asc) {\n      _id,\n      name,\n      "slug": slug.current,\n      badgeTheme\n    }\n  }\n': WRITING_FILTERS_QUERY_RESULT;
+    '\n  *[\n    _type == "post" &&\n    defined(title) &&\n    defined(slug.current) &&\n    defined(excerpt) &&\n    defined(featuredImage.asset) &&\n    defined(featuredImage.alt) &&\n    defined(author) &&\n    defined(category) &&\n    defined(publishedAt) &&\n    publishedAt <= now()\n  ]\n  | order(publishedAt desc)\n  [0...$limit]\n  {\n    _id,\n    title,\n    "slug": slug.current,\n    excerpt,\n    publishedAt,\n\n    featuredImage {\n      "url": asset->url,\n      "alt": alt\n},\n\n    category-> {\n      _id,\n      name,\n      "slug": slug.current,\n      badgeTheme\n    },\n\n    tags[]-> {\n      _id,\n      name,\n      "slug": slug.current,\n      badgeTheme\n    },\n\n    author-> {\n      _id,\n      name,\n      "slug": slug.current\n    }\n  }\n': LATEST_POSTS_QUERY_RESULT;
     '\n  *[_type == "siteSettings"][0] {\n    _id,\n\n    siteName,\n    tagline,\n    siteDescription,\n\n    defaultSocialImage {\n      ...,\n      asset->,\n      crop,\n      hotspot\n    },\n\n    contactEmail,\n\n    github,\n    linkedin,\n    x,\n    youtube,\n    instagram\n  }\n': SITE_SETTINGS_QUERY_RESULT;
   }
 }
