@@ -1,0 +1,224 @@
+/**
+ * =========================================================
+ * NADEEM MUHAMMED DESIGN SYSTEM — LEGAL CONTENT
+ * =========================================================
+ *
+ * PURPOSE
+ * ---------------------------------------------------------
+ * Shared document presentation for:
+ *
+ * - Terms and Conditions
+ * - Privacy Policy
+ *
+ * GLOBAL DESIGN SYSTEM OWNS
+ * ---------------------------------------------------------
+ * - containers
+ * - sections
+ * - typography scale
+ * - spacing tokens
+ * - colours / design tokens
+ *
+ * THIS FILE OWNS
+ * ---------------------------------------------------------
+ * - legal document reading width
+ * - content rhythm
+ * - headings
+ * - paragraphs
+ * - lists
+ * - links
+ * - responsive behaviour
+ *
+ * COMPONENT LOGIC REMAINS IN TSX
+ * =========================================================
+ */
+
+@layer components {
+  /* =========================================================
+     LEGAL CONTENT ROOT
+  ========================================================= */
+
+  .legal-content {
+    width: 100%;
+    max-width: 850px;
+    margin-inline: auto;
+  }
+
+  /* =========================================================
+     PARAGRAPHS
+  ========================================================= */
+
+  .legal-content p {
+    margin: 0 0 var(--space-lg);
+
+    color: var(--color-fg-default);
+
+    font-size: 1.125rem;
+    line-height: 1.75;
+  }
+
+  .legal-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* =========================================================
+     SECTION HEADINGS
+  ========================================================= */
+
+  .legal-content h2 {
+    margin: var(--space-2xl) 0 var(--space-md);
+
+    color: var(--color-heading-primary);
+
+    font-size: clamp(1.6rem, 2.4vw, 2.125rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+
+    scroll-margin-top: calc(
+      var(--header-height) + var(--space-lg)
+    );
+  }
+
+  .legal-content h2:first-child {
+    margin-top: 0;
+  }
+
+  /* =========================================================
+     SUBSECTION HEADINGS
+     ---------------------------------------------------------
+     Available if Privacy Policy or future legal content
+     requires a deeper hierarchy.
+  ========================================================= */
+
+  .legal-content h3 {
+    margin: var(--space-xl) 0 var(--space-sm);
+
+    color: var(--color-heading-primary);
+
+    font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+    font-weight: 600;
+    line-height: 1.3;
+
+    scroll-margin-top: calc(
+      var(--header-height) + var(--space-lg)
+    );
+  }
+
+  /* =========================================================
+     LISTS
+  ========================================================= */
+
+  .legal-content ul,
+  .legal-content ol {
+    margin: 0 0 var(--space-lg);
+    padding-inline-start: 1.5rem;
+  }
+
+  .legal-content li {
+    margin-block: var(--space-xs);
+
+    color: var(--color-fg-primary);
+
+    font-size: 1.125rem;
+    line-height: 1.7;
+  }
+
+  .legal-content li > ul,
+  .legal-content li > ol {
+    margin-top: var(--space-xs);
+    margin-bottom: 0;
+  }
+
+  /* =========================================================
+     LINKS
+  ========================================================= */
+
+  .legal-content a {
+    color: var(--color-fg-link);
+
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+
+    transition:
+      color 150ms ease,
+      text-decoration-color 150ms ease;
+  }
+
+  .legal-content a:hover {
+    color: var(--color-fg-link-hover);
+  }
+
+  /* =========================================================
+     EMPHASIS
+  ========================================================= */
+
+  .legal-content strong {
+    color: var(--color-heading-primary);
+
+    font-weight: 600;
+  }
+
+  /* =========================================================
+     HORIZONTAL RULE
+     ---------------------------------------------------------
+     Useful for longer Privacy Policy documents where a
+     visual division is helpful without introducing cards.
+  ========================================================= */
+
+  .legal-content hr {
+    margin-block: var(--space-2xl);
+
+    border: 0;
+    border-top: 1px solid var(--color-default);
+  }
+
+  /* =========================================================
+     RESPONSIVE — TABLET
+  ========================================================= */
+
+  @media (max-width: 768px) {
+    .legal-content {
+      max-width: 100%;
+    }
+
+    .legal-content h2 {
+      margin-top: var(--space-xl);
+    }
+
+    .legal-content h3 {
+      margin-top: var(--space-lg);
+    }
+
+    .legal-content p,
+    .legal-content li {
+      line-height: 1.75;
+    }
+  }
+
+  /* =========================================================
+     RESPONSIVE — SMALL MOBILE
+  ========================================================= */
+
+  @media (max-width: 480px) {
+    .legal-content h2 {
+      margin-bottom: var(--space-sm);
+
+      font-size: 1.6rem;
+    }
+
+    .legal-content h3 {
+      font-size: 1.25rem;
+    }
+
+    .legal-content p,
+    .legal-content li {
+      font-size: 1.0625rem;
+    }
+
+    .legal-content ul,
+    .legal-content ol {
+      padding-inline-start: 1.25rem;
+    }
+  }
+}
