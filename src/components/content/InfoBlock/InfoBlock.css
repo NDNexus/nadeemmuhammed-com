@@ -39,7 +39,14 @@
   width: 3rem;
   aspect-ratio: 1;
 
-  background: var(--info-block-icon) center / contain no-repeat;
+  background-color: var(--color-fg-muted);
+
+  mask: var(--info-block-icon) center / contain no-repeat;
+  -webkit-mask: var(--info-block-icon) center / contain no-repeat;
+}
+
+.info-block--has-icon:hover > header::before {
+  background-color: var(--color-accent);
 }
 
 /* =========================================

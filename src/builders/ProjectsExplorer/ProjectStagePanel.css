@@ -1,0 +1,151 @@
+/* =========================================
+   PROJECT STAGE PANEL
+========================================= */
+
+.project-stage-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.project-stage-panel__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.project-stage-panel__overview {
+  max-width: 70ch;
+  margin: 0;
+}
+
+
+/* =========================================
+   PROJECT MEDIA
+========================================= */
+
+.project-stage-panel__media {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+
+  overflow: hidden;
+
+  border: 1px solid var(--color-default);
+  border-radius: var(--radius-md);
+
+  background: var(--color-surface-subtle);
+}
+
+.project-stage-panel__image-scroll {
+  width: 100%;
+  height: 100%;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  overscroll-behavior: contain;
+}
+
+.project-stage-panel__image {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  max-width: none;
+}
+
+
+/* =========================================
+   SECTIONS
+========================================= */
+
+.project-stage-panel__work,
+.project-stage-panel__outcome {
+  display: flex;
+  flex-direction: column;
+
+  padding-top: var(--space-md);
+
+  border-top: 1px solid var(--color-default);
+}
+
+.project-stage-panel__work {
+  gap: var(--space-md);
+}
+
+.project-stage-panel__section-header {
+  display: flex;
+}
+
+
+/* =========================================
+   WORK GRID
+========================================= */
+
+.project-stage-panel__work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-xl);
+}
+
+
+/* =========================================
+   WORK ITEM
+========================================= */
+
+.project-stage-panel__work-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+
+  min-width: 0;
+}
+
+.project-stage-panel__work-item h3,
+.project-stage-panel__work-item p {
+  margin: 0;
+}
+
+/* =========================================
+   OUTCOME
+========================================= */
+
+.project-stage-panel__outcome-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.project-stage-panel__outcome-content p {
+  max-width: 60ch;
+  margin: 0;
+}
+
+.project-stage-panel__project-link {
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1024px) {
+  .project-stage-panel__work-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .project-stage-panel__work-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -439,7 +439,7 @@ export default async function HomePage() {
               </p>
             </div>
 
-            <div className="grid-md gap-xl grid">
+            <div className="grid-md gap-xl grid mb-6">
               {latestPosts.map((post) => (
                 <PostCard key={post._id} post={post} />
               ))}

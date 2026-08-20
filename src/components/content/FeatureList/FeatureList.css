@@ -48,6 +48,8 @@
   font-size: var(--text-xl);
   font-weight: var(--font-weight-semibold);
   letter-spacing: 0.08em;
+
+  transition: color 350ms ease;
 }
 
 .feature-list__header::before {
@@ -62,12 +64,9 @@
   flex: 1;
   height: 1px;
 
- background:
-    linear-gradient(
-      to right,
-      var(--color-accent) 0%,
-      var(--color-accent) 100%
-    ) left / 0% 100% no-repeat,
+  background:
+    linear-gradient(to right, var(--color-accent) 0%, var(--color-accent) 100%) left / 0% 100%
+      no-repeat,
     var(--color-default);
 
   transition: background-size 250ms ease;
@@ -94,9 +93,16 @@
    INTERACTION
 ========================================= */
 
+.feature-list > li:hover .feature-list__header,
+.feature-list > li:focus-within .feature-list__header {
+  color: var(--color-accent);
+}
+
 .feature-list > li:hover .feature-list__header::after,
 .feature-list > li:focus-within .feature-list__header::after {
-  background-size: 100% 100%, auto;
+  background-size:
+    100% 100%,
+    auto;
 }
 
 .feature-list > li:hover p,
