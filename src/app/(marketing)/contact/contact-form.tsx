@@ -12,6 +12,8 @@ export default function ContactForm() {
 
   const [dismissedResultId, setDismissedResultId] = useState<string | undefined>();
 
+  const [formStartedAt] = useState(() => Date.now());
+
   useEffect(() => {
     if (!state.success || !state.resultId) return;
 
@@ -31,6 +33,17 @@ export default function ContactForm() {
         action={formAction}
         className="gap-lg grid md:grid-cols-2"
       >
+        <input type="hidden" name="formStartedAt" value={formStartedAt} />
+        
+        {/* =======================================================
+          ANTI-SPAM HONEYPOT
+        ======================================================= */}
+        <div aria-hidden="true" className="absolute -left-2499.75 h-px w-px overflow-hidden">
+          <label htmlFor="fax">Fax</label>
+
+          <input id="fax" name="fax" type="text" tabIndex={-1} autoComplete="off" />
+        </div>
+
         {/** Name */}
 
         <div className="form-field">

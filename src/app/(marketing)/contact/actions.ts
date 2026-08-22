@@ -93,6 +93,60 @@ export async function submitContactForm(
   formData: FormData
 ): Promise<ContactFormState> {
   /* -------------------------------------------------------
+     ANTI-SPAM HONEYPOT
+  ------------------------------------------------------- */
+
+  const honeypot = String(formData.get("fax") ?? "");
+
+  if (honeypot !== "") {
+    // console.log("HONEYPOT TRIGGERED");
+
+    return {
+      success: true,
+      resultId: crypto.randomUUID(),
+      message: "Your enquiry has been received.",
+    };
+  }
+
+  /* -------------------------------------------------------
+   SUBMISSION TIMING
+------------------------------------------------------- */
+
+  const formStartedAt = Number(formData.get("formStartedAt"));
+  const elapsed = Date.now() - formStartedAt;
+
+  const isValidTimestamp = Number.isFinite(formStartedAt);
+  const elapsedSeconds = isValidTimestamp ? Math.floor(elapsed / 1000) : 0;
+
+  const minutes = Math.floor(elapsedSeconds / 60);
+  const seconds = elapsedSeconds % 60;
+
+  const humanElapsed = isValidTimestamp
+    ? minutes > 0
+      ? `${minutes} minutes ${seconds} seconds`
+      : `${seconds} seconds`
+    : "Unknown";
+
+  const timingStatus = !isValidTimestamp
+    ? "INVALID TIMESTAMP"
+    : elapsed < 1000
+      ? "TOO FAST — POSSIBLE BOT"
+      : "OK — NORMAL SUBMISSION";
+
+  console.log("FORM TIMING:", {
+    elapsed: humanElapsed,
+    status: timingStatus,
+  });
+
+  if (!isValidTimestamp || elapsed < 1000) {
+    return {
+      success: true,
+      resultId: crypto.randomUUID(),
+      message: "Your enquiry has been received.",
+    };
+  }
+
+  /* -------------------------------------------------------
      NORMALIZE FORM DATA
   ------------------------------------------------------- */
 
