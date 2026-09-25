@@ -124,7 +124,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       >
         <NuqsAdapter>{children}</NuqsAdapter>
 
-        <SanityLive includeDrafts={isDraftMode} />
+        <SanityLive includeDrafts={isDraftMode} waitFor="function"  />
       </body>
     </html>
   );
